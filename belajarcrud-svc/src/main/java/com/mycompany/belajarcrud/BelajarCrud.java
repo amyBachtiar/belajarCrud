@@ -16,14 +16,16 @@ public class BelajarCrud {
         SpringApplication.run(BelajarCrud.class, args);
     }
 
-    
+
     /**
      * IMPORTANT FOR HOLDING HIBERNATE SESSION IN SPRING BOOT
-     * @return 
+     * @return
      */
     @Bean
     public HibernateJpaSessionFactoryBean sessionFactory() {
         return new HibernateJpaSessionFactoryBean();
     }
+
+    //comment
 
 }
