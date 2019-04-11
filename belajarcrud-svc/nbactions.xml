@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-sb:run-dev</actionName>
+            <displayName>sb:run-dev</displayName>
+            <goals>
+                <goal>spring-boot:run</goal>
+                <goal>-Dspring.profiles.active=dev</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+                <jpda.listen>maven</jpda.listen>
+            </properties>
+        </action>
+    </actions>
