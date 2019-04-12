@@ -76,5 +76,5 @@ public class BizparRESTController {
         bizparRepository.delete(bizpar);
         return ResponseEntity.status(HttpStatus.CREATED).body("Bizpar : " + bizpar.getKey() + " is Successfully deleted");
     }
-    //mengganti dari mega
+    //nadya gila
 }
