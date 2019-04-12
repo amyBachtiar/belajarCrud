@@ -76,5 +76,5 @@ public class BizparRESTController {
         bizparRepository.delete(bizpar);
         return ResponseEntity.status(HttpStatus.CREATED).body("Bizpar : " + bizpar.getKey() + " is Successfully deleted");
     }
-    //rezagikap mengganti
+    //rezagikap mengganti setelah itu mgaulia14 yg mengganti
 }
