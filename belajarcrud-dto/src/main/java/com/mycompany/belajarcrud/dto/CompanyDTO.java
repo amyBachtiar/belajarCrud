@@ -8,8 +8,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class CompanyDTO {
     
+    private String companyId;
     private String companyName;
     private String companyDesc;
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -31,6 +40,7 @@ public class CompanyDTO {
     @JsonIgnore
     public CompanyDTO getInstance() {
         CompanyDTO dto = new CompanyDTO();
+        dto.setCompanyId("ID");
         dto.setCompanyName("Name");
         dto.setCompanyDesc("Description");
         return dto;

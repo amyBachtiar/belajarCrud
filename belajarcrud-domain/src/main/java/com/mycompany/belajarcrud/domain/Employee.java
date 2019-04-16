@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.NonNull;
@@ -43,7 +44,11 @@ public class Employee implements EntityObject<Employee> {
     //@OneToMany(cascade = CascadeType.ALL)
     //@JoinColumn(name="attendance_id", referencedColumnName = "id")
     //private Set<Attendance> listAttendance;
-
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "companyId", referencedColumnName = "companyId")
+    private Company company;
+            
     public Employee() {
     }
 
@@ -111,6 +116,14 @@ public class Employee implements EntityObject<Employee> {
 //        this.listAttendance = listAttendance;
 //    }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

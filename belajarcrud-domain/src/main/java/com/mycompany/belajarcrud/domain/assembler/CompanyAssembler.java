@@ -16,6 +16,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
     @Override
     public CompanyDTO toDTO(Company domainObject){
         CompanyDTO dto= new CompanyDTO();
+        dto.setCompanyId(domainObject.getCompanyId());
         dto.setCompanyName(domainObject.getCompanyName());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
         return dto;
@@ -24,6 +25,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
     @Override
     public Company toDomain(CompanyDTO dto){
         Company data= new Company();
+        data.setCompanyId(dto.getCompanyId());
         data.setCompanyName(dto.getCompanyName());
         data.setCompanyDesc(dto.getCompanyDesc());
         return data;

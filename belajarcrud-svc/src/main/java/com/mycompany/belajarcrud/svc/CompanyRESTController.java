@@ -33,11 +33,11 @@ public class CompanyRESTController {
             return ResponseEntity.status(HttpStatus.FOUND).body(new CompanyDTO().getInstance());
     }
     
-    @RequestMapping(value="/get.company.by.company/{companyName}",
+    @RequestMapping(value="/get.company.by.companyId/{companyId}",
            method=RequestMethod.GET,
            produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO>getCompanyByCompanyName(@PathVariable("companyName") String companyName){
-        Company data=companyRepository.findOneByCompanyName(companyName);
+    public ResponseEntity<CompanyDTO>getCompanyByCompanyId(@PathVariable("companyId") String companyId){
+        Company data=companyRepository.findOneByCompanyId(companyId);
         if(data==null){
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -58,17 +58,18 @@ public class CompanyRESTController {
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CompanyDTO> updateCompany(@RequestBody CompanyDTO companyDTO) {
-        Company company = (Company) companyRepository.findOneByCompanyName(companyDTO.getCompanyName());
+        Company company = (Company) companyRepository.findOneByCompanyId(companyDTO.getCompanyId());
+        company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
     
-    @RequestMapping(value = "/delete.company/{companyName}",
+    @RequestMapping(value = "/delete.company/{companyId}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCompany(@PathVariable("companyName") String companyName) {
-        Company company = (Company) companyRepository.findOneByCompanyName(companyName);
+    public ResponseEntity<String> deleteCompany(@PathVariable("companyId") String companyId) {
+        Company company = (Company) companyRepository.findOneByCompanyId(companyId);
         companyRepository.delete(company);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Company : " + company.getCompanyName() + " is Successfully deleted");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Company : " + company.getCompanyId() + " is Successfully deleted");
     }
 }

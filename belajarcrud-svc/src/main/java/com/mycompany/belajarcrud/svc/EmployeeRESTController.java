@@ -2,6 +2,7 @@ package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.dto.CompanyDTO;
 
 /**
  *
@@ -25,6 +27,9 @@ public class EmployeeRESTController {
     
     @Autowired
     EmployeeRepository employeeRepository;
+    
+    @Autowired
+    CompanyRepository companyRepository;
     
     @RequestMapping(value="/get.employee.dummy",
             method=RequestMethod.GET,
@@ -49,7 +54,9 @@ public class EmployeeRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        employeeRepository.save(new EmployeeAssembler().toDomain(employeeDTO));
+        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+        employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
     
@@ -62,6 +69,7 @@ public class EmployeeRESTController {
         employee.setEmpName(employeeDTO.getEmpName());
         employee.setPosition(employeeDTO.getPosition());
         employee.setEmpStatus(employeeDTO.isEmpStatus());
+        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
     }

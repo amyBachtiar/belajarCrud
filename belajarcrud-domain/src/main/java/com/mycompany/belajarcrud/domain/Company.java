@@ -1,11 +1,15 @@
 package com.mycompany.belajarcrud.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,23 +24,31 @@ public class Company implements EntityObject<Company>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     
+    private String companyId;
     private String companyName;
     private String companyDesc;
     
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private Set<Employee> employee;
+    
     public Company(){
     }
-    
-    public Company(String companyName, String companyDesc) {
-        this.companyName = companyName;
-        this.companyDesc = companyDesc;
-    }
-    
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getCompanyName() {
@@ -54,6 +66,15 @@ public class Company implements EntityObject<Company>{
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
+
+    public Set<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Set<Employee> employee) {
+        this.employee = employee;
+    }
+    
     
     @Override
     public boolean equals(Object obj) {
@@ -76,11 +97,13 @@ public class Company implements EntityObject<Company>{
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.companyId);
         hash = 83 * hash + Objects.hashCode(this.companyName);
         hash = 83 * hash + Objects.hashCode(this.companyDesc);
+        hash = 83 * hash + Objects.hashCode(this.employee);
         return hash;
     }
-    
+
     @Override
     public boolean sameIdentityAs(Company other) {
         return this.equals(other);

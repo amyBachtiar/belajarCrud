@@ -18,7 +18,16 @@ public class EmployeeDTO {
     private boolean empStatus;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthDate;
+    private String companyId;
 
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+    
     public String getEmpId() {
         return empId;
     }
@@ -69,6 +78,7 @@ public class EmployeeDTO {
         dto.setEmpStatus(true);
         Date lahir=new Date();
         dto.setBirthDate(lahir);
+        dto.setCompanyId("C-001");
         return dto;
     }
 }

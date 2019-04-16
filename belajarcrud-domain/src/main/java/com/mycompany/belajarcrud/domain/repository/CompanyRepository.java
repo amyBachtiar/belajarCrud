@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface CompanyRepository extends GenericRepository<Company>  {
     
-        Company findOneByCompanyName(String companyName);
+        Company findOneByCompanyId(String companyId);
 
 }
