@@ -55,7 +55,7 @@ public class PayrollDTO {
     @JsonIgnore
     public PayrollDTO getInstance(){
         PayrollDTO dto = new PayrollDTO();
-        dto.setPayrollID("P-ID-001");
+        dto.setPayrollID("P-001");
         dto.setBaseSalary(5000000);
         dto.setTotalPayroll(4500000);
         Date pay = new Date();

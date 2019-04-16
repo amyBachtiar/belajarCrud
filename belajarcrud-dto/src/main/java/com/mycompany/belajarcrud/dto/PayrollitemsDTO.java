@@ -12,9 +12,9 @@ import java.util.Date;
 public class PayrollitemsDTO {
     
     private String payrollitemsID;
-    private double bonusSalary;
-    private double totalBonus;
-    private double totalTax;
+    private String payrollitemsName;
+    private double payrollitemsAmmount;
+    private String payrollID;
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;  
@@ -27,28 +27,28 @@ public class PayrollitemsDTO {
         this.payrollitemsID = payrollitemsID;
     }
 
-    public double getBonusSalary() {
-        return bonusSalary;
+    public String getPayrollitemsName() {
+        return payrollitemsName;
     }
 
-    public void setBonusSalary(double bonusSalary) {
-        this.bonusSalary = bonusSalary;
+    public void setPayrollitemsName(String payrollitemsName) {
+        this.payrollitemsName = payrollitemsName;
     }
 
-    public double getTotalBonus() {
-        return totalBonus;
+    public double getPayrollitemsAmmount() {
+        return payrollitemsAmmount;
     }
 
-    public void setTotalBonus(double totalBonus) {
-        this.totalBonus = totalBonus;
+    public void setPayrollitemsAmmount(double payrollitemsAmmount) {
+        this.payrollitemsAmmount = payrollitemsAmmount;
     }
 
-    public double getTotalTax() {
-        return totalTax;
+    public String getPayrollID() {
+        return payrollID;
     }
 
-    public void setTotalTax(double totalTax) {
-        this.totalTax = totalTax;
+    public void setPayrollID(String payrollID) {
+        this.payrollID = payrollID;
     }
 
     public Date getPayrollDate() {
@@ -58,17 +58,18 @@ public class PayrollitemsDTO {
     public void setPayrollDate(Date payrollDate) {
         this.payrollDate = payrollDate;
     }
+   
     
     //create data dummy
     @JsonIgnore
     public PayrollitemsDTO getInstance(){
         PayrollitemsDTO dto = new PayrollitemsDTO();
         dto.setPayrollitemsID("P-ID-001");
-        dto.setBonusSalary(200000);
-        dto.setTotalBonus(400000);
-        dto.setTotalTax(500000);
+        dto.setPayrollitemsName("Tax or Bonus");
+        dto.setPayrollitemsAmmount(400000);
         Date pay = new Date();
         dto.setPayrollDate(pay);
+        dto.setPayrollID("P-001");
         return dto;
     }
 }

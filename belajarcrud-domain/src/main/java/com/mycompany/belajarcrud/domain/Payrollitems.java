@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,22 +27,25 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     Integer id;
     
     private String payrollitemsID;
-    private double bonusSalary;
-    private double totalBonus;
-    private double totalTax;
+    private String payrollitemsName;
+    private double payrollitemsAmmount;
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;
     
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payrollid", referencedColumnName = "payrollID", nullable = false)
+    private Payroll payroll;
+    
     public Payrollitems(){
     }
 
-    public Payrollitems(String payrollitemsID, double bonusSalary, double totalBonus, double totalTax, Date payrollDate) {
+    public Payrollitems(String payrollitemsID, String payrollitemsName, double payrollitemsAmmount, Date payrollDate, Payroll payroll) {
         this.payrollitemsID = payrollitemsID;
-        this.bonusSalary = bonusSalary;
-        this.totalBonus = totalBonus;
-        this.totalTax = totalTax;
+        this.payrollitemsName = payrollitemsName;
+        this.payrollitemsAmmount = payrollitemsAmmount;
         this.payrollDate = payrollDate;
+        this.payroll = payroll;
     }
 
     public Integer getId() {
@@ -58,28 +64,20 @@ public class Payrollitems implements EntityObject<Payrollitems> {
         this.payrollitemsID = payrollitemsID;
     }
 
-    public double getBonusSalary() {
-        return bonusSalary;
+    public String getPayrollitemsName() {
+        return payrollitemsName;
     }
 
-    public void setBonusSalary(double bonusSalary) {
-        this.bonusSalary = bonusSalary;
+    public void setPayrollitemsName(String payrollitemsName) {
+        this.payrollitemsName = payrollitemsName;
     }
 
-    public double getTotalBonus() {
-        return totalBonus;
+    public double getPayrollitemsAmmount() {
+        return payrollitemsAmmount;
     }
 
-    public void setTotalBonus(double totalBonus) {
-        this.totalBonus = totalBonus;
-    }
-
-    public double getTotalTax() {
-        return totalTax;
-    }
-
-    public void setTotalTax(double totalTax) {
-        this.totalTax = totalTax;
+    public void setPayrollitemsAmmount(double payrollitemsAmmount) {
+        this.payrollitemsAmmount = payrollitemsAmmount;
     }
 
     public Date getPayrollDate() {
@@ -90,7 +88,15 @@ public class Payrollitems implements EntityObject<Payrollitems> {
         this.payrollDate = payrollDate;
     }
 
-   
+    public Payroll getPayroll() {
+        return payroll;
+    }
+
+    public void setPayroll(Payroll payroll) {
+        this.payroll = payroll;
+    }
+
+    
 
     @Override
     public boolean equals(Object obj) {
@@ -112,16 +118,15 @@ public class Payrollitems implements EntityObject<Payrollitems> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this.payrollitemsID);
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.bonusSalary) ^ (Double.doubleToLongBits(this.bonusSalary) >>> 32));
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.totalBonus) ^ (Double.doubleToLongBits(this.totalBonus) >>> 32));
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.totalTax) ^ (Double.doubleToLongBits(this.totalTax) >>> 32));
-        hash = 47 * hash + Objects.hashCode(this.payrollDate);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.payrollitemsID);
+        hash = 73 * hash + Objects.hashCode(this.payrollitemsName);
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.payrollitemsAmmount) ^ (Double.doubleToLongBits(this.payrollitemsAmmount) >>> 32));
+        hash = 73 * hash + Objects.hashCode(this.payrollDate);
+        hash = 73 * hash + Objects.hashCode(this.payroll);
         return hash;
     }
 
-    
     @Override
     public boolean sameIdentityAs(Payrollitems other) {
         return this.equals(other);

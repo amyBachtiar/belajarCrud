@@ -27,6 +27,7 @@ public class Payroll implements EntityObject<Payroll> {
     private String payrollID;
     private double baseSalary;
     private double totalPayroll;
+   
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;
@@ -81,7 +82,7 @@ public class Payroll implements EntityObject<Payroll> {
         this.payrollDate = payrollDate;
     }
 
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -102,7 +103,7 @@ public class Payroll implements EntityObject<Payroll> {
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.payrollID);
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.baseSalary) ^ (Double.doubleToLongBits(this.baseSalary) >>> 32));
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.totalPayroll) ^ (Double.doubleToLongBits(this.totalPayroll) >>> 32));
