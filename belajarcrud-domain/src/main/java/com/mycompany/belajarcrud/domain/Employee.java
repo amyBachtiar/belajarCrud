@@ -48,18 +48,36 @@ public class Employee implements EntityObject<Employee> {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyId", referencedColumnName = "companyId")
     private Company company;
+    
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "mutationid", referencedColumnName = "id", nullable = false)
+    private Mutation mutation;
+    
             
     public Employee() {
     }
 
-    public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate) {
+
+    public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Company company, Mutation mutation) {
         this.empId = empId;
         this.empName = empName;
         this.position = position;
         this.empStatus = empStatus;
         this.birthDate = birthDate;
+        this.company = company;
+        this.mutation = mutation;
     }
 
+    public Mutation getMutation() {
+        return mutation;
+    }
+
+    public void setMutation(Mutation mutation) {
+        this.mutation = mutation;
+    }
+
+    
+    
     public Integer getId() {
         return id;
     }
@@ -124,35 +142,35 @@ public class Employee implements EntityObject<Employee> {
         this.company = company;
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Employee other = (Employee) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.empId);
-        hash = 59 * hash + Objects.hashCode(this.empName);
-        hash = 59 * hash + Objects.hashCode(this.position);
-        hash = 59 * hash + (this.empStatus ? 1 : 0);
-        hash = 59 * hash + Objects.hashCode(this.birthDate);
-        //hash = 59 * hash + Objects.hashCode(this.listAttendance);
-        return hash;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Employee other = (Employee) obj;
+//        if (!Objects.equals(this.id, other.id)) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 59 * hash + Objects.hashCode(this.empId);
+//        hash = 59 * hash + Objects.hashCode(this.empName);
+//        hash = 59 * hash + Objects.hashCode(this.position);
+//        hash = 59 * hash + (this.empStatus ? 1 : 0);
+//        hash = 59 * hash + Objects.hashCode(this.birthDate);
+//        //hash = 59 * hash + Objects.hashCode(this.listAttendance);
+//        return hash;
+//    }
 
     @Override
     public boolean sameIdentityAs(Employee other) {

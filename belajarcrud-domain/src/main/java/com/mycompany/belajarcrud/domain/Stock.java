@@ -29,7 +29,7 @@ public class Stock implements EntityObject<Stock> {
     private String code;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "partCode", nullable = false)
+    @JoinColumn(name = "partCode",referencedColumnName = "code" ,nullable = false)
     private Part part;
 
     private Integer quantity;
