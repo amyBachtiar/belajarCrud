@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.belajarcrud.svc;
- 
+
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;

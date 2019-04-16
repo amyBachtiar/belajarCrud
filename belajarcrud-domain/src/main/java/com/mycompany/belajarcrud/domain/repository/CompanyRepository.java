@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
- * 
+ *
  * @author eksad
  */
 @Repository
