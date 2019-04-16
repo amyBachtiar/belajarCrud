@@ -1,8 +1,14 @@
 package com.mycompany.belajarcrud.svc;
 
+
+
+
+
 import com.mycompany.belajarcrud.domain.Jobseeker;
+import com.mycompany.belajarcrud.domain.Recruitment;
 import com.mycompany.belajarcrud.domain.assembler.JobseekerAssembler;
 import com.mycompany.belajarcrud.domain.repository.JobseekerRepository;
+import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.JobseekerDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +32,9 @@ public class JobseekerRESTController {
  
     @Autowired
     JobseekerRepository jobseekerRepository;
+    
+    @Autowired
+    RecruitmentRepository recruitmentRepository;
 
     @RequestMapping(value = "/get.jobseeker.dummy",
             method = RequestMethod.GET,

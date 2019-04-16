@@ -1,12 +1,18 @@
 package com.mycompany.belajarcrud.domain;
 
 import com.mycompany.belajarcrud.common.EntityObject;
-import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -14,6 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "JOBSEEKER")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Jobseeker implements EntityObject<Jobseeker>{
 
 /**
@@ -23,18 +30,35 @@ public class Jobseeker implements EntityObject<Jobseeker>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
    
+    @Column(unique = true)
+    @NotNull(message = "Jobseeker_ID Tidak boleh kosong")
     private String jobID;
+    
     private String name;
     private String education;
     private int gpa;
     private String university;
     private String intended_position;
+    
+    @OneToMany(mappedBy="jobseeker", cascade=CascadeType.ALL)
+    private Set<Recruitment> recruitments;
       
     public Jobseeker() {
        }
 
-   
-  
+    public Jobseeker(String jobID, String name, String education, int gpa, String university, String intended_position, Set<Recruitment> recruitments) {
+        this.jobID = jobID;
+        this.name = name;
+        this.education = education;
+        this.gpa = gpa;
+        this.university = university;
+        this.intended_position = intended_position;
+        this.recruitments = recruitments;
+    }
+
+    
+
+    
     public Integer getId() {
         return id;
     }
@@ -92,40 +116,18 @@ public class Jobseeker implements EntityObject<Jobseeker>{
         this.intended_position = intended_position;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Jobseeker other = (Jobseeker) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+    public Set<Recruitment> getRecruitments() {
+        return recruitments;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.jobID);
-        hash = 67 * hash + Objects.hashCode(this.name);
-        hash = 67 * hash + Objects.hashCode(this.education);
-        hash = 67 * hash + this.gpa;
-        hash = 67 * hash + Objects.hashCode(this.university);
-        hash = 67 * hash + Objects.hashCode(this.intended_position);
-        return hash;
+    public void setRecruitments(Set<Recruitment> recruitments) {
+        this.recruitments = recruitments;
     }
 
-   
+        
     @Override
     public boolean sameIdentityAs(Jobseeker other) {
-        return this.equals(other);
+        throw new UnsupportedOperationException("Not supported yet.");
     }   
     
     

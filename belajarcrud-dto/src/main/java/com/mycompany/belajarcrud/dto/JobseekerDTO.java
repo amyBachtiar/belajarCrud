@@ -14,6 +14,7 @@ import java.util.UUID;
  * @author reniwijayanti
  */
 public class JobseekerDTO {
+    
     private String jobID;
     private String name;
     private String education;

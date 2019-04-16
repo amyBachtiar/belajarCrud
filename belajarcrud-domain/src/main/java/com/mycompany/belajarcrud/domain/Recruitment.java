@@ -4,9 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -18,16 +23,23 @@ public class Recruitment implements EntityObject<Recruitment> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @Column
+    @NotNull(message = "Recruitment_ID Harus diIsi")
+    private String recID;
     
-    private String recID; 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "jobjobID", nullable = false)
+    private Jobseeker jobseeker;
+    
     private String recType;
     private boolean status;
 
     public Recruitment() {
     }
 
-    public Recruitment(String recID, String recType, boolean status) {
+    public Recruitment(String recID, Jobseeker jobseeker, String recType, boolean status) {
         this.recID = recID;
+        this.jobseeker = jobseeker;
         this.recType = recType;
         this.status = status;
     }
@@ -48,6 +60,14 @@ public class Recruitment implements EntityObject<Recruitment> {
         this.recID = recID;
     }
 
+    public Jobseeker getJobseeker() {
+        return jobseeker;
+    }
+
+    public void setJobseeker(Jobseeker jobseeker) {
+        this.jobseeker = jobseeker;
+    }
+
     public String getRecType() {
         return recType;
     }
@@ -65,36 +85,14 @@ public class Recruitment implements EntityObject<Recruitment> {
     }
 
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Bizpar other = (Bizpar) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this.recID);
-        hash = 47 * hash + Objects.hashCode(this.recType);
-        hash = 47 * hash + (this.status ? 1 : 0);
-        return hash;
-    }
+    
+    
+    
     
     @Override
     public boolean sameIdentityAs(Recruitment other) {
-         return this.equals(other);
+          throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

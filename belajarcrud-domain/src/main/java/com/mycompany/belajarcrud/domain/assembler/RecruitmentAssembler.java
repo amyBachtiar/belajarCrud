@@ -18,6 +18,7 @@ public class RecruitmentAssembler implements IObjectAssembler <Recruitment, Recr
     public RecruitmentDTO toDTO(Recruitment domainObject) {
         RecruitmentDTO dto = new RecruitmentDTO();
         dto.setRecID(domainObject.getRecID());
+        dto.setJobjobID(domainObject.getJobseeker().getJobID());
         dto.setRecType(domainObject.getRecType());
         dto.setStatus(domainObject.isStatus());
         return dto;

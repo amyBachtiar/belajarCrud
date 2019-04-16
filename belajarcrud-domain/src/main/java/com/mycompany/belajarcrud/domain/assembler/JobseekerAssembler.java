@@ -3,7 +3,6 @@ package com.mycompany.belajarcrud.domain.assembler;
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Jobseeker;
 import com.mycompany.belajarcrud.dto.JobseekerDTO;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
