@@ -20,7 +20,7 @@ public class Attendance implements EntityObject<Attendance> {
 
     /**
      * Hibernate purpose
-     */
+     */ 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;

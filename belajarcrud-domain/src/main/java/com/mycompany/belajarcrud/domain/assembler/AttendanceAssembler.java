@@ -17,7 +17,7 @@ public class AttendanceAssembler implements IObjectAssembler<Attendance, Attenda
 
     @Override
     public AttendanceDTO toDTO(Attendance domainObject) {
-        AttendanceDTO dto = new AttendanceDTO();
+        AttendanceDTO dto = new AttendanceDTO(); 
         dto.setCode(domainObject.getCode());
         
         return dto;
