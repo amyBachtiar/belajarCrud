@@ -40,7 +40,7 @@ public class CompanyDTO {
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
-    
+     
     
     //dummy
     @JsonIgnore
