@@ -42,7 +42,7 @@ public class Attendance implements EntityObject<Attendance>  {
     private Date timeOut;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employeeid", referencedColumnName = "empId",nullable = false)
+    @JoinColumn(name = "employeeId", referencedColumnName = "empId",nullable = false)
     private Employee employee;
     
     
