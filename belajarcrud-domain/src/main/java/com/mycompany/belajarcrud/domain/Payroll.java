@@ -12,7 +12,7 @@ import com.mycompany.belajarcrud.common.EntityObject;
 
 /**
 *
-* @author Daniel
+* @author DanielCABN
 */
 @Entity
 @Table(name = "MST_PAYROLL")
@@ -80,22 +80,6 @@ public class Payroll implements EntityObject<Payroll> {
 
 
 	
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Payroll other = (Payroll) obj;
-//		if (id == null) {
-//			if (other.id != null)
-//				return false;
-//		} else if (!id.equals(other.id))
-//			return false;
-//		return true;
-//	}
 
 	@Override
 	public boolean sameIdentityAs(Payroll other) {
@@ -104,3 +88,7 @@ public class Payroll implements EntityObject<Payroll> {
 	}
 
 }
+
+
+
+
