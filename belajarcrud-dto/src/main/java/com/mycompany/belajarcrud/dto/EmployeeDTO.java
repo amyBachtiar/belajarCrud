@@ -16,9 +16,7 @@ public class EmployeeDTO {
     private String empName;
     private String position;
     private boolean empStatus;
-    private List<AttendanceDTO> attendanceDTOs;
-    
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthDate;
 
     public String getEmpId() {
@@ -61,14 +59,6 @@ public class EmployeeDTO {
         this.birthDate = birthDate;
     }
 
-    public List<AttendanceDTO> getAttendanceDTOs() {
-        return attendanceDTOs;
-    }
-
-    public void setAttendanceDTOs(List<AttendanceDTO> attendanceDTOs) {
-        this.attendanceDTOs = attendanceDTOs;
-    }
-    
     // create data Employee dummy 
     @JsonIgnore
     public EmployeeDTO getInstance() {

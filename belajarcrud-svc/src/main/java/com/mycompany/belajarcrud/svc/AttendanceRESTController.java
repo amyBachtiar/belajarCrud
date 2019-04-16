@@ -37,11 +37,11 @@ public class AttendanceRESTController {
         return ResponseEntity.status(HttpStatus.FOUND).body(new AttendanceDTO().getInstance());
     }
     
-    @RequestMapping(value = "/get.attendance.by.empid/{id}", 
+    @RequestMapping(value = "/get.attendance.by.code/{code}", 
             method = RequestMethod.GET, 
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AttendanceDTO> getAttendanceByEmpId(@PathVariable("id") Long id){
-        Attendance data = attendanceRepository.findOne(id);
+    public ResponseEntity<AttendanceDTO> getAttendanceByCode(@PathVariable("code") String code){
+        Attendance data = attendanceRepository.findOneByCode(code);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }

@@ -35,12 +35,14 @@ public class Employee implements EntityObject<Employee> {
     private String position;
     private boolean empStatus;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss a zzz")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date birthDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private Set<Attendance> listAttendance;
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    //@OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name="attendance_id", referencedColumnName = "id")
+    //private Set<Attendance> listAttendance;
 
     public Employee() {
     }
@@ -101,13 +103,13 @@ public class Employee implements EntityObject<Employee> {
         this.birthDate = birthDate;
     }
 
-    public Set<Attendance> getListAttendance() {
-        return listAttendance;
-    }
-
-    public void setListAttendance(Set<Attendance> listAttendance) {
-        this.listAttendance = listAttendance;
-    }
+//    public Set<Attendance> getListAttendance() {
+//        return listAttendance;
+//    }
+//
+//    public void setListAttendance(Set<Attendance> listAttendance) {
+//        this.listAttendance = listAttendance;
+//    }
 
     @Override
     public boolean equals(Object obj) {
@@ -135,7 +137,7 @@ public class Employee implements EntityObject<Employee> {
         hash = 59 * hash + Objects.hashCode(this.position);
         hash = 59 * hash + (this.empStatus ? 1 : 0);
         hash = 59 * hash + Objects.hashCode(this.birthDate);
-        hash = 59 * hash + Objects.hashCode(this.listAttendance);
+        //hash = 59 * hash + Objects.hashCode(this.listAttendance);
         return hash;
     }
 
