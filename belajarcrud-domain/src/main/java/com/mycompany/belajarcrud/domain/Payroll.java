@@ -1,5 +1,6 @@
 package com.mycompany.belajarcrud.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.Objects;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
 *
@@ -26,6 +30,7 @@ public class Payroll implements EntityObject<Payroll> {
 	private double baseSalary;
 	private double totalPayroll;
 	
+        @Temporal(TemporalType.DATE)
 	private Date payrollDate;
 	
 	public Payroll() {
@@ -77,6 +82,34 @@ public class Payroll implements EntityObject<Payroll> {
 	public void setPayrollDate(Date payrollDate) {
 		this.payrollDate = payrollDate;
 	}
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + Objects.hashCode(this.payrollID);
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.baseSalary) ^ (Double.doubleToLongBits(this.baseSalary) >>> 32));
+        hash = 47 * hash + (int) (Double.doubleToLongBits(this.totalPayroll) ^ (Double.doubleToLongBits(this.totalPayroll) >>> 32));
+        hash = 47 * hash + Objects.hashCode(this.payrollDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Payroll other = (Payroll) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
 
 
 	
