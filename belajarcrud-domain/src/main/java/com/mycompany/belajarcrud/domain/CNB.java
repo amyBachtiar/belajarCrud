@@ -87,6 +87,40 @@ public class CNB implements EntityObject<CNB>{
     public void setBaseSalary(double BaseSalary) {
         this.BaseSalary = BaseSalary;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.empName);
+        hash = 89 * hash + Objects.hashCode(this.empID);
+        hash = 89 * hash + (int) (Double.doubleToLongBits(this.BaseSalary) ^ (Double.doubleToLongBits(this.BaseSalary) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CNB other = (CNB) obj;
+        if (Double.doubleToLongBits(this.BaseSalary) != Double.doubleToLongBits(other.BaseSalary)) {
+            return false;
+        }
+        if (!Objects.equals(this.empName, other.empName)) {
+            return false;
+        }
+        if (!Objects.equals(this.empID, other.empID)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     @Override
     public boolean sameIdentityAs(CNB other) {

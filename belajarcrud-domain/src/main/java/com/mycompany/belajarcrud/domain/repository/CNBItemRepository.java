@@ -17,5 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface CNBItemRepository extends GenericRepository<CNBItem> {
-    CNBItem findOneByEmpID(String empID);
+    CNBItem findOneByCnBempID(String CnBempID);
 }

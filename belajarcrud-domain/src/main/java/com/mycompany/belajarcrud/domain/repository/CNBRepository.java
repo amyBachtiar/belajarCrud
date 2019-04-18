@@ -17,5 +17,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface CNBRepository extends GenericRepository<CNB> {
-    CNB findOneByEmpName(String empName);
+    CNB findOneByEmpID(String empID);
 }
