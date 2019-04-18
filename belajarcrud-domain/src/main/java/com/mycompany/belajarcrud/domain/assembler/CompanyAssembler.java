@@ -24,6 +24,8 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         CompanyDTO dto = new CompanyDTO();
         dto.setCompanyID(domainObject.getCompanyID());
         dto.setCompanyName(domainObject.getCompanyName());
+        dto.setCompanyAdd(domainObject.getCompanyAdd());
+        dto.setCompanyPhone(domainObject.getCompanyPhone());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
         return dto;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -34,6 +36,8 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         Company data = new Company();
         data.setCompanyID(dto.getCompanyID());
         data.setCompanyName(dto.getCompanyName());
+        data.setCompanyAdd(dto.getCompanyAdd());
+        data.setCompanyPhone(dto.getCompanyPhone());
         data.setCompanyDesc(dto.getCompanyDesc());
         return data;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

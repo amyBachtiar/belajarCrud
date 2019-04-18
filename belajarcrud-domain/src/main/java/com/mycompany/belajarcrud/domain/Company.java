@@ -27,15 +27,19 @@ public class Company implements EntityObject<Company>{
     
     private String companyID;
     private String companyName;
+    private String companyAdd;
+    private String companyPhone;
     private String companyDesc;
 
     public Company() {
     }
 
-    public Company(Integer id, String companyID, String companyName, String companyDesc) {
+    public Company(Integer id, String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc) {
         this.id = id;
         this.companyID = companyID;
         this.companyName = companyName;
+        this.companyAdd = companyAdd;
+        this.companyPhone = companyPhone;
         this.companyDesc = companyDesc;
     }
 
@@ -63,6 +67,22 @@ public class Company implements EntityObject<Company>{
         this.companyName = companyName;
     }
 
+    public String getCompanyAdd() {
+        return companyAdd;
+    }
+
+    public void setCompanyAdd(String companyAdd) {
+        this.companyAdd = companyAdd;
+    }
+
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
     public String getCompanyDesc() {
         return companyDesc;
     }
@@ -73,17 +93,17 @@ public class Company implements EntityObject<Company>{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.id);
+        int hash = 5;
         hash = 31 * hash + Objects.hashCode(this.companyID);
         hash = 31 * hash + Objects.hashCode(this.companyName);
+        hash = 31 * hash + Objects.hashCode(this.companyAdd);
+        hash = 31 * hash + Objects.hashCode(this.companyPhone);
         hash = 31 * hash + Objects.hashCode(this.companyDesc);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-
         if (obj == null) {
             return false;
         }
@@ -93,6 +113,8 @@ public class Company implements EntityObject<Company>{
         final Company other = (Company) obj;
         return true;
     }
+
+    
     
     @Override
     public boolean sameIdentityAs(Company other) {
