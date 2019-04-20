@@ -5,18 +5,10 @@
  */
 package com.mycompany.belajarcrud.svc;
 
-import com.mycompany.belajarcrud.domain.Bizpar;
 import com.mycompany.belajarcrud.domain.CNB;
-import com.mycompany.belajarcrud.domain.CNBItem;
-import com.mycompany.belajarcrud.domain.assembler.BizparAssembler;
 import com.mycompany.belajarcrud.domain.assembler.CNBAssembler;
-import com.mycompany.belajarcrud.domain.assembler.CNBItemAssembler;
-import com.mycompany.belajarcrud.domain.repository.BizparRepository;
-import com.mycompany.belajarcrud.domain.repository.CNBItemRepository;
 import com.mycompany.belajarcrud.domain.repository.CNBRepository;
-import com.mycompany.belajarcrud.dto.BizparDTO;
 import com.mycompany.belajarcrud.dto.CNBDTO;
-import com.mycompany.belajarcrud.dto.CNBItemDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,11 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author eksad-edwina
  */
-
 @RestController
 @Slf4j
 public class CNBRESTController {
-   @Autowired
+    @Autowired
     CNBRepository cnbRepository;
 
     @RequestMapping(value = "/get.cnb.dummy",
@@ -46,11 +37,11 @@ public class CNBRESTController {
         return ResponseEntity.status(HttpStatus.FOUND).body(new CNBDTO().getInstance());
     }
 
-    @RequestMapping(value = "/get.cnb.by.empName/{empName}",
+    @RequestMapping(value = "/get.cnb.by.empID/{empID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CNBDTO> getCNBByempID(@PathVariable("empName") String empName) {
-        CNB data = (CNB) cnbRepository.findOneByEmpName(empName);
+    public ResponseEntity<CNBDTO> getCNBByempID(@PathVariable("empID") String empID) {
+        CNB data = (CNB) cnbRepository.findOneByEmpID(empID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -61,7 +52,7 @@ public class CNBRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CNBDTO> postCNBItem(@RequestBody CNBDTO cnbDTO) {
+    public ResponseEntity<CNBDTO> postCNB(@RequestBody CNBDTO cnbDTO) {
         cnbRepository.save(new CNBAssembler().toDomain(cnbDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(cnbDTO);
     }
@@ -70,19 +61,20 @@ public class CNBRESTController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CNBDTO> updateCNBItem(@RequestBody CNBDTO cnbDTO) {
-        CNB cnb = (CNB) cnbRepository.findOneByEmpName(cnbDTO.getEmpName());
-        cnb.setBaseSalary(cnbDTO.getBaseSalary());
+    public ResponseEntity<CNBDTO> updateCNB(@RequestBody CNBDTO cnbDTO) {
+        CNB cnb = (CNB) cnbRepository.findOneByEmpID(cnbDTO.getEmpID());
         cnb.setEmpID(cnbDTO.getEmpID());
-        cnbRepository.save(cnb);
+        cnb.setEmpName(cnbDTO.getEmpName());
+        cnb.setBaseSalary(cnbDTO.getBaseSalary());
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(new CNBAssembler().toDTO(cnb));
     }
 
-    @RequestMapping(value = "/delete.cnb/{Name}",
+    @RequestMapping(value = "/delete.cnb/{empID}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCNB(@PathVariable("empName") String empName) {
-        CNB cnb = (CNB) cnbRepository.findOneByEmpName(empName);
+    public ResponseEntity<String> deleteCNB(@PathVariable("empID") String empID) {
+        CNB cnb = (CNB) cnbRepository.findOneByEmpID(empID);
         cnbRepository.delete(cnb);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Bizpar : " + cnb.getEmpName() + " is Successfully deleted");
-    } 
+        return ResponseEntity.status(HttpStatus.CREATED).body("CNB : " + cnb.getEmpID() + " is Successfully deleted");
+    }
 }
