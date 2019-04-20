@@ -14,6 +14,8 @@ public class CompanyDTO {
     private String companyId;
     private String companyName;
     private String companyDesc;
+    private List<JobdescDTO>compJobsDTOs;
+    
 
     public String getCompanyId() {
         return companyId;
@@ -38,6 +40,15 @@ public class CompanyDTO {
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
+
+    public List<JobdescDTO> getCompJobsDTOs() {
+        return compJobsDTOs;
+    }
+
+    public void setCompJobsDTOs(List<JobdescDTO> compJobsDTOs) {
+        this.compJobsDTOs = compJobsDTOs;
+    }
+    
     
     // create data Employee dummy 
     @JsonIgnore
@@ -47,6 +58,7 @@ public class CompanyDTO {
         dto.setCompanyName("Name");
         dto.setCompanyDesc("Description");
 //        dto.setMutationDTOs(new ArrayList<>(Arrays.asList(new MutationDTO().getInstance())));
+        dto.setCompJobsDTOs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
         return dto;
     }   
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,16 +41,21 @@ public class Company implements EntityObject<Company>{
     @OneToMany(mappedBy = "company")
     private Set<Mutation> mutations;
 
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="compId",referencedColumnName = "companyId")
+    private Set<Jobdesc>compJobs;
+    
     public Company(){
         
     }
 
-    public Company(String companyId, String companyName, String companyDesc, Set<Employee> employee, Set<Mutation> mutations) {
+    public Company(String companyId, String companyName, String companyDesc, Set<Employee> employee, Set<Mutation> mutations,Set<Jobdesc>compJobs) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.companyDesc = companyDesc;
         this.employee = employee;
         this.mutations = mutations;
+        this.compJobs=compJobs;
     }
     
     public Set<Mutation> getMutations() {
@@ -99,6 +105,15 @@ public class Company implements EntityObject<Company>{
     public void setEmployee(Set<Employee> employee) {
         this.employee = employee;
     }
+
+    public Set<Jobdesc> getCompJobs() {
+        return compJobs;
+    }
+
+    public void setCompJobs(Set<Jobdesc> compJobs) {
+        this.compJobs = compJobs;
+    }
+    
     
     
 //    @Override

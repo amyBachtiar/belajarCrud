@@ -2,6 +2,8 @@ package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class EmployeeDTO {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthDate;
     private String companyId;
+    private List<JobdescDTO> empJobs;
 
     public String getCompanyId() {
         return companyId;
@@ -68,6 +71,14 @@ public class EmployeeDTO {
         this.birthDate = birthDate;
     }
 
+    public List<JobdescDTO> getEmpJobs() {
+        return empJobs;
+    }
+
+    public void setEmpJobs(List<JobdescDTO> empJobs) {
+        this.empJobs = empJobs;
+    }
+    
     // create data Employee dummy 
     @JsonIgnore
     public EmployeeDTO getInstance() {
@@ -79,6 +90,7 @@ public class EmployeeDTO {
         Date lahir=new Date();
         dto.setBirthDate(lahir);
         dto.setCompanyId("C-001");
+        dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
         return dto;
     }
 }

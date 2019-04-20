@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -14,6 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,7 +47,13 @@ public class Employee implements EntityObject<Employee> {
     //@OneToMany(cascade = CascadeType.ALL)
     //@JoinColumn(name="attendance_id", referencedColumnName = "id")
     //private Set<Attendance> listAttendance;
-//    
+    
+    @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "Employee_Job", 
+        joinColumns = { @JoinColumn(name = "employee_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "job_id") })
+    private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -60,12 +69,13 @@ public class Employee implements EntityObject<Employee> {
     }
 
 
-    public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Company company, Mutation mutation) {
+    public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate,Set<Jobdesc> jobs, Company company, Mutation mutation) {
         this.empId = empId;
         this.empName = empName;
         this.position = position;
         this.empStatus = empStatus;
         this.birthDate = birthDate;
+        this.jobs=jobs;
 //        this.company = company;
 //        this.mutation = mutation;
 //        this.mutationBatch = mutationBatch;
@@ -151,15 +161,26 @@ public class Employee implements EntityObject<Employee> {
         this.company = company;
     }
 
+    public Set<Jobdesc> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Set<Jobdesc> jobs) {
+        this.jobs = jobs;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.empId);
-        hash = 67 * hash + Objects.hashCode(this.empName);
-        hash = 67 * hash + Objects.hashCode(this.position);
-        hash = 67 * hash + (this.empStatus ? 1 : 0);
-        hash = 67 * hash + Objects.hashCode(this.birthDate);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.empId);
+        hash = 97 * hash + Objects.hashCode(this.empName);
+        hash = 97 * hash + Objects.hashCode(this.position);
+        hash = 97 * hash + (this.empStatus ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.birthDate);
+        hash = 97 * hash + Objects.hashCode(this.jobs);
+        hash = 97 * hash + Objects.hashCode(this.company);
+        hash = 97 * hash + Objects.hashCode(this.mutation);
         return hash;
     }
 
@@ -181,7 +202,6 @@ public class Employee implements EntityObject<Employee> {
         return true;
     }
     
-
     @Override
     public boolean sameIdentityAs(Employee other) {
         return this.equals(other);
