@@ -1,6 +1,9 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -43,6 +46,7 @@ public class CompanyDTO {
         dto.setCompanyId("ID");
         dto.setCompanyName("Name");
         dto.setCompanyDesc("Description");
+//        dto.setMutationDTOs(new ArrayList<>(Arrays.asList(new MutationDTO().getInstance())));
         return dto;
     }   
 }

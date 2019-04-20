@@ -2,7 +2,10 @@ package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class MutationDTO {
     private String empID;
@@ -11,23 +14,35 @@ public class MutationDTO {
     private String finalPosition;
     private boolean mutated;
     private String mutationNumber;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date mutationDate;
+    private String companyId;
 //    private String mutationBatch;
-
+//    private List<EmployeeDTO> empDTOs;
+    
     public MutationDTO() {
     }
 
-    public MutationDTO(String empID, String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate) {
+    public MutationDTO(String empID, String empName, String position, String finalPosition, boolean mutated,List<EmployeeDTO> empDTOs,String mutationNumber, Date mutationDate) {
         this.empID = empID;
         this.empName = empName;
         this.position = position;
         this.finalPosition = finalPosition;
         this.mutated = mutated;
+//        this.empDTOs=empDTOs;
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
     }
 
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    
     public String getEmpID() {
         return empID;
     }
@@ -104,6 +119,7 @@ public class MutationDTO {
         dto.setMutationDate(mutdate);
 //        dto.setMutationBatch("Batch-01");
         dto.setMutationNumber("MX-100031");
+//        dto.setEmpDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
         return dto;
     }
 }

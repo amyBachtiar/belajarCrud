@@ -31,29 +31,33 @@ public class Mutation implements EntityObject<Mutation> {
     
 //    @Column(unique = true)
 //    @NotNull(message = "empID cannot be null")
-//    private String empID;
+    private String empID;
     private String empName;
     private String position;
     private String finalPosition;
     private boolean mutated;
     private String mutationNumber;
     
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date mutationDate;
     
-    @OneToMany(mappedBy = "mutation", cascade = CascadeType.ALL)
-    private Set<Employee> mutationBatch;
+    @OneToMany(mappedBy = "mutation")
+    private Set<Employee> employees;
     //mutation have many batches
     
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "compID",nullable = false)
+    
+//    @OneToMany
+//    private Set<MutationBatch> mutationBatch;
+    
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     
 
     public Mutation() {
     }
 
-    public Mutation(String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Company company, Set<Employee> mutationBatch) {
+    public Mutation(String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
 //        this.empID = empID;
         this.empName = empName;
         this.position = position;
@@ -62,7 +66,15 @@ public class Mutation implements EntityObject<Mutation> {
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
         this.company = company;
-        this.mutationBatch = mutationBatch;
+        this.employees = employees;
+    }
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
     public Company getCompany() {
@@ -81,13 +93,13 @@ public class Mutation implements EntityObject<Mutation> {
         this.mutationDate = mutationDate;
     }
 
-    public Set<Employee> getMutationBatch() {
-        return mutationBatch;
-    }
-
-    public void setMutationBatch(Set<Employee> mutationBatch) {
-        this.mutationBatch = mutationBatch;
-    }
+//    public Set<MutationBatch> getMutationBatch() {
+//        return mutationBatch;
+//    }
+//
+//    public void setMutationBatch(Set<MutationBatch> mutationBatch) {
+//        this.mutationBatch = mutationBatch;
+//    }
 
     public Integer getId() {
         return id;
@@ -97,13 +109,13 @@ public class Mutation implements EntityObject<Mutation> {
         this.id = id;
     }
 
-//    public String getEmpID() {
-//        return empID;
-//    }
-//
-//    public void setEmpID(String empID) {
-//        this.empID = empID;
-//    }
+    public String getEmpID() {
+        return empID;
+    }
+
+    public void setEmpID(String empID) {
+        this.empID = empID;
+    }
 
     public String getEmpName() {
         return empName;
@@ -166,13 +178,13 @@ public class Mutation implements EntityObject<Mutation> {
     @Override
     public int hashCode() {
         int hash = 7;
-//        hash = 83 * hash + Objects.hashCode(this.empID);
+        hash = 83 * hash + Objects.hashCode(this.empID);
         hash = 83 * hash + Objects.hashCode(this.empName);
         hash = 83 * hash + Objects.hashCode(this.position);
         hash = 83 * hash + Objects.hashCode(this.finalPosition);
         hash = 83 * hash + (this.mutated ? 1 : 0);
         hash = 83 * hash + Objects.hashCode(this.mutationNumber);
-        hash = 83 * hash + Objects.hashCode(this.mutationBatch);
+        hash = 83 * hash + Objects.hashCode(this.employees);
         hash = 83 * hash + Objects.hashCode(this.mutationDate);
         
         return hash;

@@ -19,6 +19,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setCompanyId(domainObject.getCompanyId());
         dto.setCompanyName(domainObject.getCompanyName());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
+        //dto.setMutationDTOs(domainObject.getMutations() != null ? new MutationAssembler().toDTOs(domainObject.getMutations()): new ArrayList<>());
         return dto;
     }
     
@@ -28,6 +29,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyId(dto.getCompanyId());
         data.setCompanyName(dto.getCompanyName());
         data.setCompanyDesc(dto.getCompanyDesc());
+        //data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
         return data;
     }
     

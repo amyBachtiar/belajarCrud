@@ -1,6 +1,9 @@
 package com.mycompany.belajarcrud.svc;
 
+import com.mycompany.belajarcrud.domain.Company;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.Mutation;
+import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.MutationAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
@@ -39,7 +42,7 @@ public class MutationRESTController {
     @RequestMapping(value = "/get.mutation.by.mutationNumber/{mutationNumber}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MutationDTO> getBizparByKey(@PathVariable("mutationNumber") String mutationNumber) {
+    public ResponseEntity<MutationDTO> getMutationByKey(@PathVariable("mutationNumber") String mutationNumber) {
         Mutation data = mutationRepository.findOneByMutationNumber(mutationNumber);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
@@ -51,8 +54,18 @@ public class MutationRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MutationDTO> postBizpar(@RequestBody MutationDTO mutationDTO) {
-        mutationRepository.save(new MutationAssembler().toDomain(mutationDTO));
+    public ResponseEntity<?> postMutation(@RequestBody MutationDTO mutationDTO) {
+        Mutation mutation = new MutationAssembler().toDomain(mutationDTO);
+        Employee emp = (Employee) employeeRepository.findOneByEmpId(mutationDTO.getEmpID());
+        Company company = companyRepository.findOneByCompanyId(mutationDTO.getCompanyId());
+        if(company == null){
+            return new ResponseEntity<String>("Company not found", HttpStatus.NOT_FOUND);
+        }
+        
+        mutation.setCompany(company);
+        mutationRepository.save(mutation);
+        emp.setPosition(mutation.getFinalPosition());
+        employeeRepository.save(emp);
         return ResponseEntity.status(HttpStatus.CREATED).body(mutationDTO);
     }
 
@@ -62,7 +75,8 @@ public class MutationRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MutationDTO> updateMutation(@RequestBody MutationDTO dto) {
         Mutation mut = (Mutation) mutationRepository.findOneByMutationNumber(dto.getMutationNumber());
-//        mut.setEmpID(dto.getEmpID());
+        Employee emp = (Employee) employeeRepository.findOneByEmpId(dto.getEmpID());
+        mut.setEmpID(dto.getEmpID());
         mut.setEmpName(dto.getEmpName());
         mut.setMutated(dto.isMutated());
         mut.setPosition(dto.getPosition());
@@ -71,6 +85,8 @@ public class MutationRESTController {
         mut.setMutationNumber(dto.getMutationNumber());
 //        mut.setMutationBatch(dto.getMutationBatch());
         mutationRepository.save(mut);
+        emp.setPosition(mut.getFinalPosition());
+        employeeRepository.save(emp);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MutationAssembler().toDTO(mut));
     }
 
@@ -79,6 +95,6 @@ public class MutationRESTController {
     public ResponseEntity<String> deleteMutation(@PathVariable("mutationNumber") String mutationNumber) {
         Mutation mutation = (Mutation) mutationRepository.findOneByMutationNumber(mutationNumber);
         mutationRepository.delete(mutation);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Bizpar : " + mutation.getMutationNumber() + " is Successfully deleted");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Mutation : " + mutation.getMutationNumber() + " is Successfully deleted");
     }
 }

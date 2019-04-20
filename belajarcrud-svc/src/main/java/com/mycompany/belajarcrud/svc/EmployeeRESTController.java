@@ -1,5 +1,6 @@
 package com.mycompany.belajarcrud.svc;
 
+import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
@@ -53,9 +54,14 @@ public class EmployeeRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<?> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+//        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+        Company company = companyRepository.findOneByCompanyId(employeeDTO.getCompanyId());
+        if(company == null){
+            return new ResponseEntity<String>("Company not found", HttpStatus.NOT_FOUND);
+        }
+        employee.setCompany(company);
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
@@ -69,7 +75,7 @@ public class EmployeeRESTController {
         employee.setEmpName(employeeDTO.getEmpName());
         employee.setPosition(employeeDTO.getPosition());
         employee.setEmpStatus(employeeDTO.isEmpStatus());
-        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+//        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
     }

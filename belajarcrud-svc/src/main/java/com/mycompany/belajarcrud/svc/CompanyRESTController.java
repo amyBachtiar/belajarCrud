@@ -62,6 +62,7 @@ public class CompanyRESTController {
         company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
+        companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
     
