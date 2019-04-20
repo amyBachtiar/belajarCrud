@@ -44,15 +44,17 @@ public class Employee implements EntityObject<Employee> {
     //@OneToMany(cascade = CascadeType.ALL)
     //@JoinColumn(name="attendance_id", referencedColumnName = "id")
     //private Set<Attendance> listAttendance;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyId", referencedColumnName = "companyId")
+//    
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "mutationid", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "mutation_id", nullable = true)//biar employee ga harus mutasi
     private Mutation mutation;
     
+//    @OneToMany
+//    private Set<MutationBatch> mutationBatch;
             
     public Employee() {
     }
@@ -64,20 +66,27 @@ public class Employee implements EntityObject<Employee> {
         this.position = position;
         this.empStatus = empStatus;
         this.birthDate = birthDate;
-        this.company = company;
-        this.mutation = mutation;
+//        this.company = company;
+//        this.mutation = mutation;
+//        this.mutationBatch = mutationBatch;
     }
 
-    public Mutation getMutation() {
-        return mutation;
-    }
+//    public Mutation getMutation() {
+//        return mutation;
+//    }
+//
+//    public void setMutation(Mutation mutation) {
+//        this.mutation = mutation;
+//    }
 
-    public void setMutation(Mutation mutation) {
-        this.mutation = mutation;
-    }
+//    public Set<MutationBatch> getMutationBatch() {
+//        return mutationBatch;
+//    }
+//
+//    public void setMutationBatch(Set<MutationBatch> mutationBatch) {
+//        this.mutationBatch = mutationBatch;
+//    }
 
-    
-    
     public Integer getId() {
         return id;
     }
@@ -141,36 +150,37 @@ public class Employee implements EntityObject<Employee> {
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.empId);
+        hash = 67 * hash + Objects.hashCode(this.empName);
+        hash = 67 * hash + Objects.hashCode(this.position);
+        hash = 67 * hash + (this.empStatus ? 1 : 0);
+        hash = 67 * hash + Objects.hashCode(this.birthDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
     
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Employee other = (Employee) obj;
-//        if (!Objects.equals(this.id, other.id)) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 59 * hash + Objects.hashCode(this.empId);
-//        hash = 59 * hash + Objects.hashCode(this.empName);
-//        hash = 59 * hash + Objects.hashCode(this.position);
-//        hash = 59 * hash + (this.empStatus ? 1 : 0);
-//        hash = 59 * hash + Objects.hashCode(this.birthDate);
-//        //hash = 59 * hash + Objects.hashCode(this.listAttendance);
-//        return hash;
-//    }
 
     @Override
     public boolean sameIdentityAs(Employee other) {
