@@ -1,13 +1,11 @@
 package com.mycompany.belajarcrud.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -20,7 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.NonNull;
 
 /**
  *
@@ -41,12 +38,6 @@ public class Employee implements EntityObject<Employee> {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date birthDate;
-
-    //@JsonIgnore
-    //@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    //@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name="attendance_id", referencedColumnName = "id")
-    //private Set<Attendance> listAttendance;
     
     @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
     @JoinTable(
@@ -54,6 +45,7 @@ public class Employee implements EntityObject<Employee> {
         joinColumns = { @JoinColumn(name = "employee_id") }, 
         inverseJoinColumns = { @JoinColumn(name = "job_id") })
     private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
+    
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
@@ -62,6 +54,10 @@ public class Employee implements EntityObject<Employee> {
     @JoinColumn(name = "mutation_id", nullable = true)//biar employee ga harus mutasi
     private Mutation mutation;
     
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "empId", referencedColumnName = "empId")
+    private Set<Attendance>empAttendances;
+    
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;
             
@@ -69,13 +65,21 @@ public class Employee implements EntityObject<Employee> {
     }
 
 
-    public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate,Set<Jobdesc> jobs, Company company, Mutation mutation) {
+    public Employee(
+            String empId, 
+            String empName, 
+            String position, 
+            boolean empStatus, 
+            Date birthDate,
+            Set<Jobdesc> jobs, 
+            Set<Attendance> empAttendances) {
         this.empId = empId;
         this.empName = empName;
         this.position = position;
         this.empStatus = empStatus;
         this.birthDate = birthDate;
         this.jobs=jobs;
+        this.empAttendances=empAttendances;
 //        this.company = company;
 //        this.mutation = mutation;
 //        this.mutationBatch = mutationBatch;
@@ -145,14 +149,6 @@ public class Employee implements EntityObject<Employee> {
         this.birthDate = birthDate;
     }
 
-//    public Set<Attendance> getListAttendance() {
-//        return listAttendance;
-//    }
-//
-//    public void setListAttendance(Set<Attendance> listAttendance) {
-//        this.listAttendance = listAttendance;
-//    }
-
     public Company getCompany() {
         return company;
     }
@@ -169,18 +165,26 @@ public class Employee implements EntityObject<Employee> {
         this.jobs = jobs;
     }
 
+    public Set<Attendance> getEmpAttendances() {
+        return empAttendances;
+    }
+
+    public void setEmpAttendances(Set<Attendance> empAttendances) {
+        this.empAttendances = empAttendances;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.empId);
-        hash = 97 * hash + Objects.hashCode(this.empName);
-        hash = 97 * hash + Objects.hashCode(this.position);
-        hash = 97 * hash + (this.empStatus ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.birthDate);
-        hash = 97 * hash + Objects.hashCode(this.jobs);
-        hash = 97 * hash + Objects.hashCode(this.company);
-        hash = 97 * hash + Objects.hashCode(this.mutation);
+        hash = 37 * hash + Objects.hashCode(this.empId);
+        hash = 37 * hash + Objects.hashCode(this.empName);
+        hash = 37 * hash + Objects.hashCode(this.position);
+        hash = 37 * hash + (this.empStatus ? 1 : 0);
+        hash = 37 * hash + Objects.hashCode(this.birthDate);
+        hash = 37 * hash + Objects.hashCode(this.jobs);
+        hash = 37 * hash + Objects.hashCode(this.company);
+        hash = 37 * hash + Objects.hashCode(this.mutation);
+        hash = 37 * hash + Objects.hashCode(this.empAttendances);
         return hash;
     }
 

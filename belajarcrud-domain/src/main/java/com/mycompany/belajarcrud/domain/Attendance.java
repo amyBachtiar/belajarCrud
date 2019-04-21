@@ -5,18 +5,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  *
- * @author Reza Agika Putra
+ * @author Reza AP & Mega AR
  */
 
 @Entity
@@ -30,7 +27,8 @@ public class Attendance implements EntityObject<Attendance>  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     
-    private String code;
+    private String empId;
+    private String attendanceId;
         
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
@@ -40,21 +38,16 @@ public class Attendance implements EntityObject<Attendance>  {
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss a zzz")
     private Date timeOut;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employeeId", referencedColumnName = "empId",nullable = false)
-    private Employee employee;
-    
     
     public Attendance() {
     }
 
-    public Attendance(String code, Date date, Date timeIn, Date timeOut, Employee employee) {
-        this.code = code;
+    public Attendance(String empId, String attendanceId, Date date, Date timeIn, Date timeOut) {
+        this.empId = empId;
+        this.attendanceId = attendanceId;
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
-        this.employee = employee;
     }
 
     public Integer getId() {
@@ -65,20 +58,20 @@ public class Attendance implements EntityObject<Attendance>  {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public String getAttendanceId() {
+        return attendanceId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
     }
     
     public Date getDate() {
@@ -126,11 +119,11 @@ public class Attendance implements EntityObject<Attendance>  {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.code);
-        hash = 11 * hash + Objects.hashCode(this.date);
-        hash = 11 * hash + Objects.hashCode(this.timeIn);
-        hash = 11 * hash + Objects.hashCode(this.timeOut);
-        hash = 11 * hash + Objects.hashCode(this.employee);
+        hash = 83 * hash + Objects.hashCode(this.empId);
+        hash = 83 * hash + Objects.hashCode(this.attendanceId);
+        hash = 83 * hash + Objects.hashCode(this.date);
+        hash = 83 * hash + Objects.hashCode(this.timeIn);
+        hash = 83 * hash + Objects.hashCode(this.timeOut);
         return hash;
     }
 

@@ -11,8 +11,8 @@ import java.util.Date;
  */
 public class AttendanceDTO {
     
-    private String employeeId;
-    private String code;
+    private String empId;
+    private String attendanceId;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
@@ -23,12 +23,20 @@ public class AttendanceDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss a zzz")
     private Date timeOut;
 
-    public String getEmployeeId() {
-        return employeeId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getAttendanceId() {
+        return attendanceId;
+    }
+
+    public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
     }
 
     public Date getDate() {
@@ -54,21 +62,14 @@ public class AttendanceDTO {
     public void setTimeOut(Date timeOut) {
         this.timeOut = timeOut;
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
     
     //Create data Dummy
     @JsonIgnore
     public AttendanceDTO getInstance(){
         AttendanceDTO dto = new AttendanceDTO();
-        dto.setEmployeeId("X-YYYY");
         Date waktu = new Date();
+        dto.setEmpId("ID-001");
+        dto.setAttendanceId("AT-001");
         dto.setDate(waktu);
         dto.setTimeIn(waktu);
         dto.setTimeOut(waktu);

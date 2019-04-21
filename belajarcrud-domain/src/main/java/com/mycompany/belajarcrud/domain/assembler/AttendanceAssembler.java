@@ -17,9 +17,9 @@ public class AttendanceAssembler implements IObjectAssembler<Attendance, Attenda
     @Override
     public AttendanceDTO toDTO(Attendance domainObject){
         AttendanceDTO dto = new AttendanceDTO();
-        dto.setEmployeeId(domainObject.getEmployee().getEmpId());
         dto.setDate(domainObject.getDate());
-        dto.setCode(domainObject.getCode());
+        dto.setEmpId(domainObject.getEmpId());
+        dto.setAttendanceId(domainObject.getAttendanceId());
         dto.setTimeIn(domainObject.getTimeIn());
         dto.setTimeOut(domainObject.getTimeOut());
         return dto;
@@ -29,7 +29,8 @@ public class AttendanceAssembler implements IObjectAssembler<Attendance, Attenda
     public Attendance toDomain(AttendanceDTO dto) {
         Attendance data = new Attendance();
         data.setDate(dto.getDate());
-        data.setCode(dto.getCode());
+        data.setEmpId(dto.getEmpId());
+        data.setAttendanceId(dto.getAttendanceId());
         data.setTimeIn(dto.getTimeIn());
         data.setTimeOut(dto.getTimeOut());
         return data;

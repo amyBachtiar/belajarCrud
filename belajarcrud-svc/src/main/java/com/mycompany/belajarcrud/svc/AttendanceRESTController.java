@@ -37,11 +37,11 @@ public class AttendanceRESTController {
         return ResponseEntity.status(HttpStatus.FOUND).body(new AttendanceDTO().getInstance());
     }
     
-    @RequestMapping(value = "/get.attendance.by.code/{code}", 
+    @RequestMapping(value = "/get.attendance.by.attendanceId/{attendanceId}", 
             method = RequestMethod.GET, 
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AttendanceDTO> getAttendanceByCode(@PathVariable("code") String code){
-        Attendance data = attendanceRepository.findOneByCode(code);
+    public ResponseEntity<AttendanceDTO> getAttendanceByCode(@PathVariable("attendanceId") String attendanceId){
+        Attendance data = attendanceRepository.findOneByAttendanceId(attendanceId);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -54,7 +54,6 @@ public class AttendanceRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttendanceDTO> postAttendance (@RequestBody AttendanceDTO attendanceDTO){
         Attendance attendance = new AttendanceAssembler().toDomain(attendanceDTO);
-        attendance.setEmployee(employeeRepository.findOneByEmpId(attendanceDTO.getEmployeeId()));
         attendanceRepository.save(attendance);
         return ResponseEntity.status(HttpStatus.CREATED).body(attendanceDTO);
     }
@@ -64,20 +63,20 @@ public class AttendanceRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttendanceDTO> updateAttendance(@RequestBody AttendanceDTO attendanceDTO){
-        Attendance attendance = (Attendance) attendanceRepository.findOneByCode(attendanceDTO.getCode());
+        Attendance attendance = (Attendance) attendanceRepository.findOneByAttendanceId(attendanceDTO.getAttendanceId());
+        attendance.setAttendanceId(attendanceDTO.getAttendanceId());
         attendance.setDate(attendanceDTO.getDate());
         attendance.setTimeIn(attendanceDTO.getTimeIn());
         attendance.setTimeOut(attendanceDTO.getTimeOut());
-        attendance.setEmployee(employeeRepository.findOneByEmpId(attendanceDTO.getEmployeeId()));
         attendanceRepository.save(attendance);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AttendanceAssembler().toDTO(attendance));
     }
     
-    @RequestMapping(value = "/delete.attendance/{code}",
+    @RequestMapping(value = "/delete.attendance/{attendanceId}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteAttendance(@PathVariable("code") String code){
-        Attendance attendance = (Attendance) attendanceRepository.findOneByCode(code);
+    public ResponseEntity<String> deleteAttendance(@PathVariable("attendanceId") String attendanceId){
+        Attendance attendance = (Attendance) attendanceRepository.findOneByAttendanceId(attendanceId);
         attendanceRepository.delete(attendance);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Attendance : " + code + " is Succesfully deleted");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Attendance : " + attendanceId + " is Succesfully deleted");
     }
 }
