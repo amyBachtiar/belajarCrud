@@ -15,7 +15,7 @@ import java.util.Set;
  
 /**
  *
- * @author eksad
+ * @author amel
  */
 public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
 
@@ -27,6 +27,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setCompanyAdd(domainObject.getCompanyAdd());
         dto.setCompanyPhone(domainObject.getCompanyPhone());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
+        dto.setEmployeeDTOs(domainObject.getEmployees() != null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
         return dto;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -39,6 +40,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyAdd(dto.getCompanyAdd());
         data.setCompanyPhone(dto.getCompanyPhone());
         data.setCompanyDesc(dto.getCompanyDesc());
+        data.setEmployees(dto.getEmployeeDTOs()!= null ? new EmployeeAssembler().toDomains(dto.getEmployeeDTOs()): new HashSet<>());
         return data;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -50,13 +52,20 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         });
         return res;
     }
-
-
+    
+    public List<CompanyDTO> toDTOs(List<Company> arg0) {
+        List<CompanyDTO> res = new ArrayList<>();
+        arg0.stream().forEach((o) -> {
+            res.add(toDTO(o));
+        });
+        return res;
+    }
+    
     public Set<Company> toDomains(List<CompanyDTO> arg0) {
         Set<Company> res = new HashSet<>();
         arg0.stream().forEach((o) -> {
             res.add(toDomain(o));
         });
         return res;
-}
+    }
 }

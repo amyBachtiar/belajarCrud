@@ -7,15 +7,19 @@ package com.mycompany.belajarcrud.domain;
 
 import com.eksad.ddms.common.util.object.EntityObject;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
  
 /**
  *
- * @author eksad
+ * @author amel
  */
 @Entity
 @Table(name = "MST_COMP")
@@ -30,18 +34,23 @@ public class Company implements EntityObject<Company>{
     private String companyAdd;
     private String companyPhone;
     private String companyDesc;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name =  "companyID", referencedColumnName = "companyID")
+    private Set<Employee> employees;
 
     public Company() {
     }
 
-    public Company(Integer id, String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc) {
-        this.id = id;
+    public Company(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, Set<Employee> employees) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.companyAdd = companyAdd;
         this.companyPhone = companyPhone;
         this.companyDesc = companyDesc;
+        this.employees = employees;
     }
+
 
     public Integer getId() {
         return id;
@@ -91,19 +100,32 @@ public class Company implements EntityObject<Company>{
         this.companyDesc = companyDesc;
     }
 
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.companyID);
-        hash = 31 * hash + Objects.hashCode(this.companyName);
-        hash = 31 * hash + Objects.hashCode(this.companyAdd);
-        hash = 31 * hash + Objects.hashCode(this.companyPhone);
-        hash = 31 * hash + Objects.hashCode(this.companyDesc);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.companyID);
+        hash = 37 * hash + Objects.hashCode(this.companyName);
+        hash = 37 * hash + Objects.hashCode(this.companyAdd);
+        hash = 37 * hash + Objects.hashCode(this.companyPhone);
+        hash = 37 * hash + Objects.hashCode(this.companyDesc);
+        hash = 37 * hash + Objects.hashCode(this.employees);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -113,8 +135,6 @@ public class Company implements EntityObject<Company>{
         final Company other = (Company) obj;
         return true;
     }
-
-    
     
     @Override
     public boolean sameIdentityAs(Company other) {

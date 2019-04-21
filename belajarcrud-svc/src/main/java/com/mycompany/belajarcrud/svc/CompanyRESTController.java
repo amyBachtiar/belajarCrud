@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author eksad
+ * @author amel
  */
 @RestController
 public class CompanyRESTController {
