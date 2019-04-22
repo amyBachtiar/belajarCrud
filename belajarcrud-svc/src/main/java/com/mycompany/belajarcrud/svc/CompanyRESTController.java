@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author eksad
+ * @author amel
  */
 @RestController
 public class CompanyRESTController {
@@ -64,6 +64,8 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
         Company company = (Company) companyRepository.findOneByCompanyID(companyDTO.getCompanyID());
         company.setCompanyID(companyDTO.getCompanyID());
         company.setCompanyName(companyDTO.getCompanyName());
+        company.setCompanyAdd(companyDTO.getCompanyAdd());
+        company.setCompanyPhone(companyDTO.getCompanyPhone());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
