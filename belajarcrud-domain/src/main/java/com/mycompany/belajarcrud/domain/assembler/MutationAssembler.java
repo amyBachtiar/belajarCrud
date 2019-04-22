@@ -4,7 +4,7 @@ package com.mycompany.belajarcrud.domain.assembler;
  *
  * @author tika 
  */
-import com.mycompany.belajarcrud.common.IObjectAssembler;
+import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Mutation;
 import com.mycompany.belajarcrud.dto.MutationDTO;
 import java.util.ArrayList;
