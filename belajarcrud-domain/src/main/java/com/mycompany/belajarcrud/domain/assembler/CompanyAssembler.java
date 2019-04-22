@@ -15,7 +15,7 @@ import java.util.Set;
  
 /**
  *
- * @author amelia
+ * @author amel
  */
 public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
 
