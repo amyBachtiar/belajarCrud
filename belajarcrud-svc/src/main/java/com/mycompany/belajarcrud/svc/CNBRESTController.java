@@ -67,7 +67,7 @@ public class CNBRESTController {
         CNB cnb = (CNB) cnbRepository.findOneByEmpID(cnbDTO.getEmpID());
         cnb.setEmpID(cnbDTO.getEmpID());
         cnb.setEmpName(cnbDTO.getEmpName());
-        cnb.setBaseSalary(cnbDTO.getBaseSalary());
+        
         
         return ResponseEntity.status(HttpStatus.CREATED).body(new CNBAssembler().toDTO(cnb));
     }

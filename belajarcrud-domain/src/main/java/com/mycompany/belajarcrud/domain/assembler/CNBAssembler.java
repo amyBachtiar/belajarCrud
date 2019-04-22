@@ -25,7 +25,7 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
        CNBDTO dto = new CNBDTO();
        dto.setEmpName(domainObject.getEmpName());
         dto.setEmpID(domainObject.getEmpID());
-        dto.setBaseSalary(domainObject.getBaseSalary());
+        dto.setSalary(new PayrollAssembler().toDTO(domainObject.getSalary()));
         dto.setCnbItemsDTOs(domainObject.getCnbItems()!= null?
                 new CNBItemAssembler().toDTOs(domainObject.getCnbItems())
                         : new ArrayList<>());
@@ -37,7 +37,7 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
     CNB data = new CNB();
         data.setEmpID(dto.getEmpID());
         data.setEmpName(dto.getEmpName());
-        data.setBaseSalary(dto.getBaseSalary());
+        data.setSalary(new PayrollAssembler().toDomain(dto.getSalary()));
         data.setCnbItems(dto.getCnbItemsDTOs()!= null?
             new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()):
                 new HashSet<>());
