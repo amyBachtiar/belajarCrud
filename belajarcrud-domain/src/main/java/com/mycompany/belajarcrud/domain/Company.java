@@ -40,7 +40,7 @@ public class Company implements EntityObject<Company>{
     private Set<Employee> employees;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "jobdeskId", referencedColumnName = "jobdeskId")
+    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
     private Set<Jobdesc> jobdescs;
 //    
 //    @OneToMany(mappedBy = "company")
