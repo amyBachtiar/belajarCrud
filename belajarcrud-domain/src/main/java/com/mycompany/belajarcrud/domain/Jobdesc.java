@@ -36,9 +36,9 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     private String name;
     private String description;
 //    
-    @JsonIgnore
-    @ManyToMany(mappedBy="jobdesc")
-    private Set<Employee> employees;
+//    @JsonIgnore
+//    @ManyToMany(mappedBy="jobdesc")
+//    private Set<Employee> employees;
     
 //    @OneToMany(mappedBy="jobdesc")
 //    private Set<Company> companys;
@@ -50,7 +50,7 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
-        this.employees=employees;
+//        this.employees=employees;
 //        this.companys=companys;
     }
 
@@ -86,14 +86,14 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.description = description;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
 //
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
+////
 //    public Set<Company> getCompanys() {
 //        return companys;
 //    }
@@ -109,7 +109,7 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         hash = 97 * hash + Objects.hashCode(this.jobdescId);
         hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.employees);
+//        hash = 97 * hash + Objects.hashCode(this.employees);
 //        hash = 97 * hash + Objects.hashCode(this.companys);
         return hash;
     }
