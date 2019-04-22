@@ -39,7 +39,9 @@ public class Company implements EntityObject<Company>{
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     private Set<Employee> listEmployee;
     
-    @OneToMany(mappedBy = "company")
+//    @OneToMany(mappedBy = "company")
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="compId",referencedColumnName = "companyId")
     private Set<Mutation> mutations;
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

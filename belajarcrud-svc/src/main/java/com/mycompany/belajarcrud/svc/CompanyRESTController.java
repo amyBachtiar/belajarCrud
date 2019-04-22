@@ -53,7 +53,7 @@ public class CompanyRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CompanyDTO> postCompany(@RequestBody CompanyDTO companyDTO) {
         Company company = new CompanyAssembler().toDomain(companyDTO);
-        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
+//        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(companyDTO);
     }
@@ -67,7 +67,7 @@ public class CompanyRESTController {
         company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
-        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
+//        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
