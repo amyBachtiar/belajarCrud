@@ -15,7 +15,7 @@ import javax.persistence.Table;
             
 /**
  *
- * @author noldyy
+ * @author noldy
  */
 @Entity
 @Table(name = "MST_ATTENDANCE")

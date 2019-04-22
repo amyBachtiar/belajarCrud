@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author noldyy
+ * @author noldy
  */
 @RestController
 public class AttendanceRESTController {

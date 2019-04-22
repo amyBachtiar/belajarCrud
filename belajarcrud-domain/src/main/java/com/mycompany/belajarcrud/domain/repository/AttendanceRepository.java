@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * 
- * @author noldyy
+ * @author noldy
  */
 @Repository
 @Transactional
