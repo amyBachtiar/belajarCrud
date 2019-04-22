@@ -18,16 +18,17 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
     public AssessmentDTO toDTO(Assessment domainObject) {
         AssessmentDTO dto = new AssessmentDTO();
         dto.setEmpAssessID(domainObject.getEmpAssessID());
-      //dto.setEmployeeID(domainObject.getEmpIDs().getEmpID());
+        dto.setEmployIdsDTOs(domainObject.getEmployIds() !=null ? new EmployeeAssembler().toDTOs(domainObject.getEmployIds()): new ArrayList<>());
         dto.setEmpAssessment(domainObject.getEmpAssessment());
         return dto;
     }
     
     @Override
-    public Assessment toDomain(AssessmentDTO domainObject) {
+    public Assessment toDomain(AssessmentDTO dto) {
         Assessment data = new Assessment();
-        data.setEmpAssessID(domainObject.getEmpAssessID());
-        data.setEmpAssessment(domainObject.getEmpAssessment());
+        data.setEmpAssessID(dto.getEmpAssessID());
+        data.setEmpAssessment(dto.getEmpAssessment());
+        data.setEmployIds(dto.getEmployIdsDTOs() != null ? new EmployeeAssembler().toDomains(dto.getEmployIdsDTOs()):new HashSet<>());
         return data;
     }
     

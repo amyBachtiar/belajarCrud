@@ -3,7 +3,7 @@ package com.mycompany.belajarcrud.svc;
 import com.mycompany.belajarcrud.domain.Assessment;
 import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
-import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+//import com.mycompany.belajarcrud.domain.repository.EmployeeRepositorytry;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 /**
  *
  * @author kori
@@ -26,10 +27,7 @@ public class AssessmentRESTController {
     
     @Autowired
     AssessmentRepository assessmentRepository;
-    
-//    @Autowired
-//    EmployeeRepository employeerepository;
-    
+ 
     @RequestMapping(value="/get.assessment.dummy",
             method=RequestMethod.GET,
             produces=MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +60,7 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> updateAssessment(@RequestBody AssessmentDTO assessmentDTO) {
-        Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessID(assessmentDTO.getEmpAssessID());
+        Assessment assessment=assessmentRepository.findOneByEmpAssessID(assessmentDTO.getEmpAssessID());
         assessment.setEmpAssessment(assessmentDTO.getEmpAssessment());
         assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AssessmentAssembler().toDTO(assessment));

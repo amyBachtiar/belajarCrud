@@ -1,19 +1,18 @@
 package com.mycompany.belajarcrud.domain;
 
 import com.mycompany.belajarcrud.common.EntityObject;
-//import java.util.Set;
-//import javax.persistence.CascadeType;
-//import javax.persistence.Column;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.Inheritance;
-//import javax.persistence.InheritanceType;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-//import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,32 +20,43 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="MST_ASSESS")
-//@Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="MST_ASSESSMENT")
 public class Assessment implements EntityObject<Assessment> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-//    @Column(unique=true)
-//    @NotNull(message="part code cannot be null")
+    @Column(unique=true)
+    @NotNull(message="part code cannot be null")
     private String empAssessID;
     private int empAssessment;
+  //  private String employeeId;
    
-//    @OneToMany(mappedBy = "assessment", cascade = CascadeType.ALL)
-//    @JoinColumn(name="employeeID", nullable=false)
-//    private Set<Employee>empIDs;
-    
-    public Assessment (){}
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name="employassessId", referencedColumnName="empAssessID")
 
-    public Assessment(Integer id, String empAssessID, int empAssessment/*, Set<Employee> empIDs*/) {
-        this.id = id;
-        this.empAssessID = empAssessID;
-        this.empAssessment = empAssessment;
-        //this.empIDs = empIDs;
+    private Set<Employee> employIds;
+    
+
+    
+    public Assessment (){
     }
 
+    public Assessment(String empAssessID, int empAssessment, Set<Employee> employIds) {
+        this.empAssessID = empAssessID;
+        this.empAssessment = empAssessment;
+        this.employIds = employIds;
+    }
+
+    public Set<Employee> getEmployIds() {
+        return employIds;
+    }
+
+    public void setEmployIds(Set<Employee> employIds) {
+        this.employIds = employIds;
+    }
+           
     public Integer getId() {
         return id;
     }
@@ -72,15 +82,16 @@ public class Assessment implements EntityObject<Assessment> {
     }
 
     /*
-    public Set<Employee> getEmpIDs() {
-        return empIDs;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmpIDs(Set<Employee> empIDs) {
-        this.empIDs = empIDs;
-    }*/
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
-        
+    */
+  
     @Override
     public boolean sameIdentityAs(Assessment other) {
         return this.equals(other);
