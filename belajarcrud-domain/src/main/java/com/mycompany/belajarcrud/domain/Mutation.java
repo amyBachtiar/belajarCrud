@@ -29,7 +29,7 @@ public class Mutation implements EntityObject<Mutation> {
 	private String mutationNumber;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
-	private String mutationBatch;
+	//private String mutationBatch;
 	
 	public Mutation() {
 	}
@@ -42,7 +42,7 @@ public class Mutation implements EntityObject<Mutation> {
 		this.mutated = mutated;
 		this.mutationNumber = mutationNumber;
 		this.mutationDate = mutationDate;
-		this.mutationBatch = mutationBatch;
+		//this.mutationBatch = mutationBatch;
 	}
 	
 	public Integer getId() {
@@ -93,12 +93,12 @@ public class Mutation implements EntityObject<Mutation> {
 	public void setMutationDate(Date mutationDate) {
 		this.mutationDate = mutationDate;
 	}
-	public String getMutationBatch() {
-		return mutationBatch;
-	}
-	public void setMutationBatch(String mutationBatch) {
-		this.mutationBatch = mutationBatch;
-	}
+//	public String getMutationBatch() {
+//		return mutationBatch;
+//	}
+//	public void setMutationBatch(String mutationBatch) {
+//		this.mutationBatch = mutationBatch;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -108,7 +108,7 @@ public class Mutation implements EntityObject<Mutation> {
 		result = prime * result + ((empName == null) ? 0 : empName.hashCode());
 		result = prime * result + ((finalPosition == null) ? 0 : finalPosition.hashCode());
 		result = prime * result + (mutated ? 1231 : 1237);
-		result = prime * result + ((mutationBatch == null) ? 0 : mutationBatch.hashCode());
+		//result = prime * result + ((mutationBatch == null) ? 0 : mutationBatch.hashCode());
 		result = prime * result + ((mutationDate == null) ? 0 : mutationDate.hashCode());
 		result = prime * result + ((mutationNumber == null) ? 0 : mutationNumber.hashCode());
 		result = prime * result + ((position == null) ? 0 : position.hashCode());
