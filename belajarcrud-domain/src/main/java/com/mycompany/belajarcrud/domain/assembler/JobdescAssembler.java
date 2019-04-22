@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  *
- * @author eksad
+ * @author desi
  */
 public class JobdescAssembler implements IObjectAssembler<Jobdesc, JobdescDTO>{
 

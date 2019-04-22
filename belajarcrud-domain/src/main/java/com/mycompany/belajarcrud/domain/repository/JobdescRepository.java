@@ -10,7 +10,7 @@ import com.mycompany.belajarcrud.domain.repository.GenericRepository;
 
 /**
  *
- * @author Eksad
+ * @author desi
  */
 public interface JobdescRepository extends GenericRepository<Jobdesc>{
     
