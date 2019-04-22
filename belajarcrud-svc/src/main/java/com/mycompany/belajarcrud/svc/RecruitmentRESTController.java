@@ -68,16 +68,11 @@ public class RecruitmentRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RecruitmentDTO> updateRecruitment(@RequestBody RecruitmentDTO recruitmentDTO) {
        Recruitment recruitment = (Recruitment) recruitmentRepository.findOneByRecID(recruitmentDTO.getRecID());
-       //Jobseeker jobseeker = (Jobseeker) jobseekerRepository.findOneByJobID(recruitmentDTO.getJobID());
-        recruitment.setRecType("Tipe Recruitment : ");
-        recruitment.setStatus(true);
+    
+        recruitment.setRecType(recruitmentDTO.getRecType());
+        recruitment.setStatus(recruitmentDTO.isStatus());
         recruitment.setJobseekers( new JobseekerAssembler().toDomains(recruitmentDTO.getRecJobs()));
-//        jobseeker.setName("Name :");
-//        jobseeker.setEducation("Eucation :");
-//        jobseeker.setUniversity("university :");
-//        jobseeker.setGpa(0);
-//        jobseeker.setIntended_position("intended_position :");
-//        recruitmentRepository.save(recruitment);
+        recruitmentRepository.save(recruitment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new RecruitmentAssembler().toDTO(recruitment));
     }
 
