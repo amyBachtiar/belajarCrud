@@ -42,6 +42,10 @@ public class Company implements EntityObject<Company>{
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyID", referencedColumnName = "companyID")
     private Set<Jobdesc> jobdescs;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    private Set<Mutation> mutations;
 //    
 //    @OneToMany(mappedBy = "company")
 //    private Set<Mutation> mutations;
@@ -53,7 +57,7 @@ public class Company implements EntityObject<Company>{
     public Company() {
     }
 
-    public Company(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, Set<Employee> employees, Set<Jobdesc> jobdescs) {
+    public Company(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, Set<Employee> employees, Set<Jobdesc> jobdescs, Set<Mutation> mutations) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.companyAdd = companyAdd;
@@ -61,8 +65,10 @@ public class Company implements EntityObject<Company>{
         this.companyDesc = companyDesc;
         this.employees = employees;
         this.jobdescs = jobdescs;
+        this.mutations = mutations;
     }
 
+    
     public Integer getId() {
         return id;
     }
@@ -127,17 +133,34 @@ public class Company implements EntityObject<Company>{
         this.jobdescs = jobdescs;
     }
 
+    public Set<Jobdesc> getJobdescs() {
+        return jobdescs;
+    }
+
+    public void setJobdescs(Set<Jobdesc> jobdescs) {
+        this.jobdescs = jobdescs;
+    }
+
+    public Set<Mutation> getMutations() {
+        return mutations;
+    }
+
+    public void setMutations(Set<Mutation> mutations) {
+        this.mutations = mutations;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.id);
-        hash = 89 * hash + Objects.hashCode(this.companyID);
-        hash = 89 * hash + Objects.hashCode(this.companyName);
-        hash = 89 * hash + Objects.hashCode(this.companyAdd);
-        hash = 89 * hash + Objects.hashCode(this.companyPhone);
-        hash = 89 * hash + Objects.hashCode(this.companyDesc);
-        hash = 89 * hash + Objects.hashCode(this.employees);
-        hash = 89 * hash + Objects.hashCode(this.jobdescs);
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.companyID);
+        hash = 29 * hash + Objects.hashCode(this.companyName);
+        hash = 29 * hash + Objects.hashCode(this.companyAdd);
+        hash = 29 * hash + Objects.hashCode(this.companyPhone);
+        hash = 29 * hash + Objects.hashCode(this.companyDesc);
+        hash = 29 * hash + Objects.hashCode(this.employees);
+        hash = 29 * hash + Objects.hashCode(this.jobdescs);
+        hash = 29 * hash + Objects.hashCode(this.mutations);
         return hash;
     }
 
@@ -155,6 +178,8 @@ public class Company implements EntityObject<Company>{
         final Company other = (Company) obj;
         return true;
     }
+
+    
     
     
     @Override
