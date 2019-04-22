@@ -21,7 +21,7 @@ public class PayrollAssembler implements IObjectAssembler<Payroll, PayrollDTO> {
         dto.setBaseSalary(domainObject.getBaseSalary());
         dto.setTotalPayroll(domainObject.getTotalPayroll());
         dto.setPayrollDate(domainObject.getPayrollDate());
-        dto.setPayItemsDTOs(domainObject.getPayItems()!=null?new PayrollitemsAssembler().toDTOs(domainObject.getPayItems()):new ArrayList<>());
+        dto.setPayItemsDTOs(domainObject.getPayItems()!=null ? new PayrollitemsAssembler().toDTOs(domainObject.getPayItems()):new ArrayList<>());
 //        dto.setPayrollitemsID(domainObject.getPayrollitemsID());
         return dto;
     }
@@ -46,13 +46,13 @@ public class PayrollAssembler implements IObjectAssembler<Payroll, PayrollDTO> {
         return res;
     }
     
-//    public List<PayrollDTO> toDTOs(List<Payroll> arg0){
-//        List<PayrollDTO> res = new ArrayList<>();
-//        arg0.stream().forEach((o) -> {
-//            res.add(toDTO(o));
-//        });
-//        return res;
-//    }
+    public List<PayrollDTO> toDTOs(List<Payroll> arg0){
+        List<PayrollDTO> res = new ArrayList<>();
+        arg0.stream().forEach((o) -> {
+            res.add(toDTO(o));
+        });
+        return res;
+    }
     
     public Set<Payroll> toDomains(List<PayrollDTO> arg0){
         Set<Payroll> res = new HashSet<>();

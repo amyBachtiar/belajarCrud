@@ -31,10 +31,7 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;
-    
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "payrollid", referencedColumnName = "payrollID", nullable = false)
-//    private Payroll payroll;
+   
     
     public Payrollitems(){
     }
@@ -94,6 +91,8 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     public void setPayrollDate(Date payrollDate) {
         this.payrollDate = payrollDate;
     }
+
+
     
     @Override
     public boolean equals(Object obj) {
@@ -116,15 +115,15 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.payrollitemsID);
-        hash = 29 * hash + Objects.hashCode(this.payrollitemsName);
-        hash = 29 * hash + (int) (Double.doubleToLongBits(this.payrollitemsAmmount) ^ (Double.doubleToLongBits(this.payrollitemsAmmount) >>> 32));
-        hash = 29 * hash + Objects.hashCode(this.payrollID);
-        hash = 29 * hash + Objects.hashCode(this.payrollDate);
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.payrollitemsID);
+        hash = 59 * hash + Objects.hashCode(this.payrollitemsName);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.payrollitemsAmmount) ^ (Double.doubleToLongBits(this.payrollitemsAmmount) >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.payrollID);
+        hash = 59 * hash + Objects.hashCode(this.payrollDate);
         return hash;
     }
- 
-
+   
     @Override
     public boolean sameIdentityAs(Payrollitems other) {
         return this.equals(other);

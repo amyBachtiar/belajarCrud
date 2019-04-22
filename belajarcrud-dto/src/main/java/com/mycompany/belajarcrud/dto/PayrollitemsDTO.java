@@ -58,8 +58,8 @@ public class PayrollitemsDTO {
     public void setPayrollDate(Date payrollDate) {
         this.payrollDate = payrollDate;
     }
+
    
-    
     //create data dummy
     @JsonIgnore
     public PayrollitemsDTO getInstance(){

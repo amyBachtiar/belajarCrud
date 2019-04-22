@@ -22,6 +22,7 @@ public class PayrollitemsAssembler implements IObjectAssembler<Payrollitems, Pay
         dto.setPayrollitemsName(domainObject.getPayrollitemsName());
         dto.setPayrollitemsAmmount(domainObject.getPayrollitemsAmmount());
         dto.setPayrollDate(domainObject.getPayrollDate());
+        dto.setPayrollID(domainObject.getPayrollID());
         
         return dto;
     }
@@ -33,6 +34,7 @@ public class PayrollitemsAssembler implements IObjectAssembler<Payrollitems, Pay
         data.setPayrollitemsName(dto.getPayrollitemsName());
         data.setPayrollitemsAmmount(dto.getPayrollitemsAmmount());
         data.setPayrollDate(dto.getPayrollDate());
+        data.setPayrollID(dto.getPayrollID());
         return data;
     }
     
