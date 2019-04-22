@@ -19,5 +19,7 @@ public interface EmployeeRepository extends GenericRepository<Employee> {
      
     Employee findOneByEmpId(String empId);
     
+    Employee findOneByEmpName(String empName);
+    
     
 }

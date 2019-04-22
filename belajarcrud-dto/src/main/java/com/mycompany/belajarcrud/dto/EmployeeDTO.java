@@ -4,6 +4,9 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EmployeeDTO {
 	private String empId;
@@ -13,6 +16,8 @@ public class EmployeeDTO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yy" )
 	private Date birthDate;
 	private String companyId;
+        private List<JobdescDTO> empJobs;
+        
 	public String getEmpId() {
 		return empId;
 	}
@@ -49,7 +54,15 @@ public class EmployeeDTO {
 	public void setCompanyId(String companyId) {
 		this.companyId = companyId;
 	}
-	
+
+        public List<JobdescDTO> getEmpJobs() {
+            return empJobs;
+        }
+
+        public void setEmpJobs(List<JobdescDTO> empJobs) {
+            this.empJobs = empJobs;
+        }
+        
 	@JsonIgnore
 	public EmployeeDTO getInstance() {
 		EmployeeDTO dto = new EmployeeDTO();
@@ -60,6 +73,7 @@ public class EmployeeDTO {
 		Date lahir = new Date();
 		dto.setBirthDate(lahir);
 		dto.setCompanyId("C-001");
+                dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
 		return dto;
 	}
 }

@@ -7,8 +7,10 @@ package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
+import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class EmployeeRESTController {
     @Autowired
     CompanyRepository companyRepository;
     
+    @Autowired
+    JobdescRepository jobdescRepository;
+    
    @RequestMapping(value="/get.employee.dummy",
            method= RequestMethod.GET,
            produces= MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +65,7 @@ public class EmployeeRESTController {
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+       employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
        employeeRepository.save(employee);
        return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
    }
@@ -74,6 +80,7 @@ public class EmployeeRESTController {
         employee.setPosition(employeeDTO.getPosition());
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
     }

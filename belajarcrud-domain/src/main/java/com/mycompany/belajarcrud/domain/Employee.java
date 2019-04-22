@@ -11,6 +11,13 @@ import javax.persistence.Table;
 
 import com.eksad.ddms.common.util.object.EntityObject;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 
 @Entity
@@ -27,7 +34,14 @@ public class Employee implements EntityObject<Employee> {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date birthDate;
-	
+        
+        @ManyToMany(cascade = { CascadeType.ALL}, fetch = FetchType.EAGER)
+        @JoinTable(
+            name = "Employee_Job",
+                joinColumns = { @JoinColumn(name = "employee_id")},
+                inverseJoinColumns = { @JoinColumn(name = "job_id")})
+        private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
+                        
 	public Employee() {
 	}
 	
@@ -38,6 +52,14 @@ public class Employee implements EntityObject<Employee> {
 		this.empStatus = empStatus;
 		this.birthDate = birthDate;
 	}
+
+        public Set<Jobdesc> getJobs() {
+            return jobs;
+        }
+
+        public void setJobs(Set<Jobdesc> jobs) {
+            this.jobs = jobs;
+        }
 
 	public Integer getId() {
 		return id;
@@ -87,36 +109,33 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((empId == null) ? 0 : empId.hashCode());
-		result = prime * result + ((empName == null) ? 0 : empName.hashCode());
-		result = prime * result + (empStatus ? 1231 : 1237);
-		result = prime * result + ((position == null) ? 0 : position.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.empId);
+        hash = 97 * hash + Objects.hashCode(this.empName);
+        hash = 97 * hash + Objects.hashCode(this.position);
+        hash = 97 * hash + (this.empStatus ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.birthDate);
+        hash = 97 * hash + Objects.hashCode(this.jobs);
+        return hash;
+    }
 
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() !=obj.getClass()) {
-			return false;
-		}
-		final Employee other = (Employee) obj;
-		if (!Objects.equals(this.id, other.id)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        return true;
+    }
 
     @Override
     public boolean sameIdentityAs(Employee other) {
