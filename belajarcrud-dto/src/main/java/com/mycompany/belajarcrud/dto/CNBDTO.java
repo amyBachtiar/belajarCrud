@@ -6,6 +6,8 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mycompany.belajarcrud.dto.CNBItemDTO;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,6 +20,7 @@ public class CNBDTO {
     private String empID;
    // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
     private double BaseSalary;
+    private List<CNBItemDTO> cnbItemsDTOs;
     
 
     public CNBDTO() {
@@ -47,6 +50,15 @@ public class CNBDTO {
         this.empName = empName;
     }
 
+    public List<CNBItemDTO> getCnbItemsDTOs() {
+        return cnbItemsDTOs;
+    }
+
+    public void setCnbItemsDTOs(List<CNBItemDTO> cnbItemsDTOs) {
+        this.cnbItemsDTOs = cnbItemsDTOs;
+    }
+    
+    
    
     
     //create data dummy

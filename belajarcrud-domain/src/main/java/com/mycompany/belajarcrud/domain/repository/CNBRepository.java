@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.domain.repository;
 
 import com.mycompany.belajarcrud.domain.Bizpar;
+import com.mycompany.belajarcrud.domain.repository.GenericRepository;
 import com.mycompany.belajarcrud.domain.CNB;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;

@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.domain.assembler;
 
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
+import com.mycompany.belajarcrud.domain.assembler.CNBItemAssembler;
 import com.mycompany.belajarcrud.domain.CNB;
 import com.mycompany.belajarcrud.dto.CNBDTO;
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
        dto.setEmpName(domainObject.getEmpName());
         dto.setEmpID(domainObject.getEmpID());
         dto.setBaseSalary(domainObject.getBaseSalary());
+        dto.setCnbItemsDTOs(domainObject.getCnbItems()!= null?
+                new CNBItemAssembler().toDTOs(domainObject.getCnbItems())
+                        : new ArrayList<>());
         return dto;
     }
 
@@ -34,7 +38,9 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
         data.setEmpID(dto.getEmpID());
         data.setEmpName(dto.getEmpName());
         data.setBaseSalary(dto.getBaseSalary());
-          
+        data.setCnbItems(dto.getCnbItemsDTOs()!= null?
+            new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()):
+                new HashSet<>());
         return data;
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

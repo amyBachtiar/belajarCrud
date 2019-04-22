@@ -8,6 +8,7 @@ package com.mycompany.belajarcrud.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
+import com.mycompany.belajarcrud.domain.CNBItem;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.GenerationType;
@@ -15,8 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.persistence.OneToMany;
 
@@ -27,7 +30,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "MST_CNB")
-@Inheritance(strategy = InheritanceType.JOINED)
+
 public class CNB implements EntityObject<CNB>{
    
     @Id
@@ -42,16 +45,20 @@ public class CNB implements EntityObject<CNB>{
    // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
     private double BaseSalary;
     
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="cnbitemID",referencedColumnName = "empid")
+    private Set<CNBItem> cnbItems;
     //private Set<CNBItem> Items;
     //private boolean status;
 
     public CNB() {
     }
 
-    public CNB(String empName, String empID, double BaseSalary) {
+    public CNB(String empName, String empID, double BaseSalary, Set<CNBItem> cnbItems) {
         this.empName = empName;
         this.empID = empID;
         this.BaseSalary = BaseSalary;
+        this.cnbItems = cnbItems;
     }
 
     public String getEmpName() {
@@ -88,38 +95,15 @@ public class CNB implements EntityObject<CNB>{
         this.BaseSalary = BaseSalary;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.empName);
-        hash = 89 * hash + Objects.hashCode(this.empID);
-        hash = 89 * hash + (int) (Double.doubleToLongBits(this.BaseSalary) ^ (Double.doubleToLongBits(this.BaseSalary) >>> 32));
-        return hash;
+    public Set<CNBItem> getCnbItems() {
+        return cnbItems;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CNB other = (CNB) obj;
-        if (Double.doubleToLongBits(this.BaseSalary) != Double.doubleToLongBits(other.BaseSalary)) {
-            return false;
-        }
-        if (!Objects.equals(this.empName, other.empName)) {
-            return false;
-        }
-        if (!Objects.equals(this.empID, other.empID)) {
-            return false;
-        }
-        return true;
+    public void setCnbItems(Set<CNBItem> cnbItems) {
+        this.cnbItems = cnbItems;
     }
+
+   
     
     
     @Override
