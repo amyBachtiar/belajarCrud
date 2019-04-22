@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
             
 /**
@@ -26,7 +28,8 @@ public class Attendance implements EntityObject<Attendance> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
-    private String code;
+    private String empId;
+    private String attendanceId;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
@@ -35,13 +38,14 @@ public class Attendance implements EntityObject<Attendance> {
     private Date timeIn;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Date timeOut;
-
+    private Date timeOut;            
+            
     public Attendance() {
     }
 
-    public Attendance(String code, Date date, Date timeIn, Date timeOut) {
-        this.code = code;
+    public Attendance(String empId, String attendanceId, Date date, Date timeIn, Date timeOut) {
+        this.empId = empId;
+        this.attendanceId = attendanceId;
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
@@ -56,13 +60,25 @@ public class Attendance implements EntityObject<Attendance> {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return code;
-	}
+    public String getEmpId() {
+        return empId;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+        
+        
+
+        public String getAttendanceId() {
+        return attendanceId;
+        }
+
+        public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
+        }
+
+	
 
 	public Date getDate() {
 		return date;
@@ -108,14 +124,16 @@ public class Attendance implements EntityObject<Attendance> {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.code);
-        hash = 17 * hash + Objects.hashCode(this.date);
-        hash = 17 * hash + Objects.hashCode(this.timeIn);
-        hash = 17 * hash + Objects.hashCode(this.timeOut);
+        int hash = 3;
+        hash = 11 * hash + Objects.hashCode(this.empId);
+        hash = 11 * hash + Objects.hashCode(this.attendanceId);
+        hash = 11 * hash + Objects.hashCode(this.date);
+        hash = 11 * hash + Objects.hashCode(this.timeIn);
+        hash = 11 * hash + Objects.hashCode(this.timeOut);
         return hash;
     }
 
+  
 	@Override
 	public boolean sameIdentityAs(Attendance other) {
 		// TODO Auto-generated method stub

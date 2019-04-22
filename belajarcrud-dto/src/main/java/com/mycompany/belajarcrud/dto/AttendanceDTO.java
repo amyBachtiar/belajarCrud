@@ -15,7 +15,8 @@ import java.util.Date;
  */
 public class AttendanceDTO {
     
-    private String code;
+    private String empId;
+    private String attendanceId;
     
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -27,13 +28,25 @@ public class AttendanceDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date timeOut;
 
-    public String getCode() {
-        return code;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
+    
+    
+
+    public String getAttendanceId() {
+        return attendanceId;
+    }
+
+    public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
+    }
+
+    
 
     public Date getDate() {
         return date;
@@ -63,6 +76,8 @@ public class AttendanceDTO {
     public AttendanceDTO getInstance(){
         AttendanceDTO dto = new AttendanceDTO();
         Date waktu = new Date();
+        dto.setEmpId("");
+        dto.setAttendanceId("");
         dto.setDate(waktu);
         dto.setTimeIn(waktu);
         dto.setTimeOut(waktu);

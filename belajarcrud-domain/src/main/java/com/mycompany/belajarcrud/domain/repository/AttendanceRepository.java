@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public interface AttendanceRepository extends GenericRepository<Attendance>{
     
-    Attendance findOneByCode(String code);
+    Attendance findOneByAttendanceId(String attendanceId);
     
 }

@@ -7,6 +7,7 @@ package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
+import com.mycompany.belajarcrud.domain.assembler.AttendanceAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
@@ -66,6 +67,7 @@ public class EmployeeRESTController {
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
        employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
+       employee.setEmpAttendances(new AttendanceAssembler().toDomains(employeeDTO.getEmpAttendancesDTOs()));
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
        employeeRepository.save(employee);

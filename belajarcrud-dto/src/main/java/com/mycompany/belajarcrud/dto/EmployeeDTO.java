@@ -17,15 +17,25 @@ public class EmployeeDTO {
 	private Date birthDate;
 	private String companyId;
         private List<JobdescDTO> empJobs;
+        private List<AttendanceDTO>empAttendancesDTOs;
 
-    public List<AssessmentDTO> getEmpAssess() {
-        return empAssess;
-    }
+        public List<AttendanceDTO> getEmpAttendancesDTOs() {
+            return empAttendancesDTOs;
+        }
 
-    public void setEmpAssess(List<AssessmentDTO> empAssess) {
-        this.empAssess = empAssess;
-    }
-        private List<AssessmentDTO> empAssess;
+        public void setEmpAttendancesDTOs(List<AttendanceDTO> empAttendancesDTOs) {
+            this.empAttendancesDTOs = empAttendancesDTOs;
+        }
+
+        
+        public List<AssessmentDTO> getEmpAssess() {
+            return empAssess;
+        }
+
+        public void setEmpAssess(List<AssessmentDTO> empAssess) {
+            this.empAssess = empAssess;
+        }
+            private List<AssessmentDTO> empAssess;
         
 	public String getEmpId() {
 		return empId;
@@ -83,6 +93,7 @@ public class EmployeeDTO {
 		dto.setBirthDate(lahir);
 		dto.setCompanyId("C-001");
                 dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
+                dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
 		return dto;
 	}
 }

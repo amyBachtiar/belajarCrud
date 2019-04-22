@@ -18,6 +18,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -47,9 +48,11 @@ public class Employee implements EntityObject<Employee> {
         name = "Employee_asses", 
         joinColumns = { @JoinColumn(name = "empid") }, 
         inverseJoinColumns = { @JoinColumn(name = "empAssessId") })
-       
-           private Set<Assessment> assess = new HashSet<Assessment>();
+        private Set<Assessment> assess = new HashSet<Assessment>();
                 
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinColumn(name = "empId", referencedColumnName = "empId")
+        private Set<Attendance>empAttendances;
         
 	public Employee() {
 	}
@@ -62,14 +65,24 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
-    public Set<Assessment> getAssess() {
-        return assess;
-    }
+        public Set<Attendance> getEmpAttendances() {
+            return empAttendances;
+        }
 
-    public void setAssess(Set<Assessment> assess) {
-        this.assess = assess;
-    }
+        public void setEmpAttendances(Set<Attendance> empAttendances) {
+            this.empAttendances = empAttendances;
+        }
+
         
+        
+        public Set<Assessment> getAssess() {
+            return assess;
+        }
+
+        public void setAssess(Set<Assessment> assess) {
+            this.assess = assess;
+        }
+
         
         
         public Set<Jobdesc> getJobs() {
