@@ -15,6 +15,7 @@ public class AssessmentDTO {
  
     private String empAssessId;
     private int empAssessment;
+  
     
     public AssessmentDTO(){
         

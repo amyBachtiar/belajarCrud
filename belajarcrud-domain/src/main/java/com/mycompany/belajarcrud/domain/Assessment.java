@@ -3,9 +3,12 @@ package com.mycompany.belajarcrud.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,9 @@ public class Assessment implements EntityObject<Assessment> {
 	private String empAssessId;
 	private int empAssessment;
 	
+        @ManyToMany(mappedBy = "assess")
+        private Set<Employee>employees=new HashSet<>();
+        
 	public Assessment () {
 		
 	}
