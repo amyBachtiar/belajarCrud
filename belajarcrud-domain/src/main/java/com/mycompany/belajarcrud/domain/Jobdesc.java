@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author desi
+ * @author desiwl
  */
 
 @Entity
