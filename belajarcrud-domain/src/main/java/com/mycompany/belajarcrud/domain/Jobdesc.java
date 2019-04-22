@@ -5,12 +5,19 @@
  */
 package com.mycompany.belajarcrud.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,7 +39,14 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     private String jobdescId;
     private String name;
     private String description;
-
+    
+    @JsonIgnore
+    @ManyToMany(mappedBy="jobdesc")
+    private Set<Employee> employees;
+    
+    @OneToMany(mappedBy="jobdesc")
+    private Set<Company> companys;
+    
     public Jobdesc() {
     }
 
@@ -40,6 +54,8 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
+        this.employees=employees;
+        this.companys=companys;
     }
 
     public Integer getId() {
@@ -73,33 +89,55 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        if(this == obj){
-            return true;
-        }
-        if(this == null){
-            return false;
-        }
-        if(getClass() != obj.getClass()){
-            return false;
-        }
-        final Jobdesc other = (Jobdesc) obj;
-        if (!Objects.equals(this.id, other.id)){
-            return false;
-        }
-        return true;
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public Set<Company> getCompanys() {
+        return companys;
+    }
+
+    public void setCompanys(Set<Company> companys) {
+        this.companys = companys;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.jobdescId);
-        hash = 41 * hash + Objects.hashCode(this.name);
-        hash = 41 * hash + Objects.hashCode(this.description);
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.jobdescId);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.description);
+        hash = 97 * hash + Objects.hashCode(this.employees);
+        hash = 97 * hash + Objects.hashCode(this.companys);
         return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Jobdesc other = (Jobdesc) obj;
+        return true;
+    }
+    
+    
+    
+   
+
+   
 
     @Override
     public boolean sameIdentityAs(Jobdesc other){
