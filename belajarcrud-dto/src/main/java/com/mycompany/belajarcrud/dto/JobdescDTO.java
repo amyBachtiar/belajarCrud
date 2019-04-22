@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  *
- * @author eksad
+ * @author desi
  */
 public class JobdescDTO {
     private String jobdescId;

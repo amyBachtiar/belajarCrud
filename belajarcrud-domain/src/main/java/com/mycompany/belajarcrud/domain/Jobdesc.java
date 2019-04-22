@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Eksad
+ * @author desi
  */
 
 @Entity
