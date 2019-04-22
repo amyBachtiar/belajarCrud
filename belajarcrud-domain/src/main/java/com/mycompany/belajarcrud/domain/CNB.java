@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
 import com.mycompany.belajarcrud.domain.CNBItem;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.GenerationType;
@@ -20,8 +21,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -42,22 +45,26 @@ public class CNB implements EntityObject<CNB>{
 //    @NotNull(message = "part code cannot be null")
     private String empName;
     private String empID;
-   // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
-    private double BaseSalary;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID")
+    private Payroll Salary;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="cnbitemID",referencedColumnName = "empid")
-    private Set<CNBItem> cnbItems;
+    private Set<CNBItem> cnbItems = new HashSet<> ();
     //private Set<CNBItem> Items;
     //private boolean status;
 
     public CNB() {
     }
 
-    public CNB(String empName, String empID, double BaseSalary, Set<CNBItem> cnbItems) {
+    public CNB(String empName, 
+            String empID, 
+            Payroll Salary, 
+            Set<CNBItem> cnbItems) {
         this.empName = empName;
         this.empID = empID;
-        this.BaseSalary = BaseSalary;
+        this.Salary = Salary;
         this.cnbItems = cnbItems;
     }
 
@@ -87,13 +94,14 @@ public class CNB implements EntityObject<CNB>{
         this.empID = empID;
     }
 
-    public double getBaseSalary() {
-        return BaseSalary;
+    public Payroll getSalary() {
+        return Salary;
     }
 
-    public void setBaseSalary(double BaseSalary) {
-        this.BaseSalary = BaseSalary;
+    public void setSalary(Payroll Salary) {
+        this.Salary = Salary;
     }
+
 
     public Set<CNBItem> getCnbItems() {
         return cnbItems;
@@ -101,6 +109,43 @@ public class CNB implements EntityObject<CNB>{
 
     public void setCnbItems(Set<CNBItem> cnbItems) {
         this.cnbItems = cnbItems;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.empName);
+        hash = 59 * hash + Objects.hashCode(this.empID);
+        hash = 59 * hash + Objects.hashCode(this.Salary);
+        hash = 59 * hash + Objects.hashCode(this.cnbItems);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CNB other = (CNB) obj;
+        if (!Objects.equals(this.empName, other.empName)) {
+            return false;
+        }
+        if (!Objects.equals(this.empID, other.empID)) {
+            return false;
+        }
+        if (!Objects.equals(this.Salary, other.Salary)) {
+            return false;
+        }
+        if (!Objects.equals(this.cnbItems, other.cnbItems)) {
+            return false;
+        }
+        return true;
     }
 
    

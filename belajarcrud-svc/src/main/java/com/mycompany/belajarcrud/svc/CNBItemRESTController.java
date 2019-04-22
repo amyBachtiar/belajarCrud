@@ -62,7 +62,6 @@ public class CNBItemRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CNBItemDTO> postCNBItem(@RequestBody CNBItemDTO cnbitemDTO) {
         CNBItem cnbitems = new CNBItemAssembler().toDomain(cnbitemDTO);
-        cnbitems.setCnB(cnbRepository.findOneByEmpID(cnbitemDTO.getCnBempID()));
         cnbitemRepository.save(cnbitems);
 //        cnbitemRepository.save(new CNBItemAssembler().toDomain(cnbitemDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(cnbitemDTO);
@@ -75,7 +74,6 @@ public class CNBItemRESTController {
     public ResponseEntity<CNBItemDTO> updateCNBItem(@RequestBody CNBItemDTO cnbitemDTO) {
         CNBItem cnbitem = (CNBItem) cnbitemRepository.findOneByCnBempID(cnbitemDTO.getCnBempID());
 //        cnbitem.setBaseSalary(cnbitemDTO.getBaseSalary());
-        cnbitem.setCnB(cnbRepository.findOneByEmpID(cnbitemDTO.getCnBempID()));
         cnbitem.setInsurance(cnbitemDTO.getInsurance());
         cnbitem.setPensiun(cnbitemDTO.getPensiun());
         cnbitemRepository.save(cnbitem);
