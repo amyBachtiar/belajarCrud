@@ -5,7 +5,7 @@
  */
 package com.mycompany.belajarcrud.domain.assembler;
 
-import com.mycompany.belajarcrud.common.IObjectAssembler;
+import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import java.util.ArrayList;
