@@ -23,6 +23,7 @@ public class MutationAssembler implements IObjectAssembler<Mutation, MutationDTO
 		dto.setMutated(domainObject.isMutated());
 		dto.setMutationNumber(domainObject.getMutationNumber());
 		dto.setMutationDate(domainObject.getMutationDate());
+                dto.setEmployeeDTOs(domainObject.getEmployees() != null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
 		//dto.setMutationBatch(domainObject.getMutationBatch());
 		return dto;
 	}
@@ -38,6 +39,7 @@ public class MutationAssembler implements IObjectAssembler<Mutation, MutationDTO
 		data.setMutationNumber(dto.getMutationNumber());
 		data.setMutationDate(dto.getMutationDate());
 		//data.setMutationBatch(dto.getMutationBatch());
+                data.setEmployees(dto.getEmployeeDTOs()!= null ? new EmployeeAssembler().toDomains(dto.getEmployeeDTOs()): new HashSet<>());
 		return data;
 	}
 	

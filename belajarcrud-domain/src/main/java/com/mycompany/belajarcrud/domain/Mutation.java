@@ -8,10 +8,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,11 +35,20 @@ public class Mutation implements EntityObject<Mutation> {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
 	//private String mutationBatch;
+        
+//        @ManyToOne
+//        @JoinColumn(name = "companyID", nullable = false)
+//        private Company company;
+        
+        
+        @OneToMany(cascade = CascadeType.ALL)
+        @JoinColumn(name =  "mutationNumber", referencedColumnName = "mutationNumber")
+        private Set<Employee> employees;
 	
 	public Mutation() {
 	}
 	
-	public Mutation(String empID, String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, String mutationBatch) {
+	public Mutation(String empID, String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
 		this.empID = empID;
 		this.empName = empName;
 		this.position = position;
@@ -42,10 +56,28 @@ public class Mutation implements EntityObject<Mutation> {
 		this.mutated = mutated;
 		this.mutationNumber = mutationNumber;
 		this.mutationDate = mutationDate;
+                this.employees = employees;
+                //this.company = company;
 		//this.mutationBatch = mutationBatch;
 	}
 	
-	public Integer getId() {
+        
+//        public Company getCompany() {
+//            return company;
+//        }
+//        public void setCompany(Company company) {
+//            this.company = company;
+//        }
+	
+        public Set<Employee> getEmployees() {
+        return employees;
+        }
+
+        public void setEmployees(Set<Employee> employees) {
+            this.employees = employees;
+        }
+        
+        public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
@@ -112,6 +144,7 @@ public class Mutation implements EntityObject<Mutation> {
 		result = prime * result + ((mutationDate == null) ? 0 : mutationDate.hashCode());
 		result = prime * result + ((mutationNumber == null) ? 0 : mutationNumber.hashCode());
 		result = prime * result + ((position == null) ? 0 : position.hashCode());
+                result = prime * result + ((employees == null) ? 0 : employees.hashCode());
 		return result;
 	}
 

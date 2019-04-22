@@ -6,10 +6,13 @@ package com.mycompany.belajarcrud.dto;
  */
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class MutationDTO {
-    private String empID;
+        private String empID;
 	private String empName;
 	private String position;
 	private String finalPosition;
@@ -17,9 +20,32 @@ public class MutationDTO {
 	private String mutationNumber;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
+        private List<EmployeeDTO> employeeDTOs;
+        //private String companyID;
 	//private String mutationBatch;
 	
-	
+	public MutationDTO() {
+        }
+
+    public MutationDTO(String empID, String empName, String position, String finalPosition, boolean mutated,String mutationNumber, Date mutationDate, List<EmployeeDTO> employeeDTOs) {
+        this.empID = empID;
+        this.empName = empName;
+        this.position = position;
+        this.finalPosition = finalPosition;
+        this.mutated = mutated;
+        this.mutationNumber = mutationNumber;
+        this.mutationDate = mutationDate;
+        this.employeeDTOs = employeeDTOs;
+        //this.companyID = companyID;
+    }
+    
+//    public String getCompanyId() {
+//        return companyID;
+//    }
+//    public void setCompanyId(String companyID) {
+//        this.companyID = companyID;
+//    }
+//    
 	public String getEmpID() {
 		return empID;
 	}
@@ -68,6 +94,14 @@ public class MutationDTO {
 //	public void setMutationBatch(String mutationBatch) {
 //		this.mutationBatch = mutationBatch;
 //	}
+        
+        public List<EmployeeDTO> getEmployeeDTOs() {
+            return employeeDTOs;
+        }
+
+        public void setEmployeeDTOs(List<EmployeeDTO> employeeDTOs) {
+            this.employeeDTOs = employeeDTOs;
+        }
 	
 	//create data Employee dummy
 	@JsonIgnore
@@ -81,6 +115,8 @@ public class MutationDTO {
 		dto.setMutationDate(mutdate);
 		//dto.setMutationBatch("Batch-01");
 		dto.setMutationNumber("MX-100031");
+                //dto.setCompanyId(new CompanyDTO().getInstance());
+                dto.setEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
 		return dto;
 	}
 }
