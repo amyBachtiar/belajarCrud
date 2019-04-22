@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
+import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;

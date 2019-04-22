@@ -17,6 +17,15 @@ public class EmployeeDTO {
 	private Date birthDate;
 	private String companyId;
         private List<JobdescDTO> empJobs;
+
+    public List<AssessmentDTO> getEmpAssess() {
+        return empAssess;
+    }
+
+    public void setEmpAssess(List<AssessmentDTO> empAssess) {
+        this.empAssess = empAssess;
+    }
+        private List<AssessmentDTO> empAssess;
         
 	public String getEmpId() {
 		return empId;
@@ -58,7 +67,7 @@ public class EmployeeDTO {
         public List<JobdescDTO> getEmpJobs() {
             return empJobs;
         }
-
+        
         public void setEmpJobs(List<JobdescDTO> empJobs) {
             this.empJobs = empJobs;
         }
