@@ -1,6 +1,5 @@
 package com.mycompany.belajarcrud.domain;
 
-
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Set;
 import javax.persistence.Column;
@@ -18,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Jobseeker implements EntityObject<Jobseeker>{
 
-      @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
    

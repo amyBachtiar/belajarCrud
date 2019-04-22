@@ -28,7 +28,6 @@ public class RecruitmentAssembler implements IObjectAssembler <Recruitment, Recr
         return data;
     }
     
-    
     public List<RecruitmentDTO> toDTOs(Set<Recruitment> arg0) {
         List<RecruitmentDTO> res = new ArrayList<>();
         arg0.stream().forEach((o) -> {

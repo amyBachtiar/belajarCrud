@@ -52,7 +52,6 @@ public class RecruitmentDTO {
         this.jobjobID = jobjobID;
     }
     
-    
     // create data dummy
     @JsonIgnore
     public RecruitmentDTO getInstance() {
