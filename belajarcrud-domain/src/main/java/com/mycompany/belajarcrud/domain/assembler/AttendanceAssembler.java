@@ -15,7 +15,7 @@ import java.util.Set;
  
 /**
  *
- * @author noldy
+ * @author noldyy
  */
 public class AttendanceAssembler implements IObjectAssembler<Attendance, AttendanceDTO>{
 
