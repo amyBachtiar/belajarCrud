@@ -57,12 +57,12 @@ public class MutationRESTController {
     public ResponseEntity<?> postMutation(@RequestBody MutationDTO mutationDTO) {
         Mutation mutation = new MutationAssembler().toDomain(mutationDTO);
         Employee emp = (Employee) employeeRepository.findOneByEmpId(mutationDTO.getEmpID());
-        Company company = companyRepository.findOneByCompanyId(mutationDTO.getCompanyId());
-        if(company == null){
-            return new ResponseEntity<String>("Company not found", HttpStatus.NOT_FOUND);
-        }
-        
-        mutation.setCompany(company);
+//        Company company = companyRepository.findOneByCompanyId(mutationDTO.getCompanyId());
+//        if(company == null){
+//            return new ResponseEntity<String>("Company not found", HttpStatus.NOT_FOUND);
+//        }
+//        
+//        mutation.setCompany(company);
         mutationRepository.save(mutation);
         emp.setPosition(mutation.getFinalPosition());
         employeeRepository.save(emp);
