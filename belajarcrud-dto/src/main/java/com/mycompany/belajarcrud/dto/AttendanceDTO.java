@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author noldy
+ * @author noldyy
  */
 public class AttendanceDTO {
     
