@@ -22,7 +22,7 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
     @Override
     public AssessmentDTO toDTO(Assessment domainObject) {
         AssessmentDTO dto = new AssessmentDTO();
-        dto.setEmpAssessID(domainObject.getEmpAssessId());
+        dto.setEmpAssessId(domainObject.getEmpAssessId());
       //dto.setEmployeeID(domainObject.getEmpIDs().getEmpID());
         dto.setEmpAssessment(domainObject.getEmpAssessment());
         return dto;
@@ -31,7 +31,7 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
     @Override
     public Assessment toDomain(AssessmentDTO domainObject) {
         Assessment data = new Assessment();
-        data.setEmpAssessId(domainObject.getEmpAssessID());
+        data.setEmpAssessId(domainObject.getEmpAssessId());
         data.setEmpAssessment(domainObject.getEmpAssessment());
         return data;
     }

@@ -3,6 +3,7 @@ package com.mycompany.belajarcrud.svc;
 import com.mycompany.belajarcrud.domain.Assessment;
 import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class AssessmentRESTController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> getAssessmentByEmpAssessID(@PathVariable("empAssessID") String empAssessID) {
-        Assessment data = assessmentRepository.findOneByEmpAssessID(empAssessID);
+        Assessment data = assessmentRepository.findOneByEmpAssessId(empAssessID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -61,7 +62,7 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> updateAssessment(@RequestBody AssessmentDTO assessmentDTO) {
-        Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessID(assessmentDTO.getEmpAssessID());
+        Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessId(assessmentDTO.getEmpAssessId());
         assessment.setEmpAssessment(assessmentDTO.getEmpAssessment());
         assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AssessmentAssembler().toDTO(assessment));
@@ -70,7 +71,7 @@ public class AssessmentRESTController {
    @RequestMapping(value = "/delete.assessment/{empAssessID}",
             method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteAssessment(@PathVariable("empAssessID") String empAssessID) {
-        Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessID(empAssessID);
+        Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessId(empAssessID);
         assessmentRepository.delete(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body("Assessment : " + assessment.getEmpAssessId()+ " is Successfully deleted");
     } 

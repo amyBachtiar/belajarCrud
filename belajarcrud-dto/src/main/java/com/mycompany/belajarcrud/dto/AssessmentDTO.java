@@ -13,24 +13,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class AssessmentDTO {
  
-    private String empAssessID;
+    private String empAssessId;
     private int empAssessment;
     
     public AssessmentDTO(){
         
     }
     
-    public AssessmentDTO(String empAssessID, int empAssessment){
-        this.empAssessID = empAssessID;
+    public AssessmentDTO(String empAssessId, int empAssessment){
+        this.empAssessId = empAssessId;
         this.empAssessment = empAssessment;
     }
 
-    public String getEmpAssessID() {
-        return empAssessID;
+    public String getEmpAssessId() {
+        return empAssessId;
     }
 
-    public void setEmpAssessID(String empAssessID) {
-        this.empAssessID = empAssessID;
+    public void setEmpAssessId(String empAssessId) {
+        this.empAssessId = empAssessId;
     }
 
     public int getEmpAssessment() {
@@ -40,11 +40,12 @@ public class AssessmentDTO {
     public void setEmpAssessment(int empAssessment) {
         this.empAssessment = empAssessment;
     }
+
     
     @JsonIgnore
     public AssessmentDTO getInstance(){
         AssessmentDTO dto= new AssessmentDTO();
-        dto.setEmpAssessID("Employee Assessment ID");
+        dto.setEmpAssessId("Employee Assessment ID");
         dto.setEmpAssessment(1000);
         return dto;
     }
