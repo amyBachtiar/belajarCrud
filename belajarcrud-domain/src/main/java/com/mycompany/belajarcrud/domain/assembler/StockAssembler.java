@@ -1,6 +1,6 @@
 package com.mycompany.belajarcrud.domain.assembler;
 
-import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
+import com.mycompany.belajarcrud.common.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Stock;
 import com.mycompany.belajarcrud.dto.StockDTO;
 import java.util.ArrayList;
