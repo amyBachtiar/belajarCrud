@@ -2,6 +2,7 @@ package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Employee;
+import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
@@ -34,8 +35,8 @@ public class EmployeeRESTController {
     @Autowired
     CompanyRepository companyRepository;
     
-     @Autowired
-     JobdescRepository jobdescRepository;
+    @Autowired
+    JobdescRepository jobdescRepository;
     
     @RequestMapping(value="/get.employee.dummy",
             method=RequestMethod.GET,
@@ -60,15 +61,7 @@ public class EmployeeRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-//        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
-        Company company = companyRepository.findOneByCompanyId(employeeDTO.getCompanyId());
-        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
-        if(company == null){
-            return new ResponseEntity<String>("Company not found", HttpStatus.NOT_FOUND);
-        }
-        employee.setCompany(company);
-        employeeRepository.save(employee);
+        employeeRepository.save(new EmployeeAssembler().toDomain(employeeDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
     
@@ -82,7 +75,7 @@ public class EmployeeRESTController {
         employee.setPosition(employeeDTO.getPosition());
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
-//        employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+//      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
     }

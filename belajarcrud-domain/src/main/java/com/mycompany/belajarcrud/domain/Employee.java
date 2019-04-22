@@ -30,7 +30,8 @@ public class Employee implements EntityObject<Employee> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-
+    
+    private String companyId;
     private String empId;
     private String empName;
     private String position;
@@ -47,7 +48,7 @@ public class Employee implements EntityObject<Employee> {
     private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
     
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "companyId", referencedColumnName = "companyId", insertable = false, updatable = false)
     private Company company;
     
     @ManyToOne
@@ -64,7 +65,7 @@ public class Employee implements EntityObject<Employee> {
     public Employee() {
     }
 
-
+    
     public Employee(
             String empId, 
             String empName, 
@@ -72,7 +73,8 @@ public class Employee implements EntityObject<Employee> {
             boolean empStatus, 
             Date birthDate,
             Set<Jobdesc> jobs, 
-            Set<Attendance> empAttendances) {
+            Set<Attendance> empAttendances,
+            Company company, String companyId) {
         this.empId = empId;
         this.empName = empName;
         this.position = position;
@@ -80,7 +82,8 @@ public class Employee implements EntityObject<Employee> {
         this.birthDate = birthDate;
         this.jobs=jobs;
         this.empAttendances=empAttendances;
-//        this.company = company;
+        this.company = company;
+        this.companyId = companyId;
 //        this.mutation = mutation;
 //        this.mutationBatch = mutationBatch;
     }
@@ -101,6 +104,15 @@ public class Employee implements EntityObject<Employee> {
 //        this.mutationBatch = mutationBatch;
 //    }
 
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    
     public Integer getId() {
         return id;
     }
@@ -176,18 +188,20 @@ public class Employee implements EntityObject<Employee> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.empId);
-        hash = 37 * hash + Objects.hashCode(this.empName);
-        hash = 37 * hash + Objects.hashCode(this.position);
-        hash = 37 * hash + (this.empStatus ? 1 : 0);
-        hash = 37 * hash + Objects.hashCode(this.birthDate);
-        hash = 37 * hash + Objects.hashCode(this.jobs);
-        hash = 37 * hash + Objects.hashCode(this.company);
-        hash = 37 * hash + Objects.hashCode(this.mutation);
-        hash = 37 * hash + Objects.hashCode(this.empAttendances);
+        hash = 89 * hash + Objects.hashCode(this.companyId);
+        hash = 89 * hash + Objects.hashCode(this.empId);
+        hash = 89 * hash + Objects.hashCode(this.empName);
+        hash = 89 * hash + Objects.hashCode(this.position);
+        hash = 89 * hash + (this.empStatus ? 1 : 0);
+        hash = 89 * hash + Objects.hashCode(this.birthDate);
+        hash = 89 * hash + Objects.hashCode(this.jobs);
+        hash = 89 * hash + Objects.hashCode(this.company);
+        hash = 89 * hash + Objects.hashCode(this.mutation);
+        hash = 89 * hash + Objects.hashCode(this.empAttendances);
         return hash;
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

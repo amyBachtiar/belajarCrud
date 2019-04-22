@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class EmployeeDTO {
     
+    private String companyId;
     private String empId;
     private String empName;
     private String position;
@@ -22,11 +23,10 @@ public class EmployeeDTO {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date birthDate;
     
-    private String companyId;
     private List<JobdescDTO> empJobs;
     private List<AttendanceDTO> empAttendancesDTOs;
 
-    public String getCompanyId() {
+        public String getCompanyId() {
         return companyId;
     }
 
@@ -89,7 +89,7 @@ public class EmployeeDTO {
     public void setEmpAttendancesDTOs(List<AttendanceDTO> empAttendancesDTOs) {
         this.empAttendancesDTOs = empAttendancesDTOs;
     }
-    
+        
     // create data Employee dummy 
     @JsonIgnore
     public EmployeeDTO getInstance() {
@@ -100,9 +100,9 @@ public class EmployeeDTO {
         dto.setEmpStatus(true);
         Date lahir=new Date();
         dto.setBirthDate(lahir);
-        dto.setCompanyId("C-001");
         dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
         dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
+        dto.setCompanyId("C-001");
         return dto;
     }
 }

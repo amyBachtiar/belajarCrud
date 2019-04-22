@@ -1,7 +1,9 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Company;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
+import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 
 /**
  *
@@ -49,7 +52,9 @@ public class CompanyRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CompanyDTO> postCompany(@RequestBody CompanyDTO companyDTO) {
-        companyRepository.save(new CompanyAssembler().toDomain(companyDTO));
+        Company company = new CompanyAssembler().toDomain(companyDTO);
+        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
+        companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(companyDTO);
     }
     
@@ -62,6 +67,7 @@ public class CompanyRESTController {
         company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
+        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }

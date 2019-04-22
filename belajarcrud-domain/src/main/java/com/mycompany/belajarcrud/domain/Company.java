@@ -2,6 +2,7 @@ package com.mycompany.belajarcrud.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -34,9 +35,9 @@ public class Company implements EntityObject<Company>{
     private String companyName;
     private String companyDesc;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "company")
-    private Set<Employee> employee;
+    //@JsonIgnore
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    private Set<Employee> listEmployee;
     
     @OneToMany(mappedBy = "company")
     private Set<Mutation> mutations;
@@ -49,11 +50,11 @@ public class Company implements EntityObject<Company>{
         
     }
 
-    public Company(String companyId, String companyName, String companyDesc, Set<Employee> employee, Set<Mutation> mutations,Set<Jobdesc>compJobs) {
+    public Company(String companyId, String companyName, String companyDesc, Set<Employee> listEmployee, Set<Mutation> mutations,Set<Jobdesc>compJobs) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.companyDesc = companyDesc;
-        this.employee = employee;
+        this.listEmployee = listEmployee;
         this.mutations = mutations;
         this.compJobs=compJobs;
     }
@@ -98,12 +99,12 @@ public class Company implements EntityObject<Company>{
         this.companyDesc = companyDesc;
     }
 
-    public Set<Employee> getEmployee() {
-        return employee;
+    public Set<Employee> getListEmployee() {
+        return listEmployee;
     }
 
-    public void setEmployee(Set<Employee> employee) {
-        this.employee = employee;
+    public void setListEmployee(Set<Employee> listEmployee) {
+        this.listEmployee = listEmployee;
     }
 
     public Set<Jobdesc> getCompJobs() {
@@ -114,35 +115,35 @@ public class Company implements EntityObject<Company>{
         this.compJobs = compJobs;
     }
     
-    
-    
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final Company other = (Company) obj;
-//        if (!Objects.equals(this.id, other.id)) {
-//            return false;
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 83 * hash + Objects.hashCode(this.companyId);
-//        hash = 83 * hash + Objects.hashCode(this.companyName);
-//        hash = 83 * hash + Objects.hashCode(this.companyDesc);
-//        hash = 83 * hash + Objects.hashCode(this.employee);
-//        return hash;
-//    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Company other = (Company) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.companyId);
+        hash = 59 * hash + Objects.hashCode(this.companyName);
+        hash = 59 * hash + Objects.hashCode(this.companyDesc);
+        //hash = 59 * hash + Objects.hashCode(this.listEmployee);
+        hash = 59 * hash + Objects.hashCode(this.mutations);
+        hash = 59 * hash + Objects.hashCode(this.compJobs);
+        return hash;
+    }
 
     @Override
     public boolean sameIdentityAs(Company other) {

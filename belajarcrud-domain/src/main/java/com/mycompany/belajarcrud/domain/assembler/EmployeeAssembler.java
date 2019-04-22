@@ -20,7 +20,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
     @Override
     public EmployeeDTO toDTO(Employee domainObject){
         EmployeeDTO dto= new EmployeeDTO();
-        dto.setCompanyId(domainObject.getCompany().getCompanyId());
+        dto.setCompanyId(domainObject.getCompanyId());
         dto.setEmpId(domainObject.getEmpId());
         dto.setEmpName(domainObject.getEmpName());
         dto.setPosition(domainObject.getPosition());
@@ -34,6 +34,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
     @Override
     public Employee toDomain(EmployeeDTO dto){
         Employee data= new Employee();
+        data.setCompanyId(dto.getCompanyId());
         data.setEmpId(dto.getEmpId());
         data.setEmpName(dto.getEmpName());
         data.setPosition(dto.getPosition());
