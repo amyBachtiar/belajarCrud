@@ -15,7 +15,7 @@ import java.util.Set;
 
 /**
  *
- * @author Addi
+ * @author Addi jo
  */
 public class AssessmentAssembler implements IObjectAssembler<Assessment,AssessmentDTO>{
     

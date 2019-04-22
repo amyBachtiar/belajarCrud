@@ -6,8 +6,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
  
 /**
- *
- * @author Addi jo
+ *o
  */
 @Repository
 @Transactional

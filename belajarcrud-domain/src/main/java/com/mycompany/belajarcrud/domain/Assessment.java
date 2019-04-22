@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author addi
+ * @author addi jo
  */
 @Entity
 @Table(name = "MST_ASSESSMENT")

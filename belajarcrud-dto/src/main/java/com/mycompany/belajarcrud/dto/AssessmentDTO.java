@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
- * @author Addi
+ * @author Addi jo
  */
 public class AssessmentDTO {
  
