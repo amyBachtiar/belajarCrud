@@ -69,11 +69,10 @@ public class PayrollRESTController {
     
     @RequestMapping(value = "/delete.payroll/{payrollID}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deletePayroll(@PathVariable("payrollID") String payrollID){
+    public ResponseEntity<String> deletePasyroll(@PathVariable("payrollID") String payrollID){
         Payroll payroll = (Payroll) payrollRepository.findOneByPayrollID(payrollID);
         payrollRepository.delete(payroll);
         return ResponseEntity.status(HttpStatus.CREATED).body("Payroll : " + payroll.getPayrollID()+ " is Succesfully deleted");
     }
             
 }
-//

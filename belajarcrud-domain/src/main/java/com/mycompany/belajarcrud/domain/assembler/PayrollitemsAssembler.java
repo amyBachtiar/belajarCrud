@@ -18,7 +18,6 @@ public class PayrollitemsAssembler implements IObjectAssembler<Payrollitems, Pay
     @Override
     public PayrollitemsDTO toDTO(Payrollitems domainObject){
         PayrollitemsDTO dto = new PayrollitemsDTO();
-        dto.setPayrollID(domainObject.getPayroll().getPayrollID());
         dto.setPayrollitemsID(domainObject.getPayrollitemsID());
         dto.setPayrollitemsName(domainObject.getPayrollitemsName());
         dto.setPayrollitemsAmmount(domainObject.getPayrollitemsAmmount());
@@ -38,6 +37,14 @@ public class PayrollitemsAssembler implements IObjectAssembler<Payrollitems, Pay
     }
     
     public List<PayrollitemsDTO> toDTOs(Set<Payrollitems>arg0){
+        List<PayrollitemsDTO> res = new ArrayList<>();
+        arg0.stream().forEach((o) -> {
+            res.add(toDTO(o));
+        });
+        return res;
+    }
+    
+    public List<PayrollitemsDTO>toDTOs(List<Payrollitems>arg0){
         List<PayrollitemsDTO> res = new ArrayList<>();
         arg0.stream().forEach((o) -> {
             res.add(toDTO(o));

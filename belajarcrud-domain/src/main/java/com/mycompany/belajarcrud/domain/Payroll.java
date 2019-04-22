@@ -1,13 +1,20 @@
 package com.mycompany.belajarcrud.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,15 +38,20 @@ public class Payroll implements EntityObject<Payroll> {
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="payID",referencedColumnName = "payrollID")
+    private Set<Payrollitems>payItems;
 
     public Payroll() {
     }
 
-    public Payroll( String payrollID, double baseSalary, double totalPayroll, Date payrollDate) {
+    public Payroll(String payrollID, double baseSalary, double totalPayroll, Date payrollDate, Set<Payrollitems> payItems) {
         this.payrollID = payrollID;
         this.baseSalary = baseSalary;
         this.totalPayroll = totalPayroll;
         this.payrollDate = payrollDate;
+        this.payItems = payItems;
     }
 
     public Integer getId() {
@@ -82,34 +94,47 @@ public class Payroll implements EntityObject<Payroll> {
         this.payrollDate = payrollDate;
     }
 
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Payroll other = (Payroll) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+    public Set<Payrollitems> getPayItems() {
+        return payItems;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.payrollID);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.baseSalary) ^ (Double.doubleToLongBits(this.baseSalary) >>> 32));
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.totalPayroll) ^ (Double.doubleToLongBits(this.totalPayroll) >>> 32));
-        hash = 97 * hash + Objects.hashCode(this.payrollDate);
-        return hash;
+    public void setPayItems(Set<Payrollitems> payItems) {
+        this.payItems = payItems;
     }
+
+    
+
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final Payroll other = (Payroll) obj;
+//        if (!Objects.equals(this.id, other.id)) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int hash = 7;
+//        hash = 67 * hash + Objects.hashCode(this.payrollID);
+//        hash = 67 * hash + (int) (Double.doubleToLongBits(this.baseSalary) ^ (Double.doubleToLongBits(this.baseSalary) >>> 32));
+//        hash = 67 * hash + (int) (Double.doubleToLongBits(this.totalPayroll) ^ (Double.doubleToLongBits(this.totalPayroll) >>> 32));
+//        hash = 67 * hash + Objects.hashCode(this.payrollitemsID);
+//        hash = 67 * hash + Objects.hashCode(this.payrollDate);
+//        hash = 67 * hash + Objects.hashCode(this.payrollitems);
+//        return hash;
+//    }
+
 
     @Override
     public boolean sameIdentityAs(Payroll other) {
