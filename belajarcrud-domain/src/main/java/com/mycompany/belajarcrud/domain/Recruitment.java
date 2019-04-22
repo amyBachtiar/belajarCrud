@@ -3,45 +3,50 @@ package com.mycompany.belajarcrud.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name = "RECRUITMENT")
+@Table(name = "MST_RECRUITMENT")
 public class Recruitment implements EntityObject<Recruitment> {
 
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    
-    @Column
-    @NotNull(message = "Recruitment_ID Harus diIsi")
+    Integer id;
     private String recID;
-    
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "jobjobID", nullable = false)
-    private Jobseeker jobseeker;
-    
     private String recType;
     private boolean status;
+    
+    
+    @ManyToMany(cascade =  {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name="Recruitment_Jobseeker",
+            joinColumns = { @JoinColumn(name="recID")},
+            inverseJoinColumns={@JoinColumn(name="jobID")}
+    )
+    
+    private Set<Jobseeker> jobseekers= new HashSet<Jobseeker>();
 
     public Recruitment() {
     }
 
-    public Recruitment(String recID, Jobseeker jobseeker, String recType, boolean status) {
+    public Recruitment(Integer id, String recID, String recType, boolean status,Set<Jobseeker> jobseekers) {
+        this.id = id;
         this.recID = recID;
-        this.jobseeker = jobseeker;
         this.recType = recType;
         this.status = status;
+        this.jobseekers=jobseekers;
     }
 
     public Integer getId() {
@@ -60,14 +65,6 @@ public class Recruitment implements EntityObject<Recruitment> {
         this.recID = recID;
     }
 
-    public Jobseeker getJobseeker() {
-        return jobseeker;
-    }
-
-    public void setJobseeker(Jobseeker jobseeker) {
-        this.jobseeker = jobseeker;
-    }
-
     public String getRecType() {
         return recType;
     }
@@ -84,15 +81,46 @@ public class Recruitment implements EntityObject<Recruitment> {
         this.status = status;
     }
 
-    
+    public Set<Jobseeker> getJobseekers() {
+        return jobseekers;
+    }
 
+    public void setJobseekers(Set<Jobseeker> jobseekers) {
+        this.jobseekers = jobseekers;
+    }
+
+ 
     
-    
-    
+   @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.recID);
+        hash = 53 * hash + Objects.hashCode(this.recType);
+        hash = 53 * hash + (this.status ? 1 : 0);
+        return hash;
+    }
     
     @Override
     public boolean sameIdentityAs(Recruitment other) {
-          throw new UnsupportedOperationException("Not supported yet.");
+          return this.equals(other);
     }
 
 }

@@ -19,5 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface RecruitmentRepository extends GenericRepository<Recruitment> {
 
     Recruitment findOneByRecID(String recID);
+   
     
 }

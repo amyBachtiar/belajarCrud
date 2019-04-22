@@ -1,7 +1,9 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -12,17 +14,10 @@ public class RecruitmentDTO {
     private String recID; 
     private String recType;
     private boolean status;
-    private String jobjobID;
+//    private String jobID;
+    private List<JobseekerDTO>recJobs;
+ //    private String jobID;
     
-    public RecruitmentDTO() {
-    }
-
-    public RecruitmentDTO(String recID, String recType, boolean status, String jobjobID) {
-        this.recID = recID;
-        this.recType = recType;
-        this.status = status;
-        this.jobjobID = jobjobID;
-    }
 
     public String getRecID() {
         return recID;
@@ -40,7 +35,7 @@ public class RecruitmentDTO {
         this.recType = recType;
     }
 
-    public boolean getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
@@ -48,17 +43,14 @@ public class RecruitmentDTO {
         this.status = status;
     }
 
-    public String getJobjobID() {
-        return jobjobID;
+    public List<JobseekerDTO> getRecJobs() {
+        return recJobs;
     }
 
-    public void setJobjobID(String jobjobID) {
-        this.jobjobID = jobjobID;
+    public void setRecJobs(List<JobseekerDTO> recJobs) {
+        this.recJobs = recJobs;
     }
     
-    
-    
-
     
     
     // create data dummy
@@ -66,9 +58,9 @@ public class RecruitmentDTO {
     public RecruitmentDTO getInstance() {
         RecruitmentDTO dto = new RecruitmentDTO();
         dto.setRecID("Recruitment_ID : ");
-        dto.setJobjobID("Jobseeker ID : ");
         dto.setRecType("Recruitment_Type :");
         dto.setStatus(true);
+        dto.setRecJobs(new ArrayList<>(Arrays.asList(new JobseekerDTO().getInstance())));
         return dto;
     }
     
