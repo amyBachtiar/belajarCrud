@@ -56,7 +56,7 @@ public class Employee implements EntityObject<Employee> {
     private Mutation mutation;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "empId", referencedColumnName = "empId")
+    @JoinColumn(name = "empId", referencedColumnName = "empId", insertable = false, updatable = false)
     private Set<Attendance>empAttendances;
     
 //    @OneToMany

@@ -31,11 +31,9 @@ public class Assessment implements EntityObject<Assessment> {
     @NotNull(message="part code cannot be null")
     private String empAssessID;
     private int empAssessment;
-  //  private String employeeId;
-   
+    
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="employassessId", referencedColumnName="empAssessID")
-
+    @JoinColumn(name="empAssessID", referencedColumnName="empAssessID")
     private Set<Employee> employIds;
     
 

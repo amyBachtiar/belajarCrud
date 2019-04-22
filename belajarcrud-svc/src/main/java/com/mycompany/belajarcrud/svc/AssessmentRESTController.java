@@ -1,10 +1,15 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Assessment;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 //import com.mycompany.belajarcrud.domain.repository.EmployeeRepositorytry;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
+import com.mycompany.belajarcrud.dto.EmployeeDTO;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +32,9 @@ public class AssessmentRESTController {
     
     @Autowired
     AssessmentRepository assessmentRepository;
+    
+    @Autowired
+    EmployeeRepository employeeRepository;
  
     @RequestMapping(value="/get.assessment.dummy",
             method=RequestMethod.GET,
@@ -51,7 +59,14 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> postAssessment(@RequestBody AssessmentDTO assessmentDTO) {
-        assessmentRepository.save(new AssessmentAssembler().toDomain(assessmentDTO));
+        Assessment assessment = new AssessmentAssembler().toDomain(assessmentDTO);
+        Set<Employee> emp = new HashSet<Employee>();
+        
+        for (EmployeeDTO employIdsDTO : assessmentDTO.getEmployIdsDTOs()) {
+            emp.add(employeeRepository.findOneByEmpId(employIdsDTO.getEmpId()));
+        }
+        assessment.setEmployIds(emp);
+        assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentDTO);
     }
     
