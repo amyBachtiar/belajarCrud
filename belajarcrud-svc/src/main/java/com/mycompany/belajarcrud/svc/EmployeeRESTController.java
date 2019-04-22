@@ -64,6 +64,7 @@ public class EmployeeRESTController {
            produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+       employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
        employeeRepository.save(employee);

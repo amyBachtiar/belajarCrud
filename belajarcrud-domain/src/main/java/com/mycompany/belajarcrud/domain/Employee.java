@@ -42,6 +42,15 @@ public class Employee implements EntityObject<Employee> {
                 inverseJoinColumns = { @JoinColumn(name = "job_id")})
         private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
                         
+        @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
+        @JoinTable(
+        name = "Employee_asses", 
+        joinColumns = { @JoinColumn(name = "empid") }, 
+        inverseJoinColumns = { @JoinColumn(name = "empAssessId") })
+       
+           private Set<Assessment> assess = new HashSet<Assessment>();
+                
+        
 	public Employee() {
 	}
 	
@@ -53,6 +62,16 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
+    public Set<Assessment> getAssess() {
+        return assess;
+    }
+
+    public void setAssess(Set<Assessment> assess) {
+        this.assess = assess;
+    }
+        
+        
+        
         public Set<Jobdesc> getJobs() {
             return jobs;
         }
