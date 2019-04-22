@@ -2,7 +2,7 @@ package com.mycompany.belajarcrud.dto;
 
 /**
  * 
- * @author tika
+ * @author tikaa
  */
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -2,7 +2,7 @@ package com.mycompany.belajarcrud.domain.assembler;
 
 /**
  *
- * @author tika 
+ * @author tikaa 
  */
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Mutation;
