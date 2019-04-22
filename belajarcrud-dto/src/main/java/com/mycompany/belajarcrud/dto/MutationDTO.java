@@ -1,7 +1,7 @@
 package com.mycompany.belajarcrud.dto;
 
 /**
- *
+ * 
  * @author tika
  */
 import com.fasterxml.jackson.annotation.JsonFormat;

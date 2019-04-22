@@ -2,7 +2,7 @@ package com.mycompany.belajarcrud.domain;
 
 /**
  *
- * @author tika
+ * @author tika 
  */
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mycompany.belajarcrud.common.EntityObject;

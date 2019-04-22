@@ -2,7 +2,7 @@ package com.mycompany.belajarcrud.domain.assembler;
 
 /**
  *
- * @author tika
+ * @author tika 
  */
 import com.mycompany.belajarcrud.common.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Mutation;

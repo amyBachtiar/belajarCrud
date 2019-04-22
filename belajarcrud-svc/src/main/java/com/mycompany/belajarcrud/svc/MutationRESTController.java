@@ -1,7 +1,7 @@
 package com.mycompany.belajarcrud.svc;
 
 /**
- *
+ * 
  * @author tika
  */
 import com.mycompany.belajarcrud.domain.Mutation;
