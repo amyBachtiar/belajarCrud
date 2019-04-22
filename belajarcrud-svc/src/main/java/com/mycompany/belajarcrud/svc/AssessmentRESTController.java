@@ -40,8 +40,8 @@ public class AssessmentRESTController {
     @RequestMapping(value = "/get.assessment.by.empAssessID/{empAssessID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AssessmentDTO> getAssessmentByEmpAssessID(@PathVariable("empAssessID") String empAssessID) {
-        Assessment data = assessmentRepository.findOneByEmpAssessId(empAssessID);
+    public ResponseEntity<AssessmentDTO> getAssessmentByEmpAssessID(@PathVariable("empAssessID") String empAssessId) {
+        Assessment data = assessmentRepository.findOneByEmpAssessId(empAssessId);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
