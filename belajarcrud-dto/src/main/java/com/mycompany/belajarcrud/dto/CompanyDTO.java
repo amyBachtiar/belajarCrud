@@ -23,19 +23,22 @@ public class CompanyDTO {
     private String companyPhone;
     private String companyDesc;
     private List<EmployeeDTO> employeeDTOs;
+    private List<JobdescDTO> jobdescDTOs;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, List<EmployeeDTO> employeeDTOs) {
+    public CompanyDTO(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, List<EmployeeDTO> employeeDTOs, List<JobdescDTO> jobdescDTOs) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.companyAdd = companyAdd;
         this.companyPhone = companyPhone;
         this.companyDesc = companyDesc;
         this.employeeDTOs = employeeDTOs;
+        this.jobdescDTOs = jobdescDTOs;
     }
 
+    
     public String getCompanyID() {
         return companyID;
     }
@@ -84,6 +87,14 @@ public class CompanyDTO {
         this.employeeDTOs = employeeDTOs;
     }
 
+    public List<JobdescDTO> getJobdescDTOs() {
+        return jobdescDTOs;
+    }
+
+    public void setJobdescDTOs(List<JobdescDTO> jobdescDTOs) {
+        this.jobdescDTOs = jobdescDTOs;
+    }
+    
     
     //dummy
     @JsonIgnore
@@ -95,6 +106,7 @@ public class CompanyDTO {
         dto.setCompanyPhone("022-123456");
         dto.setCompanyDesc("it comp");
         dto.setEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
+        dto.setJobdescDTOs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
         return dto;
     }
 }

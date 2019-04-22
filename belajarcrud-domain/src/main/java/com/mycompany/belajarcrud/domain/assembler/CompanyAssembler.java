@@ -27,6 +27,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setCompanyAdd(domainObject.getCompanyAdd());
         dto.setCompanyPhone(domainObject.getCompanyPhone());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
+        dto.setJobdescDTOs(domainObject.getJobdesc()!= null ? new JobdescAssembler().toDTOs(domainObject.getJobdesc()): new ArrayList<>());
         dto.setEmployeeDTOs(domainObject.getEmployees() != null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
         return dto;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -40,6 +41,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyAdd(dto.getCompanyAdd());
         data.setCompanyPhone(dto.getCompanyPhone());
         data.setCompanyDesc(dto.getCompanyDesc());
+        data.setJobdesc(dto.getJobdescDTOs() != null ? new JobdescAssembler().toDomains(dto.getJobdescDTOs()): new HashSet<>());
         data.setEmployees(dto.getEmployeeDTOs()!= null ? new EmployeeAssembler().toDomains(dto.getEmployeeDTOs()): new HashSet<>());
         return data;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
