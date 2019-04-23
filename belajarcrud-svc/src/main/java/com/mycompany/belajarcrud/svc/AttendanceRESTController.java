@@ -64,7 +64,6 @@ public class AttendanceRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AttendanceDTO> updateAttendance(@RequestBody AttendanceDTO attendanceDTO){
         Attendance attendance = (Attendance) attendanceRepository.findOneByAttendanceId(attendanceDTO.getAttendanceId());
-        attendance.setAttendanceId(attendanceDTO.getAttendanceId());
         attendance.setDate(attendanceDTO.getDate());
         attendance.setTimeIn(attendanceDTO.getTimeIn());
         attendance.setTimeOut(attendanceDTO.getTimeOut());

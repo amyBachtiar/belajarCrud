@@ -71,11 +71,6 @@ public class EmployeeRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        Set<Attendance> att = new HashSet<Attendance>();
-        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
-            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
-        }
-        employee.setEmpAttendances(att);
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
@@ -91,11 +86,18 @@ public class EmployeeRESTController {
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
 //        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        Set<Attendance> att = new HashSet<Attendance>();
-        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
-            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+        Set<Attendance> attendances = new HashSet<Attendance>();
+        for (AttendanceDTO adto : employeeDTO.getEmpAttendancesDTOs()){
+            Attendance attendance = attendanceRepository.findOneByAttendanceId(adto.getAttendanceId());
+            if(attendance != null){
+                attendance.setDate(adto.getDate());
+                attendances.add(attendance);
+            } else {
+                Attendance a = new AttendanceAssembler().toDomain(adto);
+                attendances.add(a);
+            }
         }
-        employee.setEmpAttendances(att);
+        employee.setEmpAttendances(attendances);
 //      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));

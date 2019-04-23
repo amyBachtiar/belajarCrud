@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Reza AP & Mega AR
+ * @author Reza Agika Putra
  */
 
 @Entity
