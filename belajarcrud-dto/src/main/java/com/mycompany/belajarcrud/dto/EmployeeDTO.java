@@ -84,6 +84,7 @@ public class EmployeeDTO {
 		dto.setCompanyId("C-001");
                 dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
                 dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
+                
 		return dto;
 	}
 }
