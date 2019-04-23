@@ -45,14 +45,7 @@ public class Company implements EntityObject<Company>{
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "companyID", referencedColumnName = "companyID")
-    private Set<Mutation> mutations;
-//    
-//    @OneToMany(mappedBy = "company")
-//    private Set<Mutation> mutations;
-//    
-//    @OneToMany(mappedBy = "company")
-//    private Set<Assessment> assessments;
-    
+    private Set<Mutation> mutations;    
 
     public Company() {
     }
