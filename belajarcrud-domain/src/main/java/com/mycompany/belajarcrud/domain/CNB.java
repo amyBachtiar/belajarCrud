@@ -14,10 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 /**
  *
  * @author William
@@ -37,21 +40,45 @@ public class CNB implements EntityObject<CNB> {
     private String empID;
    // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
     private double BaseSalary;
-    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID")
+    private Payroll Salary;
+            
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="cnbitemid",referencedColumnName = "empid")
+    private Set<CNBItem> cnbItems;
     //private Set<CNBItem> Items;
     //private boolean status;
 
     public CNB() {
     }
 
-    public CNB(String empName, String empID, double BaseSalary) {
+    public CNB(String empName, String empID,Payroll Salary, double BaseSalary, Set<CNBItem> cnbItems) {
         this.empName = empName;
         this.empID = empID;
         this.BaseSalary = BaseSalary;
+        this.cnbItems = cnbItems;
+        this.Salary = Salary;
     }
 
+    public Set<CNBItem> getCnbItems() {
+        return cnbItems;
+    }
+
+    public void setCnbItems(Set<CNBItem> cnbItems) {
+        this.cnbItems = cnbItems;
+    }
+    
     public String getEmpName() {
         return empName;
+    }
+
+    public Payroll getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(Payroll Salary) {
+        this.Salary = Salary;
     }
 
     public void setEmpName(String empName) {
@@ -90,6 +117,8 @@ public class CNB implements EntityObject<CNB> {
         hash = 89 * hash + Objects.hashCode(this.empName);
         hash = 89 * hash + Objects.hashCode(this.empID);
         hash = 89 * hash + (int) (Double.doubleToLongBits(this.BaseSalary) ^ (Double.doubleToLongBits(this.BaseSalary) >>> 32));
+        hash = 89 * hash + Objects.hashCode(this.cnbItems);
+        hash = 89 * hash + Objects.hashCode(this.Salary);
         return hash;
     }
 
@@ -112,6 +141,12 @@ public class CNB implements EntityObject<CNB> {
             return false;
         }
         if (!Objects.equals(this.empID, other.empID)) {
+            return false;
+        }
+        if (!Objects.equals(this.cnbItems, other.cnbItems)) {
+            return false;
+        }
+        if (!Objects.equals(this.Salary, other.Salary)) {
             return false;
         }
         return true;

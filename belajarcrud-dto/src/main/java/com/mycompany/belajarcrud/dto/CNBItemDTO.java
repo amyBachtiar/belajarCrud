@@ -5,6 +5,7 @@
  */
 package com.mycompany.belajarcrud.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import java.util.UUID;
 /**
  *
@@ -16,6 +17,7 @@ public class CNBItemDTO {
 //    private double BaseSalary;
     private double pensiun;
     private double insurance;
+ 
 
     public CNBItemDTO() {
     }

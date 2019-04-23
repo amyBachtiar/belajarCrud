@@ -21,7 +21,9 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO> {
        CNBDTO dto = new CNBDTO();
        dto.setEmpName(domainObject.getEmpName());
         dto.setEmpID(domainObject.getEmpID());
-        dto.setBaseSalary(domainObject.getBaseSalary());
+    //    dto.setBaseSalary(domainObject.getBaseSalary());
+        dto.setCnbItemsDTOs(domainObject.getCnbItems() != null ? new CNBItemAssembler().toDTOs(domainObject.getCnbItems()): new ArrayList<>());
+        dto.setSalary(new PayrollAssembler().toDTO(domainObject.getSalary()));
         return dto;
     }
 
@@ -30,8 +32,9 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO> {
     CNB data = new CNB();
         data.setEmpID(dto.getEmpID());
         data.setEmpName(dto.getEmpName());
-        data.setBaseSalary(dto.getBaseSalary());
-          
+     //   data.setBaseSalary(dto.getBaseSalary());
+        data.setCnbItems(dto.getCnbItemsDTOs()!= null ? new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()): new HashSet<>());  
+        data.setSalary(new PayrollAssembler().toDomain(dto.getSalary()));
         return data;
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

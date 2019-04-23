@@ -5,7 +5,11 @@
  */
 package com.mycompany.belajarcrud.svc;
 import com.mycompany.belajarcrud.domain.CNB;
+import com.mycompany.belajarcrud.domain.CNBItem;
 import com.mycompany.belajarcrud.domain.assembler.CNBAssembler;
+import com.mycompany.belajarcrud.domain.assembler.CNBItemAssembler;
+import com.mycompany.belajarcrud.domain.assembler.PayrollAssembler;
+import com.mycompany.belajarcrud.domain.repository.CNBItemRepository;
 import com.mycompany.belajarcrud.domain.repository.CNBRepository;
 import com.mycompany.belajarcrud.dto.CNBDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +31,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CNBRESTController {
     @Autowired
     CNBRepository cnbRepository;
+    
+    @Autowired
+    CNBItemRepository cNBItemRepository;
 
     @RequestMapping(value = "/get.cnb.dummy",
             method = RequestMethod.GET,
@@ -51,7 +58,14 @@ public class CNBRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CNBDTO> postCNB(@RequestBody CNBDTO cnbDTO) {
-        cnbRepository.save(new CNBAssembler().toDomain(cnbDTO));
+        CNB cnb = new CNBAssembler().toDomain(cnbDTO);
+        cnb.setCnbItems(new CNBItemAssembler().toDomains(cnbDTO.getCnbItemsDTOs()));
+        cnb.setSalary(new PayrollAssembler().toDomain(cnbDTO.getSalary()));
+//        List<CNBItem> cnbItems = new ArrayLis
+//        cnbRepository.save(new CNBAssembler().toDomain(cnbDTO));
+    
+// cnbRepository.save(new CNBAssembler().toDomain(cnbDTO));
+        cnbRepository.save(cnb);
         return ResponseEntity.status(HttpStatus.CREATED).body(cnbDTO);
     }
 
@@ -63,7 +77,9 @@ public class CNBRESTController {
         CNB cnb = (CNB) cnbRepository.findOneByEmpID(cnbDTO.getEmpID());
         cnb.setEmpID(cnbDTO.getEmpID());
         cnb.setEmpName(cnbDTO.getEmpName());
-        cnb.setBaseSalary(cnbDTO.getBaseSalary());
+        cnb.setCnbItems(new CNBItemAssembler().toDomains(cnbDTO.getCnbItemsDTOs()) );
+        cnb.setSalary(new PayrollAssembler().toDomain(cnbDTO.getSalary()));
+     //   cnb.setBaseSalary(cnbDTO.getBaseSalary());
         cnbRepository.save(cnb);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CNBAssembler().toDTO(cnb));
     }
