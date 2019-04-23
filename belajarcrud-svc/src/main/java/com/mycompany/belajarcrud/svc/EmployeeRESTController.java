@@ -4,10 +4,12 @@ import com.mycompany.belajarcrud.domain.Attendance;
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.AttendanceAssembler;
+import com.mycompany.belajarcrud.domain.assembler.CNBAssembler;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AttendanceRepository;
+import com.mycompany.belajarcrud.domain.repository.CNBRepository;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,9 @@ public class EmployeeRESTController {
     @Autowired
     AttendanceRepository attendanceRepository;
     
+    @Autowired
+    CNBRepository cnbRepository;
+    
     @RequestMapping(value="/get.employee.dummy",
             method=RequestMethod.GET,
             produces= MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +81,7 @@ public class EmployeeRESTController {
             att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
         }
         employee.setEmpAttendances(att);
+        employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
@@ -96,6 +102,7 @@ public class EmployeeRESTController {
             att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
         }
         employee.setEmpAttendances(att);
+        employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
 //      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
