@@ -20,8 +20,8 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setCompanyName(domainObject.getCompanyName());
         dto.setCompanyDesc(domainObject.getCompanyDesc());
         dto.setCompJobsDTOs(domainObject.getCompJobs() != null ? new JobdescAssembler().toDTOs(domainObject.getCompJobs()) : new ArrayList<>());
-        //dto.setMutationDTOs(domainObject.getMutations() != null ? new MutationAssembler().toDTOs(domainObject.getMutations()): new ArrayList<>());
-        dto.setListEmployeeDTOs(domainObject.getListEmployee()!= null ? new EmployeeAssembler().toDTOs(domainObject.getListEmployee()) : new ArrayList<>());
+        dto.setMutationDTOs(domainObject.getMutations() != null ? new MutationAssembler().toDTOs(domainObject.getMutations()): new ArrayList<>());
+//        dto.setListEmployeeDTOs(domainObject.getListEmployee()!= null ? new EmployeeAssembler().toDTOs(domainObject.getListEmployee()) : new ArrayList<>());
         return dto;
     }
     
@@ -32,7 +32,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyName(dto.getCompanyName());
         data.setCompanyDesc(dto.getCompanyDesc());
         data.setCompJobs(dto.getCompJobsDTOs()!= null ? new JobdescAssembler().toDomains(dto.getCompJobsDTOs()) : new HashSet<>());
-        //data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
+        data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
 //        data.setListEmployee(dto.getListEmployeeDTOs() == null? new HashSet <> () : new EmployeeAssembler().toDomains(dto.getListEmployeeDTOs()));
         return data;
     }

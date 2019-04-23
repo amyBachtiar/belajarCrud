@@ -18,15 +18,15 @@ public class MutationDTO {
     private Date mutationDate;
     private String companyId;
 //    private String mutationBatch;
-    //private List<EmployeeDTO> empDTOs;
+    private List<EmployeeDTO> empDTOs;
 
-//    public List<EmployeeDTO> getEmpDTOs() {
-//        return empDTOs;
-//    }
-//
-//    public void setEmpDTOs(List<EmployeeDTO> empDTOs) {
-//        this.empDTOs = empDTOs;
-//    }
+    public List<EmployeeDTO> getEmpDTOs() {
+        return empDTOs;
+    }
+
+    public void setEmpDTOs(List<EmployeeDTO> empDTOs) {
+        this.empDTOs = empDTOs;
+    }
     
     public MutationDTO() {
     }
@@ -127,7 +127,7 @@ public class MutationDTO {
         dto.setMutationDate(mutdate);
 //        dto.setMutationBatch("Batch-01");
         dto.setMutationNumber("MX-100031");
-//        dto.setEmpDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
+        dto.setEmpDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
         return dto;
     }
 }

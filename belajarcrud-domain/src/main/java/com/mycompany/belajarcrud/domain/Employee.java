@@ -57,7 +57,7 @@ public class Employee implements EntityObject<Employee> {
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "empId", referencedColumnName = "empId", nullable = false, insertable = false, updatable = false)
-    private Set<Attendance>empAttendances;
+    private Set<Attendance> empAttendances;
     
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;

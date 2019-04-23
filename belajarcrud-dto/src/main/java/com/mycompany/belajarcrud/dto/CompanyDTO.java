@@ -14,8 +14,17 @@ public class CompanyDTO {
     private String companyId;
     private String companyName;
     private String companyDesc;
-    private List<JobdescDTO>compJobsDTOs;
-    private List<EmployeeDTO>listEmployeeDTOs;
+    private List<JobdescDTO> compJobsDTOs;
+    private List<EmployeeDTO> listEmployeeDTOs;
+    private List<MutationDTO> mutationDTOs;
+
+    public List<MutationDTO> getMutationDTOs() {
+        return mutationDTOs;
+    }
+
+    public void setMutationDTOs(List<MutationDTO> mutationDTOs) {
+        this.mutationDTOs = mutationDTOs;
+    }
     
     public String getCompanyId() {
         return companyId;
@@ -64,7 +73,7 @@ public class CompanyDTO {
         dto.setCompanyId("ID");
         dto.setCompanyName("Name");
         dto.setCompanyDesc("Description");
-//        dto.setMutationDTOs(new ArrayList<>(Arrays.asList(new MutationDTO().getInstance())));
+        dto.setMutationDTOs(new ArrayList<>(Arrays.asList(new MutationDTO().getInstance())));
         dto.setCompJobsDTOs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
         dto.setListEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
         return dto;
