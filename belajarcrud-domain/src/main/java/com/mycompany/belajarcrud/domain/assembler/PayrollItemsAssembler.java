@@ -23,8 +23,7 @@ public class PayrollItemsAssembler implements IObjectAssembler<PayrollItems, Pay
     @Override
     public PayrollItemsDTO toDTO (PayrollItems domainObject){
         PayrollItemsDTO dto = new PayrollItemsDTO();
-        dto.setPayrollItemsID(domainObject.getPayrollItemsID());
-        dto.setPayrollID(domainObject.getPayrollID());
+        dto.setPayrollItemsID(domainObject.getPayrollItemsID());    
         dto.setBonusSalary(domainObject.getBonusSalary());
         dto.setTotalBonus(domainObject.getTotalBonus());
         dto.setTotalTax(domainObject.getTotalTax());
@@ -37,7 +36,6 @@ public class PayrollItemsAssembler implements IObjectAssembler<PayrollItems, Pay
     public PayrollItems toDomain (PayrollItemsDTO dto){
         PayrollItems data = new PayrollItems();
         data.setPayrollItemsID(dto.getPayrollItemsID());
-        data.setPayrollID(dto.getPayrollID());
         data.setBonusSalary(dto.getBonusSalary());
         data.setTotalBonus(dto.getTotalBonus());
         data.setTotalTax(dto.getTotalTax());

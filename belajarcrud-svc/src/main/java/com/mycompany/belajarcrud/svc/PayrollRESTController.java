@@ -68,6 +68,7 @@ public class PayrollRESTController {
         payroll.setPayrollID(payrollDTO.getPayrollID());
         payroll.setBaseSalary(payrollDTO.getBaseSalary());
         payroll.setTotalPayroll(payrollDTO.getTotalPayroll());
+//        payroll.setPayItems(new PayrollItemsAssembler().toDomains(payrollDTO.getPayItems()));
         payrollRepository.save(payroll);
         return ResponseEntity.status(HttpStatus.CREATED).body(new PayrollAssembler().toDTO(payroll));
 }

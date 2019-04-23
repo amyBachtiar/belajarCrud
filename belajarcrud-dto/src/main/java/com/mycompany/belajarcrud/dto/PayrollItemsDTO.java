@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class PayrollItemsDTO {
     private String payrollItemsID; 
-    private String payrollID;
+//    private String payrollID;
 	private double bonusSalary;
 	private double totalBonus;
 	private double totalTax;
@@ -23,7 +23,18 @@ public class PayrollItemsDTO {
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone ="GMT+7")
 	private Date payrollItemsDate;
 
+    public PayrollItemsDTO(String payrollItemsID, double bonusSalary, double totalBonus, double totalTax, Date payrollItemsDate) {
+        this.payrollItemsID = payrollItemsID;
+//        this.payrollID = payrollID;
+        this.bonusSalary = bonusSalary;
+        this.totalBonus = totalBonus;
+        this.totalTax = totalTax;
+        this.payrollItemsDate = payrollItemsDate;
+    }
 
+public PayrollItemsDTO(){
+    
+}
 
         
     public String getPayrollItemsID() {
@@ -34,13 +45,13 @@ public class PayrollItemsDTO {
         this.payrollItemsID = payrollItemsID;
     }
 
-    public String getPayrollID() {
-        return payrollID;
-    }
-
-    public void setPayrollID(String payrollID) {
-        this.payrollID = payrollID;
-    }
+//    public String getPayrollID() {
+//        return payrollID;
+//    }
+//
+//    public void setPayrollID(String payrollID) {
+//        this.payrollID = payrollID;
+//    }
 
     public double getBonusSalary() {
         return bonusSalary;

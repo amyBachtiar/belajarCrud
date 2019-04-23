@@ -29,7 +29,7 @@ public class PayrollItems implements EntityObject<PayrollItems>{
 	Integer id;
 	
 	private String payrollItemsID;
-        private String payrollID;
+        //private String payrollID;
 	private double bonusSalary;
 	private double totalBonus;
 	private double totalTax;
@@ -42,17 +42,15 @@ public class PayrollItems implements EntityObject<PayrollItems>{
 		
 	}
 
-    public PayrollItems(Integer id, String payrollItemsID, String payrollID, double bonusSalary, double totalBonus, double totalTax, Date payrollItemsDate) {
-        this.id = id;
+    public PayrollItems(String payrollItemsID, double bonusSalary, double totalBonus, double totalTax, Date payrollItemsDate) {
+  
         this.payrollItemsID = payrollItemsID;
-        this.payrollID = payrollID;
+      
         this.bonusSalary = bonusSalary;
         this.totalBonus = totalBonus;
         this.totalTax = totalTax;
         this.payrollItemsDate = payrollItemsDate;
     }
-	
-	
 
     public Integer getId() {
         return id;
@@ -68,14 +66,6 @@ public class PayrollItems implements EntityObject<PayrollItems>{
 
     public void setPayrollItemsID(String payrollItemsID) {
         this.payrollItemsID = payrollItemsID;
-    }
-
-    public String getPayrollID() {
-        return payrollID;
-    }
-
-    public void setPayrollID(String payrollID) {
-        this.payrollID = payrollID;
     }
 
     public double getBonusSalary() {
@@ -110,16 +100,15 @@ public class PayrollItems implements EntityObject<PayrollItems>{
         this.payrollItemsDate = payrollItemsDate;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.payrollItemsID);
-        hash = 23 * hash + Objects.hashCode(this.payrollID);
-        hash = 23 * hash + (int) (Double.doubleToLongBits(this.bonusSalary) ^ (Double.doubleToLongBits(this.bonusSalary) >>> 32));
-        hash = 23 * hash + (int) (Double.doubleToLongBits(this.totalBonus) ^ (Double.doubleToLongBits(this.totalBonus) >>> 32));
-        hash = 23 * hash + (int) (Double.doubleToLongBits(this.totalTax) ^ (Double.doubleToLongBits(this.totalTax) >>> 32));
-        hash = 23 * hash + Objects.hashCode(this.payrollItemsDate);
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.payrollItemsID);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.bonusSalary) ^ (Double.doubleToLongBits(this.bonusSalary) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.totalBonus) ^ (Double.doubleToLongBits(this.totalBonus) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.totalTax) ^ (Double.doubleToLongBits(this.totalTax) >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.payrollItemsDate);
         return hash;
     }
 
@@ -135,11 +124,10 @@ public class PayrollItems implements EntityObject<PayrollItems>{
             return false;
         }
         final PayrollItems other = (PayrollItems) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
         return true;
     }
+	
+	
 
 
 
