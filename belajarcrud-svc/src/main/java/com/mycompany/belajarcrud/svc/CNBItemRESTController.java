@@ -48,8 +48,8 @@ public class CNBItemRESTController {
     @RequestMapping(value = "/get.cnbitem.by.empID/{empID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CNBItemDTO> getCNBItemByempID(@PathVariable("CnBempID") String CnBempID) {
-        CNBItem data = (CNBItem) cnbitemRepository.findOneByCnBempID(CnBempID);
+    public ResponseEntity<CNBItemDTO> getCNBItemByempID(@PathVariable("cnbitemID") String cnbitemID) {
+        CNBItem data = (CNBItem) cnbitemRepository.findOneByCnbitemID(cnbitemID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -72,7 +72,7 @@ public class CNBItemRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CNBItemDTO> updateCNBItem(@RequestBody CNBItemDTO cnbitemDTO) {
-        CNBItem cnbitem = (CNBItem) cnbitemRepository.findOneByCnBempID(cnbitemDTO.getCnBempID());
+        CNBItem cnbitem = (CNBItem) cnbitemRepository.findOneByCnbitemID(cnbitemDTO.getCnbitemID());
 //        cnbitem.setBaseSalary(cnbitemDTO.getBaseSalary());
         cnbitem.setInsurance(cnbitemDTO.getInsurance());
         cnbitem.setPensiun(cnbitemDTO.getPensiun());
@@ -82,9 +82,9 @@ public class CNBItemRESTController {
 
     @RequestMapping(value = "/delete.cnbitem/{empID}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCNBItem(@PathVariable("CnBempID") String CnBempID) {
-        CNBItem cnbitem = (CNBItem) cnbitemRepository.findOneByCnBempID(CnBempID);
+    public ResponseEntity<String> deleteCNBItem(@PathVariable("CnBempID") String cnbitemID) {
+        CNBItem cnbitem = (CNBItem) cnbitemRepository.findOneByCnbitemID(cnbitemID);
         cnbitemRepository.delete(cnbitem);
-        return ResponseEntity.status(HttpStatus.CREATED).body("cnbitems : " + cnbitem.getcnBempID() + " is Successfully deleted");
+        return ResponseEntity.status(HttpStatus.CREATED).body("cnbitems : " + cnbitem.getCnbitemID() + " is Successfully deleted");
     } 
 }

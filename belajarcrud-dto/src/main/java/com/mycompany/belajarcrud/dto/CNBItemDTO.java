@@ -14,32 +14,21 @@ import java.util.UUID;
  */
 public class CNBItemDTO {
     
-    private String CnBempID;
-   // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
-//    private double BaseSalary;
+    private String cnbitemID;
+
     private double pensiun;
     private double insurance;
 
     public CNBItemDTO() {
     }
 
-    public String getCnBempID() {
-        return CnBempID;
+    public String getCnbitemID() {
+        return cnbitemID;
     }
 
-    public void setCnBempID(String CnBempID) {
-        this.CnBempID = CnBempID;
+    public void setCnbitemID(String cnbitemID) {
+        this.cnbitemID = cnbitemID;
     }
-
-    
-
-//    public double getBaseSalary() {
-//        return BaseSalary;
-//    }
-//
-//    public void setBaseSalary(double BaseSalary) {
-//        this.BaseSalary = BaseSalary;
-//    }
 
     public double getPensiun() {
         return pensiun;
@@ -61,7 +50,7 @@ public class CNBItemDTO {
     @JsonIgnore
     public CNBItemDTO getInstance(){
         CNBItemDTO dto = new CNBItemDTO();
-        dto.setCnBempID(UUID.randomUUID().toString().substring(0, 6));
+        dto.setCnbitemID("CNBITEMID");
 //        dto.setBaseSalary(5000);
         dto.setPensiun(5000);
         dto.setInsurance(5000);

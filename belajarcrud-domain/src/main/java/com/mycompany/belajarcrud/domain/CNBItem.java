@@ -36,33 +36,28 @@ public class CNBItem implements EntityObject<CNBItem>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     
-    
-//    @Column(unique = true)
-//    @NotNull(message = "part code cannot be null")
-    
-    private String cnBempID;
-   // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
-//    private double BaseSalary;
+    private String cnbitemID;
+
     private double pensiun;
     private double insurance;
-    
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "empid", referencedColumnName= "empID", nullable = false)
-//    private CNB CnB;
-    //private Set<CNBItem> Items;
-    //private boolean status;
 
     public CNBItem() {
     }
 
-    public CNBItem(String cnBempID, double pensiun, double insurance) {
-        this.cnBempID = cnBempID;
+    public CNBItem(String cnbitemID, double pensiun, double insurance) {
+        this.cnbitemID = cnbitemID;
         this.pensiun = pensiun;
         this.insurance = insurance;
 //        this.CnB = CnB;
     }
-    
-    
+
+    public String getCnbitemID() {
+        return cnbitemID;
+    }
+
+    public void setCnbitemID(String cnbitemID) {
+        this.cnbitemID = cnbitemID;
+    }
 
     public Integer getId() {
         return id;
@@ -71,22 +66,6 @@ public class CNBItem implements EntityObject<CNBItem>{
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getcnBempID() {
-        return cnBempID;
-    }
-
-    public void setCnBempID(String cnBempID) {
-        this.cnBempID = cnBempID;
-    }
-
-//    public CNB getCnB() {
-//        return CnB;
-//    }
-//
-//    public void setCnB(CNB CnB) {
-//        this.CnB = CnB;
-//    }
 
     
 
@@ -104,6 +83,39 @@ public class CNBItem implements EntityObject<CNBItem>{
 
     public void setInsurance(double insurance) {
         this.insurance = insurance;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.cnbitemID);
+        hash = 13 * hash + (int) (Double.doubleToLongBits(this.pensiun) ^ (Double.doubleToLongBits(this.pensiun) >>> 32));
+        hash = 13 * hash + (int) (Double.doubleToLongBits(this.insurance) ^ (Double.doubleToLongBits(this.insurance) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CNBItem other = (CNBItem) obj;
+        if (Double.doubleToLongBits(this.pensiun) != Double.doubleToLongBits(other.pensiun)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.insurance) != Double.doubleToLongBits(other.insurance)) {
+            return false;
+        }
+        if (!Objects.equals(this.cnbitemID, other.cnbitemID)) {
+            return false;
+        }
+        return true;
     }
 
     

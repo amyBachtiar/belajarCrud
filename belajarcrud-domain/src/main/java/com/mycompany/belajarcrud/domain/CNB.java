@@ -43,14 +43,13 @@ public class CNB implements EntityObject<CNB>{
     
 //    @Column(unique = true)
 //    @NotNull(message = "part code cannot be null")
-    private String empName;
-    private String empID;
+    private String cnbID;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID")
+    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID", insertable = false, updatable = false)
     private Payroll Salary;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="cnbitemID",referencedColumnName = "empid")
+    @JoinColumn(name="cnbitemID",referencedColumnName = "cnbID", insertable = false, updatable = false)
     private Set<CNBItem> cnbItems = new HashSet<> ();
     //private Set<CNBItem> Items;
     //private boolean status;
@@ -58,25 +57,23 @@ public class CNB implements EntityObject<CNB>{
     public CNB() {
     }
 
-    public CNB(String empName, 
-            String empID, 
+    public CNB( 
+            String cnbID, 
             Payroll Salary, 
             Set<CNBItem> cnbItems) {
-        this.empName = empName;
-        this.empID = empID;
+
+        this.cnbID = cnbID;
         this.Salary = Salary;
         this.cnbItems = cnbItems;
     }
 
-    public String getEmpName() {
-        return empName;
+    public String getCnbID() {
+        return cnbID;
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public void setCnbID(String cnbID) {
+        this.cnbID = cnbID;
     }
-
-    
 
     public Integer getId() {
         return id;
@@ -86,13 +83,6 @@ public class CNB implements EntityObject<CNB>{
         this.id = id;
     }
 
-    public String getEmpID() {
-        return empID;
-    }
-
-    public void setEmpID(String empID) {
-        this.empID = empID;
-    }
 
     public Payroll getSalary() {
         return Salary;
@@ -114,8 +104,7 @@ public class CNB implements EntityObject<CNB>{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.empName);
-        hash = 59 * hash + Objects.hashCode(this.empID);
+        hash = 59 * hash + Objects.hashCode(this.cnbID);
         hash = 59 * hash + Objects.hashCode(this.Salary);
         hash = 59 * hash + Objects.hashCode(this.cnbItems);
         return hash;
@@ -133,10 +122,7 @@ public class CNB implements EntityObject<CNB>{
             return false;
         }
         final CNB other = (CNB) obj;
-        if (!Objects.equals(this.empName, other.empName)) {
-            return false;
-        }
-        if (!Objects.equals(this.empID, other.empID)) {
+        if (!Objects.equals(this.cnbID, other.cnbID)) {
             return false;
         }
         if (!Objects.equals(this.Salary, other.Salary)) {
@@ -147,6 +133,7 @@ public class CNB implements EntityObject<CNB>{
         }
         return true;
     }
+
 
    
     
