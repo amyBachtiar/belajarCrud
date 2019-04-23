@@ -18,6 +18,7 @@ public class EmployeeDTO {
 	private String companyId;
         private List<JobdescDTO> empJobs;
         private List<AttendanceDTO>empAttendancesDTOs;
+        private PayrollDTO payrollDTO;
 
         public List<AttendanceDTO> getEmpAttendancesDTOs() {
             return empAttendancesDTOs;
@@ -81,6 +82,16 @@ public class EmployeeDTO {
         public void setEmpJobs(List<JobdescDTO> empJobs) {
             this.empJobs = empJobs;
         }
+
+        public PayrollDTO getPayrollDTO() {
+            return payrollDTO;
+        }
+
+        public void setPayrollDTO(PayrollDTO payrollDTO) {
+            this.payrollDTO = payrollDTO;
+        }
+        
+        
         
 	@JsonIgnore
 	public EmployeeDTO getInstance() {
@@ -94,6 +105,7 @@ public class EmployeeDTO {
 		dto.setCompanyId("C-001");
                 dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
                 dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
+                dto.setPayrollDTO(payrollDTO);
 		return dto;
 	}
 }
