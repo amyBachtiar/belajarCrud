@@ -19,8 +19,8 @@ import java.util.UUID;
  */
 public class CNBDTO {
     
-    private String empName;
-    private String empID;
+
+    private String cnbID;
    // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
 //     private double baseSalary;
     private PayrollDTO Salary;
@@ -30,23 +30,15 @@ public class CNBDTO {
     public CNBDTO() {
     }
 
-    public String getEmpID() {
-        return empID;
+    public String getCnbID() {
+        return cnbID;
     }
 
-    public void setEmpID(String empID) {
-        this.empID = empID;
+    public void setCnbID(String cnbID) {
+        this.cnbID = cnbID;
     }
 
-    
 
-    public String getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
 
     public List<CNBItemDTO> getCnbItemsDTOs() {
         return cnbItemsDTOs;
@@ -71,8 +63,8 @@ public class CNBDTO {
     @JsonIgnore
     public CNBDTO getInstance(){
         CNBDTO dto = new CNBDTO();
-        dto.setEmpName("Edwin");
-        dto.setEmpID(UUID.randomUUID().toString().substring(0, 6));
+//        dto.setEmpName("Edwin");
+        dto.setCnbID("CNBEMP-001");
         dto.setCnbItemsDTOs(new ArrayList<>(Arrays.asList(
                 new CNBItemDTO().getInstance())));
         dto.setSalary(dto.getSalary());
