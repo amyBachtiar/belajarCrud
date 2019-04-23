@@ -14,7 +14,7 @@ public class PayrollitemsDTO {
     private String payrollitemsID;
     private String payrollitemsName;
     private double payrollitemsAmmount;
-    private String payrollID;
+    
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;  
@@ -43,14 +43,6 @@ public class PayrollitemsDTO {
         this.payrollitemsAmmount = payrollitemsAmmount;
     }
 
-    public String getPayrollID() {
-        return payrollID;
-    }
-
-    public void setPayrollID(String payrollID) {
-        this.payrollID = payrollID;
-    }
-
     public Date getPayrollDate() {
         return payrollDate;
     }
@@ -58,6 +50,8 @@ public class PayrollitemsDTO {
     public void setPayrollDate(Date payrollDate) {
         this.payrollDate = payrollDate;
     }
+
+   
 
    
     //create data dummy
@@ -69,7 +63,7 @@ public class PayrollitemsDTO {
         dto.setPayrollitemsAmmount(400000);
         Date pay = new Date();
         dto.setPayrollDate(pay);
-        dto.setPayrollID("P-001");
+       
         return dto;
     }
 }
