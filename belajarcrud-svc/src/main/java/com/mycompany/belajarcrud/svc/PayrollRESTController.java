@@ -54,8 +54,8 @@ public class PayrollRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PayrollDTO>postPayroll(@RequestBody PayrollDTO payrollDTO){       
-       // Payroll payroll = new PayrollAssembler().toDomain(payrollDTO);
-        //payroll.setPayItems(new PayrollItemsAssembler().toDomains(payrollDTO.getPayItems()));
+       // Payroll payroll = new PayrollAssembler().toDomain(payrollDTO); salah
+        //payroll.setPayItems(new PayrollItemsAssembler().toDomains(payrollDTO.getPayItems())); salah
         payrollRepository.save(new PayrollAssembler().toDomain(payrollDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(payrollDTO);
 }
