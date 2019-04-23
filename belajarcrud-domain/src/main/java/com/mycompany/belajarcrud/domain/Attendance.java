@@ -28,7 +28,6 @@ public class Attendance implements EntityObject<Attendance> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
-    private String empId;
     private String attendanceId;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -43,8 +42,7 @@ public class Attendance implements EntityObject<Attendance> {
     public Attendance() {
     }
 
-    public Attendance(String empId, String attendanceId, Date date, Date timeIn, Date timeOut) {
-        this.empId = empId;
+    public Attendance(String attendanceId, Date date, Date timeIn, Date timeOut) {
         this.attendanceId = attendanceId;
         this.date = date;
         this.timeIn = timeIn;
@@ -60,14 +58,7 @@ public class Attendance implements EntityObject<Attendance> {
 		this.id = id;
 	}
 
-    public String getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(String empId) {
-        this.empId = empId;
-    }
-        
+    
         
 
         public String getAttendanceId() {
@@ -125,7 +116,6 @@ public class Attendance implements EntityObject<Attendance> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 11 * hash + Objects.hashCode(this.empId);
         hash = 11 * hash + Objects.hashCode(this.attendanceId);
         hash = 11 * hash + Objects.hashCode(this.date);
         hash = 11 * hash + Objects.hashCode(this.timeIn);

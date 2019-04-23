@@ -22,7 +22,7 @@ public class AttendanceAssembler implements IObjectAssembler<Attendance, Attenda
     @Override
     public AttendanceDTO toDTO(Attendance domainObject) {
         AttendanceDTO dto = new AttendanceDTO();
-        dto.setEmpId(domainObject.getEmpId());
+        //dto.setEmpId(domainObject.getEmpId());
         dto.setAttendanceId(domainObject.getAttendanceId());
         dto.setDate(domainObject.getDate());
         dto.setTimeIn(domainObject.getTimeIn());
@@ -34,7 +34,7 @@ public class AttendanceAssembler implements IObjectAssembler<Attendance, Attenda
     @Override
     public Attendance toDomain(AttendanceDTO dto) {
         Attendance data = new Attendance();
-        data.setEmpId(dto.getEmpId());
+       // data.setEmpId(dto.getEmpId());
         data.setAttendanceId(dto.getAttendanceId());
         data.setDate(dto.getDate());
         data.setTimeIn(dto.getTimeIn());
