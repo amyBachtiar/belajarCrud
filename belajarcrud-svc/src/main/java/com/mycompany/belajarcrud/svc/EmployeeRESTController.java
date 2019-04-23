@@ -1,10 +1,13 @@
 package com.mycompany.belajarcrud.svc;
 
+import com.mycompany.belajarcrud.domain.Attendance;
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Employee;
+import com.mycompany.belajarcrud.domain.assembler.AttendanceAssembler;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
+import com.mycompany.belajarcrud.domain.repository.AttendanceRepository;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
+import com.mycompany.belajarcrud.dto.AttendanceDTO;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -37,6 +43,9 @@ public class EmployeeRESTController {
     
     @Autowired
     JobdescRepository jobdescRepository;
+    
+    @Autowired
+    AttendanceRepository attendanceRepository;
     
     @RequestMapping(value="/get.employee.dummy",
             method=RequestMethod.GET,
@@ -61,7 +70,13 @@ public class EmployeeRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        employeeRepository.save(new EmployeeAssembler().toDomain(employeeDTO));
+        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+        Set<Attendance> att = new HashSet<Attendance>();
+        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
+            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+        }
+        employee.setEmpAttendances(att);
+        employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
     }
     
@@ -75,6 +90,12 @@ public class EmployeeRESTController {
         employee.setPosition(employeeDTO.getPosition());
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
+//        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+        Set<Attendance> att = new HashSet<Attendance>();
+        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
+            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+        }
+        employee.setEmpAttendances(att);
 //      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
