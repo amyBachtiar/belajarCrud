@@ -8,10 +8,11 @@ package com.mycompany.belajarcrud.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  *
- * @author noldyy
+ * @author noldyyy
  */
 public class AttendanceDTO {
     
@@ -70,7 +71,7 @@ public class AttendanceDTO {
         AttendanceDTO dto = new AttendanceDTO();
         Date waktu = new Date();
        // dto.setEmpId("");
-        dto.setAttendanceId("");
+        dto.setAttendanceId(UUID.randomUUID().toString().substring(0,6));
         dto.setDate(waktu);
         dto.setTimeIn(waktu);
         dto.setTimeOut(waktu);
