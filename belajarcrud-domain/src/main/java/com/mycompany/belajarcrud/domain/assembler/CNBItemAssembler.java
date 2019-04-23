@@ -24,7 +24,7 @@ public class CNBItemAssembler implements IObjectAssembler<CNBItem, CNBItemDTO>{
     @Override
     public CNBItemDTO toDTO(CNBItem domainObject) {
        CNBItemDTO dto = new CNBItemDTO();
-        dto.setCnBempID(domainObject.getcnBempID());
+        dto.setCnbitemID(domainObject.getCnbitemID());
 //        dto.setBaseSalary(domainObject.getBaseSalary());
         dto.setPensiun(domainObject.getPensiun());
         dto.setInsurance(domainObject.getInsurance());
@@ -34,7 +34,7 @@ public class CNBItemAssembler implements IObjectAssembler<CNBItem, CNBItemDTO>{
     @Override
     public CNBItem toDomain(CNBItemDTO dto) {
     CNBItem data = new CNBItem();
-        data.setCnBempID(dto.getCnBempID());
+        data.setCnbitemID(dto.getCnbitemID());
 //        data.setBaseSalary(dto.getBaseSalary());
         data.setPensiun(dto.getPensiun());
         data.setInsurance(dto.getInsurance());  
