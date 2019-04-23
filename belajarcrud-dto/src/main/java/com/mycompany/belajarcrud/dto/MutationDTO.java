@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class MutationDTO {
         private String empID;
@@ -114,7 +115,7 @@ public class MutationDTO {
 		Date mutdate = new Date();
 		dto.setMutationDate(mutdate);
 		//dto.setMutationBatch("Batch-01");
-		dto.setMutationNumber("MX-100031");
+		dto.setMutationNumber(UUID.randomUUID().toString().substring(0,6));
                 //dto.setCompanyId(new CompanyDTO().getInstance());
                 dto.setEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
 		return dto;
