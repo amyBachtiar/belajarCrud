@@ -33,7 +33,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyDesc(dto.getCompanyDesc());
         data.setCompJobs(dto.getCompJobsDTOs()!= null ? new JobdescAssembler().toDomains(dto.getCompJobsDTOs()) : new HashSet<>());
         //data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
-        data.setListEmployee(dto.getListEmployeeDTOs() == null? new HashSet <> () : new EmployeeAssembler().toDomains(dto.getListEmployeeDTOs()));
+//        data.setListEmployee(dto.getListEmployeeDTOs() == null? new HashSet <> () : new EmployeeAssembler().toDomains(dto.getListEmployeeDTOs()));
         return data;
     }
     

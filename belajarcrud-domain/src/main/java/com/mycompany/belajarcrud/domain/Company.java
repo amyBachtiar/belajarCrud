@@ -36,7 +36,7 @@ public class Company implements EntityObject<Company>{
     private String companyDesc;
     
     //@JsonIgnore
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Employee> listEmployee;
     
 //    @OneToMany(mappedBy = "company")
@@ -141,7 +141,7 @@ public class Company implements EntityObject<Company>{
         hash = 59 * hash + Objects.hashCode(this.companyId);
         hash = 59 * hash + Objects.hashCode(this.companyName);
         hash = 59 * hash + Objects.hashCode(this.companyDesc);
-        //hash = 59 * hash + Objects.hashCode(this.listEmployee);
+        hash = 59 * hash + Objects.hashCode(this.listEmployee);
         hash = 59 * hash + Objects.hashCode(this.mutations);
         hash = 59 * hash + Objects.hashCode(this.compJobs);
         return hash;
