@@ -42,8 +42,8 @@ public class CNBRESTController {
     @RequestMapping(value = "/get.cnb.by.empID/{empID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CNBDTO> getCNBByempID(@PathVariable("empID") String empID) {
-        CNB data = (CNB) cnbRepository.findOneByEmpID(empID);
+    public ResponseEntity<CNBDTO> getCNBByempID(@PathVariable("cnbID") String cnbID) {
+        CNB data = (CNB) cnbRepository.findOneByCnbID(cnbID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
@@ -64,9 +64,8 @@ public class CNBRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CNBDTO> updateCNB(@RequestBody CNBDTO cnbDTO) {
-        CNB cnb = (CNB) cnbRepository.findOneByEmpID(cnbDTO.getEmpID());
-        cnb.setEmpID(cnbDTO.getEmpID());
-        cnb.setEmpName(cnbDTO.getEmpName());
+        CNB cnb = (CNB) cnbRepository.findOneByCnbID(cnbDTO.getCnbID());
+        cnb.setCnbID(cnbDTO.getCnbID());
         
         
         return ResponseEntity.status(HttpStatus.CREATED).body(new CNBAssembler().toDTO(cnb));
@@ -74,9 +73,9 @@ public class CNBRESTController {
 
     @RequestMapping(value = "/delete.cnb/{empID}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteCNB(@PathVariable("empID") String empID) {
-        CNB cnb = (CNB) cnbRepository.findOneByEmpID(empID);
+    public ResponseEntity<String> deleteCNB(@PathVariable("cnbID") String cnbID) {
+        CNB cnb = (CNB) cnbRepository.findOneByCnbID(cnbID);
         cnbRepository.delete(cnb);
-        return ResponseEntity.status(HttpStatus.CREATED).body("CNB : " + cnb.getEmpID() + " is Successfully deleted");
+        return ResponseEntity.status(HttpStatus.CREATED).body("CNB : " + cnb.getCnbID() + " is Successfully deleted");
     }
 }
