@@ -66,8 +66,7 @@ public class EmployeeRESTController {
            produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-       employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
-       employee.setEmpAttendances(new AttendanceAssembler().toDomains(employeeDTO.getEmpAttendancesDTOs()));
+       //employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
        employeeRepository.save(employee);
@@ -85,6 +84,7 @@ public class EmployeeRESTController {
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
+        //employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.jinggagetEmpAssess()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
     }

@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 /**
  *
@@ -15,7 +16,8 @@ public class AssessmentDTO {
  
     private String empAssessId;
     private int empAssessment;
-  
+    private List<EmployeeDTO> employee;
+    
     
     public AssessmentDTO(){
         
@@ -26,6 +28,17 @@ public class AssessmentDTO {
         this.empAssessment = empAssessment;
     }
 
+    public List<EmployeeDTO> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<EmployeeDTO> employee) {
+        this.employee = employee;
+    }
+
+   
+    
+    
     public String getEmpAssessId() {
         return empAssessId;
     }

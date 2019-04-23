@@ -6,8 +6,12 @@ import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -26,8 +30,14 @@ public class Assessment implements EntityObject<Assessment> {
 	private String empAssessId;
 	private int empAssessment;
 	
-        @ManyToMany(mappedBy = "assess")
-        private Set<Employee>employees=new HashSet<>();
+        @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
+        @JoinTable(
+        name = "Employee_asses", 
+        joinColumns = { @JoinColumn(name = "empAssessId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "empid") })
+
+        private Set<Employee> employee = new HashSet<Employee>();
+       
         
 	public Assessment () {
 		
@@ -39,6 +49,14 @@ public class Assessment implements EntityObject<Assessment> {
 		
 		
 	}
+
+        public Set<Employee> getEmployee() {
+            return employee;
+        }
+
+        public void setEmployee(Set<Employee> employee) {
+            this.employee = employee;
+        }
 
 	public Integer getId() {
 		return id;
@@ -86,5 +104,6 @@ public class Assessment implements EntityObject<Assessment> {
     public boolean sameIdentityAs(Assessment other) {
         return this.equals(other);
     }
+
 	
 }

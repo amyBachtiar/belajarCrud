@@ -24,6 +24,7 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
         AssessmentDTO dto = new AssessmentDTO();
         dto.setEmpAssessId(domainObject.getEmpAssessId());
       //dto.setEmployeeID(domainObject.getEmpIDs().getEmpID());
+        dto.setEmployee(domainObject.getEmployee() == null ? new ArrayList<>() : new EmployeeAssembler().toDTOs(domainObject.getEmployee()));
         dto.setEmpAssessment(domainObject.getEmpAssessment());
         return dto;
     }
@@ -33,6 +34,7 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
         Assessment data = new Assessment();
         data.setEmpAssessId(domainObject.getEmpAssessId());
         data.setEmpAssessment(domainObject.getEmpAssessment());
+        data.setEmployee(domainObject.getEmployee()== null ? new HashSet<> (): new EmployeeAssembler().toDomains(domainObject.getEmployee()));
         return data;
     }
     

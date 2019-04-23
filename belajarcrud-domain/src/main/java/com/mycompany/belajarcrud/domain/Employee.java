@@ -19,7 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 
 @Entity
@@ -44,35 +43,24 @@ public class Employee implements EntityObject<Employee> {
                 inverseJoinColumns = { @JoinColumn(name = "job_id")})
         private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
                         
-        @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
-        @JoinTable(
-        name = "Employee_asses", 
-        joinColumns = { @JoinColumn(name = "empid") }, 
-        inverseJoinColumns = { @JoinColumn(name = "empAssessId") })
-        private Set<Assessment> assess = new HashSet<Assessment>();
+        @ManyToMany(mappedBy = "employee")
+        private Set<Assessment> assess =new HashSet<>();
                 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         @JoinColumn(name = "empId", referencedColumnName = "empId")
-        private Set<Attendance>empAttendances;
-        
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "employee_id",referencedColumnName = "payrollID")
-        private Payroll payrolls;
+        private Set<Attendance>empAttendances;                
         
 	public Employee() {
 	}
-
-        public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Set<Attendance> empAttendances, Payroll payrolls) {
-            this.empId = empId;
-            this.empName = empName;
-            this.position = position;
-            this.empStatus = empStatus;
-            this.birthDate = birthDate;
-            this.empAttendances = empAttendances;
-            this.payrolls = payrolls;
-        }
-
 	
+	public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate) {
+		this.empId = empId;
+		this.empName = empName;
+		this.position = position;
+		this.empStatus = empStatus;
+		this.birthDate = birthDate;
+	}
+
 
         public Set<Attendance> getEmpAttendances() {
             return empAttendances;
@@ -81,18 +69,6 @@ public class Employee implements EntityObject<Employee> {
         public void setEmpAttendances(Set<Attendance> empAttendances) {
             this.empAttendances = empAttendances;
         }
-
-        
-        
-        public Set<Assessment> getAssess() {
-            return assess;
-        }
-
-        public void setAssess(Set<Assessment> assess) {
-            this.assess = assess;
-        }
-
-        
         
         public Set<Jobdesc> getJobs() {
             return jobs;
@@ -150,48 +126,33 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
-        public Payroll getPayrolls() {
-            return payrolls;
-        }
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.empId);
+        hash = 97 * hash + Objects.hashCode(this.empName);
+        hash = 97 * hash + Objects.hashCode(this.position);
+        hash = 97 * hash + (this.empStatus ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.birthDate);
+        hash = 97 * hash + Objects.hashCode(this.jobs);
+        return hash;
+    }
 
-        public void setPayrolls(Payroll payrolls) {
-            this.payrolls = payrolls;
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 5;
-            hash = 73 * hash + Objects.hashCode(this.id);
-            hash = 73 * hash + Objects.hashCode(this.empId);
-            hash = 73 * hash + Objects.hashCode(this.empName);
-            hash = 73 * hash + Objects.hashCode(this.position);
-            hash = 73 * hash + (this.empStatus ? 1 : 0);
-            hash = 73 * hash + Objects.hashCode(this.birthDate);
-            hash = 73 * hash + Objects.hashCode(this.jobs);
-            hash = 73 * hash + Objects.hashCode(this.assess);
-            hash = 73 * hash + Objects.hashCode(this.empAttendances);
-            hash = 73 * hash + Objects.hashCode(this.payrolls);
-            return hash;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            final Employee other = (Employee) obj;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-
-
-
-    
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        return true;
+    }
 
     @Override
     public boolean sameIdentityAs(Employee other) {

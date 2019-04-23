@@ -1,7 +1,10 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Assessment;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
+import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
+import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
@@ -53,6 +56,8 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> postAssessment(@RequestBody AssessmentDTO assessmentDTO) {
+        Assessment assessment = new AssessmentAssembler().toDomain(assessmentDTO);
+        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(new AssessmentAssembler().toDomain(assessmentDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentDTO);
     }
@@ -64,6 +69,7 @@ public class AssessmentRESTController {
     public ResponseEntity<AssessmentDTO> updateAssessment(@RequestBody AssessmentDTO assessmentDTO) {
         Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessId(assessmentDTO.getEmpAssessId());
         assessment.setEmpAssessment(assessmentDTO.getEmpAssessment());
+        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AssessmentAssembler().toDTO(assessment));
     }
