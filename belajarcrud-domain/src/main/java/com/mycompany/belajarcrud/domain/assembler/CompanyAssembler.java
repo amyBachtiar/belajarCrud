@@ -30,6 +30,8 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setJobdescDTOs(domainObject.getJobdesc()!= null ? new JobdescAssembler().toDTOs(domainObject.getJobdesc()): new ArrayList<>());
         dto.setEmployeeDTOs(domainObject.getEmployees() != null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
         dto.setMutationDTOs(domainObject.getMutations() != null ? new MutationAssembler().toDTOs(domainObject.getMutations()): new ArrayList<>());
+        dto.setAssessmentDTOs(domainObject.getAssessments() != null ? new AssessmentAssembler().toDTOs(domainObject.getAssessments()): new ArrayList<>());
+        dto.setRecruitmentDTOs(domainObject.getRecruitments() != null ? new RecruitmentAssembler().toDTOs(domainObject.getRecruitments()) : new ArrayList<>());
         return dto;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -45,6 +47,8 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setJobdesc(dto.getJobdescDTOs() != null ? new JobdescAssembler().toDomains(dto.getJobdescDTOs()): new HashSet<>());
         data.setEmployees(dto.getEmployeeDTOs()!= null ? new EmployeeAssembler().toDomains(dto.getEmployeeDTOs()): new HashSet<>());
         data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
+        data.setAssessments(dto.getAssessmentDTOs() != null ? new AssessmentAssembler().toDomains(dto.getAssessmentDTOs()): new HashSet<>());
+        data.setRecruitments(dto.getRecruitmentDTOs() != null ? new RecruitmentAssembler().toDomains(dto.getRecruitmentDTOs()) : new HashSet<>());
         return data;
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
