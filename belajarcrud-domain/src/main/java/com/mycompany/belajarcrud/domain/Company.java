@@ -19,7 +19,7 @@ import javax.persistence.Table;
  
 /**
  *
- * @author amelia
+ * @author amel
  */
 @Entity
 @Table(name = "MST_COMP")

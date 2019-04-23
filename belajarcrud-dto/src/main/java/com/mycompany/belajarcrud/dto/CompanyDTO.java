@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  *
- * @author amelia
+ * @author amel
  */
 public class CompanyDTO {
     
