@@ -23,8 +23,8 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
     @Override
     public CNBDTO toDTO(CNB domainObject) {
        CNBDTO dto = new CNBDTO();
-       dto.setEmpName(domainObject.getEmpName());
-        dto.setEmpID(domainObject.getEmpID());
+
+        dto.setCnbID(domainObject.getCnbID());
         dto.setSalary(new PayrollAssembler().toDTO(domainObject.getSalary()));
         dto.setCnbItemsDTOs(domainObject.getCnbItems()!= null?
                 new CNBItemAssembler().toDTOs(domainObject.getCnbItems())
@@ -35,8 +35,8 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
     @Override
     public CNB toDomain(CNBDTO dto) {
     CNB data = new CNB();
-        data.setEmpID(dto.getEmpID());
-        data.setEmpName(dto.getEmpName());
+
+        data.setCnbID(dto.getCnbID());
         data.setSalary(new PayrollAssembler().toDomain(dto.getSalary()));
         data.setCnbItems(dto.getCnbItemsDTOs()!= null?
             new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()):
