@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -61,6 +62,11 @@ public class Employee implements EntityObject<Employee> {
     
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cnbid", referencedColumnName = "CNBID")
+    private CNB cnb;
+    
             
     public Employee() {
     }
@@ -74,7 +80,9 @@ public class Employee implements EntityObject<Employee> {
             Date birthDate,
             Set<Jobdesc> jobs, 
             Set<Attendance> empAttendances,
-            Company company, String companyId) {
+            Company company, 
+            String companyId,
+            CNB cnb) {
         this.empId = empId;
         this.empName = empName;
         this.position = position;
@@ -84,6 +92,7 @@ public class Employee implements EntityObject<Employee> {
         this.empAttendances=empAttendances;
         this.company = company;
         this.companyId = companyId;
+        this.cnb = cnb;
 //        this.mutation = mutation;
 //        this.mutationBatch = mutationBatch;
     }
@@ -185,6 +194,15 @@ public class Employee implements EntityObject<Employee> {
         this.empAttendances = empAttendances;
     }
 
+    public CNB getCnb() {
+        return cnb;
+    }
+
+    public void setCnb(CNB cnb) {
+        this.cnb = cnb;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -198,6 +216,7 @@ public class Employee implements EntityObject<Employee> {
         hash = 89 * hash + Objects.hashCode(this.company);
 //        hash = 89 * hash + Objects.hashCode(this.mutation);
         hash = 89 * hash + Objects.hashCode(this.empAttendances);
+        hash = 89 * hash + Objects.hashCode(this.cnb);
         return hash;
     }
 
