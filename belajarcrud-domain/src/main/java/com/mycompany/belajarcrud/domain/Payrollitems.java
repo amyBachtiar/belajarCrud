@@ -27,7 +27,7 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     private String payrollitemsID;
     private String payrollitemsName;
     private double payrollitemsAmmount;
-    private String payrollID;
+    
     
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
     private Date payrollDate;
@@ -36,11 +36,10 @@ public class Payrollitems implements EntityObject<Payrollitems> {
     public Payrollitems(){
     }
 
-    public Payrollitems(String payrollitemsID, String payrollitemsName, double payrollitemsAmmount, String payrollID, Date payrollDate) {
+    public Payrollitems(String payrollitemsID, String payrollitemsName, double payrollitemsAmmount, Date payrollDate) {
         this.payrollitemsID = payrollitemsID;
         this.payrollitemsName = payrollitemsName;
         this.payrollitemsAmmount = payrollitemsAmmount;
-        this.payrollID = payrollID;
         this.payrollDate = payrollDate;
     }
 
@@ -76,14 +75,6 @@ public class Payrollitems implements EntityObject<Payrollitems> {
         this.payrollitemsAmmount = payrollitemsAmmount;
     }
 
-    public String getPayrollID() {
-        return payrollID;
-    }
-
-    public void setPayrollID(String payrollID) {
-        this.payrollID = payrollID;
-    }
-
     public Date getPayrollDate() {
         return payrollDate;
     }
@@ -114,16 +105,14 @@ public class Payrollitems implements EntityObject<Payrollitems> {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.payrollitemsID);
-        hash = 59 * hash + Objects.hashCode(this.payrollitemsName);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.payrollitemsAmmount) ^ (Double.doubleToLongBits(this.payrollitemsAmmount) >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.payrollID);
-        hash = 59 * hash + Objects.hashCode(this.payrollDate);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.payrollitemsID);
+        hash = 67 * hash + Objects.hashCode(this.payrollitemsName);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.payrollitemsAmmount) ^ (Double.doubleToLongBits(this.payrollitemsAmmount) >>> 32));
+        hash = 67 * hash + Objects.hashCode(this.payrollDate);
         return hash;
     }
-   
+
     @Override
     public boolean sameIdentityAs(Payrollitems other) {
         return this.equals(other);

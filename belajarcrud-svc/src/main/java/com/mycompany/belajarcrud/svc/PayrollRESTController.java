@@ -1,9 +1,15 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Payroll;
+import com.mycompany.belajarcrud.domain.Payrollitems;
 import com.mycompany.belajarcrud.domain.assembler.PayrollAssembler;
+import com.mycompany.belajarcrud.domain.assembler.PayrollitemsAssembler;
 import com.mycompany.belajarcrud.domain.repository.PayrollRepository;
+import com.mycompany.belajarcrud.domain.repository.PayrollitemsRepository;
 import com.mycompany.belajarcrud.dto.PayrollDTO;
+import com.mycompany.belajarcrud.dto.PayrollitemsDTO;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +32,10 @@ public class PayrollRESTController {
     
     @Autowired
     PayrollRepository payrollRepository;
+    
+    @Autowired
+    PayrollitemsRepository payrollitemsRepository;
+    
    
     @RequestMapping(value = "/get.payroll.dummy",
             method = RequestMethod.GET,
@@ -50,7 +60,8 @@ public class PayrollRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PayrollDTO>postPayroll(@RequestBody PayrollDTO payrollDTO){
-        payrollRepository.save(new PayrollAssembler().toDomain(payrollDTO));
+        Payroll payroll = new PayrollAssembler().toDomain(payrollDTO);
+        payrollRepository.save(payroll);
         return ResponseEntity.status(HttpStatus.CREATED).body(payrollDTO);
     }
     
@@ -63,6 +74,21 @@ public class PayrollRESTController {
         payroll.setPayrollID(payrollDTO.getPayrollID());
         payroll.setBaseSalary(payrollDTO.getBaseSalary());
         payroll.setTotalPayroll(payrollDTO.getTotalPayroll());
+        Set<Payrollitems> payrollitemses = new HashSet<Payrollitems>();
+        for (PayrollitemsDTO adto : payrollDTO.getPayItemsDTOs()){
+            Payrollitems payrollitems = payrollitemsRepository.findOneByPayrollitemsID(adto.getPayrollitemsID());
+            if(payrollitems != null){
+                payrollitems.setPayrollDate(adto.getPayrollDate());
+                payrollitems.setPayrollitemsAmmount(adto.getPayrollitemsAmmount());
+                payrollitems.setPayrollitemsID(adto.getPayrollitemsID());
+                payrollitems.setPayrollitemsName(adto.getPayrollitemsName());
+                payrollitemses.add(payrollitems);
+            } else {
+                Payrollitems a = new PayrollitemsAssembler().toDomain(adto);
+                payrollitemses.add(a);
+            }
+        }
+        payroll.setPayItems(payrollitemses);
         payrollRepository.save(payroll);
         return ResponseEntity.status(HttpStatus.CREATED).body(new PayrollAssembler().toDTO(payroll));
     }

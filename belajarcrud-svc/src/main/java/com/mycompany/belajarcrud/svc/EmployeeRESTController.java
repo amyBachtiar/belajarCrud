@@ -97,11 +97,18 @@ public class EmployeeRESTController {
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
 //        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        Set<Attendance> att = new HashSet<Attendance>();
-        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
-            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+        Set<Attendance> attendances = new HashSet<Attendance>();
+        for (AttendanceDTO adto : employeeDTO.getEmpAttendancesDTOs()){
+            Attendance attendance = attendanceRepository.findOneByAttendanceId(adto.getAttendanceId());
+            if(attendance != null){
+                attendance.setDate(adto.getDate());
+                attendances.add(attendance);
+            } else {
+                Attendance a = new AttendanceAssembler().toDomain(adto);
+                attendances.add(a);
+            }
         }
-        employee.setEmpAttendances(att);
+        employee.setEmpAttendances(attendances);
         employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
 //      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
