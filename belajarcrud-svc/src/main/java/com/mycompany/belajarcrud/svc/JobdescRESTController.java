@@ -81,7 +81,7 @@ public class JobdescRESTController {
         jobdesc.setJobdescId(jobdescDTO.getJobdescId());
         jobdesc.setName(jobdescDTO.getName());
         jobdesc.setDescription(jobdescDTO.getDescription());
-        jobdescRepository.save(jobdesc);
+//        jobdescRepository.save(jobdesc);
         return ResponseEntity.status(HttpStatus.CREATED).body(new JobdescAssembler().toDTO(jobdesc));
     }
     

@@ -52,6 +52,9 @@ public class Employee implements EntityObject<Employee> {
         @JoinColumn(name = "employee_id",referencedColumnName = "payrollID")
         private Payroll payrolls;
         
+//        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//        @JoinColumn(name = "",referencedColumnName = "")
+        
 	public Employee() {
 	}
 

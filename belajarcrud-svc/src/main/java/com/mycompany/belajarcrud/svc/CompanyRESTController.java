@@ -75,6 +75,7 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
         company.setCompanyAdd(companyDTO.getCompanyAdd());
         company.setCompanyPhone(companyDTO.getCompanyPhone());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
+        companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
     
