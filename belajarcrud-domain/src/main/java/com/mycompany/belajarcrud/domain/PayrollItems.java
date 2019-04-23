@@ -1,5 +1,6 @@
 package com.mycompany.belajarcrud.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.mycompany.belajarcrud.common.EntityObject;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
 *
@@ -26,71 +29,118 @@ public class PayrollItems implements EntityObject<PayrollItems>{
 	Integer id;
 	
 	private String payrollItemsID;
+        private String payrollID;
 	private double bonusSalary;
 	private double totalBonus;
 	private double totalTax;
 	
-	
+	 @Temporal(TemporalType.DATE)
 	private Date payrollItemsDate;
 	
 	
 	public PayrollItems() {
 		
 	}
+
+    public PayrollItems(Integer id, String payrollItemsID, String payrollID, double bonusSalary, double totalBonus, double totalTax, Date payrollItemsDate) {
+        this.id = id;
+        this.payrollItemsID = payrollItemsID;
+        this.payrollID = payrollID;
+        this.bonusSalary = bonusSalary;
+        this.totalBonus = totalBonus;
+        this.totalTax = totalTax;
+        this.payrollItemsDate = payrollItemsDate;
+    }
 	
-	public PayrollItems (String payrollItemsID,double bonusSalary, double totalBonus,double totalTax, Date payrollDate, Date payrollItemsDate ) {
-		this.payrollItemsID= payrollItemsID;
-		this.bonusSalary = bonusSalary;
-		this.totalBonus= totalBonus;
-		this.payrollItemsDate = payrollItemsDate; 
-	}
-	public Integer getId() {
-		return id;
-	}
+	
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getPayrollItemsID() {
-		return payrollItemsID;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setPayrollItemsID(String payrollItemsID) {
-		this.payrollItemsID = payrollItemsID;
-	}
+    public String getPayrollItemsID() {
+        return payrollItemsID;
+    }
 
-	public double getBonusSalary() {
-		return bonusSalary;
-	}
+    public void setPayrollItemsID(String payrollItemsID) {
+        this.payrollItemsID = payrollItemsID;
+    }
 
-	public void setBonusSalary(double bonusSalary) {
-		this.bonusSalary = bonusSalary;
-	}
+    public String getPayrollID() {
+        return payrollID;
+    }
 
-	public double getTotalBonus() {
-		return totalBonus;
-	}
+    public void setPayrollID(String payrollID) {
+        this.payrollID = payrollID;
+    }
 
-	public void setTotalBonus(double totalBonus) {
-		this.totalBonus = totalBonus;
-	}
+    public double getBonusSalary() {
+        return bonusSalary;
+    }
 
-	public double getTotalTax() {
-		return totalTax;
-	}
+    public void setBonusSalary(double bonusSalary) {
+        this.bonusSalary = bonusSalary;
+    }
 
-	public void setTotalTax(double totalTax) {
-		this.totalTax = totalTax;
-	}
+    public double getTotalBonus() {
+        return totalBonus;
+    }
 
-	public Date getPayrollItemsDate() {
-		return payrollItemsDate;
-	}
+    public void setTotalBonus(double totalBonus) {
+        this.totalBonus = totalBonus;
+    }
 
-	public void setPayrollItemsDate(Date payrollItemsDate) {
-		this.payrollItemsDate = payrollItemsDate;
-	}
+    public double getTotalTax() {
+        return totalTax;
+    }
+
+    public void setTotalTax(double totalTax) {
+        this.totalTax = totalTax;
+    }
+
+    public Date getPayrollItemsDate() {
+        return payrollItemsDate;
+    }
+
+    public void setPayrollItemsDate(Date payrollItemsDate) {
+        this.payrollItemsDate = payrollItemsDate;
+    }
+
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.payrollItemsID);
+        hash = 23 * hash + Objects.hashCode(this.payrollID);
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.bonusSalary) ^ (Double.doubleToLongBits(this.bonusSalary) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.totalBonus) ^ (Double.doubleToLongBits(this.totalBonus) >>> 32));
+        hash = 23 * hash + (int) (Double.doubleToLongBits(this.totalTax) ^ (Double.doubleToLongBits(this.totalTax) >>> 32));
+        hash = 23 * hash + Objects.hashCode(this.payrollItemsDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PayrollItems other = (PayrollItems) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 
 
 	@Override
