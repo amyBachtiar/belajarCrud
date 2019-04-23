@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * @author ilma
+ */
+
 @RestController
 @Slf4j
 
@@ -32,7 +37,7 @@ public class RecruitmentRESTController {
     @RequestMapping(value = "/get.recruitment.by.recID/{recID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RecruitmentDTO> getRecruitmentByRecID(@PathVariable("recruitmentID") String recID) {
+    public ResponseEntity<RecruitmentDTO> getRecruitmentByRecID(@PathVariable("recID") String recID) {
         Recruitment data = recruitmentRepository.findOneByRecID(recID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);

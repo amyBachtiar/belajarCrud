@@ -1,7 +1,9 @@
 package com.mycompany.belajarcrud.svc;
 import com.mycompany.belajarcrud.domain.Jobseeker;
 import com.mycompany.belajarcrud.domain.assembler.JobseekerAssembler;
+import com.mycompany.belajarcrud.domain.assembler.RecruitmentAssembler;
 import com.mycompany.belajarcrud.domain.repository.JobseekerRepository;
+import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.JobseekerDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * @author ilma
+ */
+
 @RestController
 @Slf4j
 public class JobseekerRESTController {
     
     @Autowired
     JobseekerRepository jobseekerRepository;
+    
+    @Autowired
+    RecruitmentRepository recruitmentRepository;
 
     @RequestMapping(value = "/get.jobseeker.dummy",
             method = RequestMethod.GET,
@@ -31,7 +41,7 @@ public class JobseekerRESTController {
     @RequestMapping(value = "/get.jobseeker.by.jobID/{jobID}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobseekerDTO> getJobseekerByJobID(@PathVariable("jobseekerID") String jobID) {
+    public ResponseEntity<JobseekerDTO> getJobseekerByJobID(@PathVariable("jobID") String jobID) {
         Jobseeker data = jobseekerRepository.findOneByJobID(jobID);
         if (data == null) {
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
@@ -43,11 +53,13 @@ public class JobseekerRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<JobseekerDTO>postJobseeker(@RequestBody JobseekerDTO jobseekerDTO) {
-        jobseekerRepository.save(new JobseekerAssembler().toDomain(jobseekerDTO));
+    public ResponseEntity<JobseekerDTO>postJobseeker(@RequestBody JobseekerDTO jobseekerDTO) {
+        Jobseeker jobseeker = new JobseekerAssembler().toDomain(jobseekerDTO);
+        jobseeker.setRec(new RecruitmentAssembler().toDomains(jobseekerDTO.getJobRec()));
+        jobseekerRepository.save(jobseeker);
         return ResponseEntity.status(HttpStatus.CREATED).body(jobseekerDTO);
     }
-    
+            
     @RequestMapping(value = "/update.jobseeker",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -65,7 +77,7 @@ public class JobseekerRESTController {
     
      @RequestMapping(value = "/delete.jobseeker/{jobID}",
             method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteJobseeker(@PathVariable("jobseekerID") String jobID) {
+    public ResponseEntity<String> deleteJobseeker(@PathVariable("jobID") String jobID) {
         Jobseeker jobseeker = (Jobseeker) jobseekerRepository.findOneByJobID(jobID);
         jobseekerRepository.delete(jobseeker);
         return ResponseEntity.status(HttpStatus.CREATED).body("Jobseeker : " + jobseeker.getJobID() + " is Successfully deleted");

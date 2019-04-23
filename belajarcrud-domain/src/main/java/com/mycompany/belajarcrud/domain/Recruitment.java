@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author ilma
+ */
+
 @Entity
 @Table(name = "MST_RECRUITMENT")
 public class Recruitment implements EntityObject<Recruitment> {
@@ -22,6 +27,8 @@ public class Recruitment implements EntityObject<Recruitment> {
     @Column
     @NotNull(message = "Recruitment_ID Harus diIsi")
     private String recID;
+    
+    
     
     private String recType;
     private boolean status;
@@ -69,7 +76,8 @@ public class Recruitment implements EntityObject<Recruitment> {
 
     @Override
     public boolean sameIdentityAs(Recruitment other) {
-          throw new UnsupportedOperationException("Not supported yet.");
+        // TODO Auto-generated method stub  
+        return this.equals(other);
     }
 
 }

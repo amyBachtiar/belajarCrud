@@ -8,6 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * @author ilma
+ */
+
 public class RecruitmentAssembler implements IObjectAssembler <Recruitment, RecruitmentDTO>{
     
   @Override

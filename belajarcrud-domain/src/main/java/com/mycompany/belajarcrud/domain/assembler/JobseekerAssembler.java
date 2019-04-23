@@ -8,6 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *
+ * @author ilma
+ */
+
 public class JobseekerAssembler implements IObjectAssembler <Jobseeker, JobseekerDTO>{
 
     @Override
@@ -19,6 +24,7 @@ public class JobseekerAssembler implements IObjectAssembler <Jobseeker, Jobseeke
         dto.setGpa(domainObject.getGpa());
         dto.setUniversity(domainObject.getUniversity());
         dto.setIntended_position(domainObject.getIntended_position());
+         dto.setJobRec(domainObject.getRec() == null ? new ArrayList<>() : new RecruitmentAssembler().toDTOs(domainObject.getRec()));
         return dto;
     }
 
@@ -31,6 +37,7 @@ public class JobseekerAssembler implements IObjectAssembler <Jobseeker, Jobseeke
         data.setGpa(dto.getGpa());
         data.setUniversity(dto.getUniversity());
         data.setIntended_position(dto.getIntended_position());
+         data.setRec(dto.getJobRec() == null ? new HashSet<>() : new RecruitmentAssembler().toDomains(dto.getJobRec()));
         return data;
     }
     

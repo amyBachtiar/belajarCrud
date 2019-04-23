@@ -1,6 +1,14 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ *
+ * @author ilma
+ */
 
 public class JobseekerDTO {
     
@@ -10,6 +18,7 @@ public class JobseekerDTO {
     private int gpa;
     private String university;
     private String intended_position;
+    private List<RecruitmentDTO> jobRec;
 
     public String getJobID() {
         return jobID;
@@ -59,19 +68,27 @@ public class JobseekerDTO {
         this.intended_position = intended_position;
     }
 
+    public List<RecruitmentDTO> getJobRec() {
+        return jobRec;
+    }
 
+    public void setJobRec(List<RecruitmentDTO> jobRec) {
+        this.jobRec = jobRec;
+    }
 
-  
+    
+
       // create data dummy
     @JsonIgnore
     public JobseekerDTO getInstance() {
         JobseekerDTO dto = new JobseekerDTO();
-        dto.setJobID("JobseekerID : ");
-        dto.setName("Name :");
-        dto.setEducation("Education :");
+        dto.setJobID("J-001");
+        dto.setName("Masukkan Nama");
+        dto.setEducation("Masukkan Education");
         dto.setGpa(4);
-        dto.setUniversity("University : ");
-        dto.setIntended_position("Intended_position: ");
+        dto.setUniversity("Masukkan Universitas");
+        dto.setIntended_position("Masukkan Intended Position ");
+        dto.setJobRec(new ArrayList<>(Arrays.asList(new RecruitmentDTO().getInstance())));
         return dto;
     }
    
