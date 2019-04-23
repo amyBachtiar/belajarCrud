@@ -10,8 +10,6 @@ import java.util.Date;
  * @author Reza Agika Putra
  */
 public class AttendanceDTO {
-    
-    private String empId;
     private String attendanceId;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -22,14 +20,6 @@ public class AttendanceDTO {
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss a zzz")
     private Date timeOut;
-
-    public String getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(String empId) {
-        this.empId = empId;
-    }
 
     public String getAttendanceId() {
         return attendanceId;
@@ -68,7 +58,6 @@ public class AttendanceDTO {
     public AttendanceDTO getInstance(){
         AttendanceDTO dto = new AttendanceDTO();
         Date waktu = new Date();
-        dto.setEmpId("ID-001");
         dto.setAttendanceId("AT-001");
         dto.setDate(waktu);
         dto.setTimeIn(waktu);
