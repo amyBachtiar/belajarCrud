@@ -135,17 +135,17 @@ public class Company implements EntityObject<Company>{
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.companyId);
-        hash = 59 * hash + Objects.hashCode(this.companyName);
-        hash = 59 * hash + Objects.hashCode(this.companyDesc);
-        hash = 59 * hash + Objects.hashCode(this.listEmployee);
-        hash = 59 * hash + Objects.hashCode(this.mutations);
-        hash = 59 * hash + Objects.hashCode(this.compJobs);
-        return hash;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 59 * hash + Objects.hashCode(this.companyId);
+//        hash = 59 * hash + Objects.hashCode(this.companyName);
+//        hash = 59 * hash + Objects.hashCode(this.companyDesc);
+//        hash = 59 * hash + Objects.hashCode(this.listEmployee);
+//        hash = 59 * hash + Objects.hashCode(this.mutations);
+//        hash = 59 * hash + Objects.hashCode(this.compJobs);
+//        return hash;
+//    }
 
     @Override
     public boolean sameIdentityAs(Company other) {
