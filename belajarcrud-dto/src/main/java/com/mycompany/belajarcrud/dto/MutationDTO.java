@@ -18,7 +18,15 @@ public class MutationDTO {
     private Date mutationDate;
     private String companyId;
 //    private String mutationBatch;
-//    private List<EmployeeDTO> empDTOs;
+    //private List<EmployeeDTO> empDTOs;
+
+//    public List<EmployeeDTO> getEmpDTOs() {
+//        return empDTOs;
+//    }
+//
+//    public void setEmpDTOs(List<EmployeeDTO> empDTOs) {
+//        this.empDTOs = empDTOs;
+//    }
     
     public MutationDTO() {
     }
@@ -29,7 +37,7 @@ public class MutationDTO {
         this.position = position;
         this.finalPosition = finalPosition;
         this.mutated = mutated;
-//        this.empDTOs=empDTOs;
+      //  this.empDTOs=empDTOs;
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
     }

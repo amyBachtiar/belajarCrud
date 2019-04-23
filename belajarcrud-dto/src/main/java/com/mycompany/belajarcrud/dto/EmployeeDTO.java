@@ -26,7 +26,7 @@ public class EmployeeDTO {
     private List<JobdescDTO> empJobs;
     private List<AttendanceDTO> empAttendancesDTOs;
 
-        public String getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 

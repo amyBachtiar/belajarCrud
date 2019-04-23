@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.dto.EmployeeDTO;
 
 /**
  *
@@ -28,6 +29,9 @@ public class CompanyRESTController {
     
     @Autowired
     CompanyRepository companyRepository;
+    
+    @Autowired
+    EmployeeRepository employeeRepository;
     
     @RequestMapping(value="/get.company.dummy",
             method=RequestMethod.GET,
@@ -52,8 +56,8 @@ public class CompanyRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CompanyDTO> postCompany(@RequestBody CompanyDTO companyDTO) {
-        Company company = new CompanyAssembler().toDomain(companyDTO);
-        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
+        Company company = new CompanyAssembler().toDomain(companyDTO);        
+//        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(companyDTO);
     }
@@ -67,7 +71,7 @@ public class CompanyRESTController {
         company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
-        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
+//        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }

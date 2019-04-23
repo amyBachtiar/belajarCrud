@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -41,31 +42,34 @@ public class Mutation implements EntityObject<Mutation> {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date mutationDate;
     
-    @OneToMany(mappedBy = "mutation")
-    private Set<Employee> employees;
+//    @OneToMany(mappedBy = "mutation")
+//    private Set<Employee> employees;
     //mutation have many batches
     
     
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;
     
-    @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
-    private Company company;
+//    @ManyToOne
+//    @JoinColumn(name = "company_id", referencedColumnName = "companyId", nullable = false)
+//    private Company company;
     
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "mutation_id", referencedColumnName = "mutationNumber", insertable = false, updatable = false)
+    private Set<Employee> employees;
 
     public Mutation() {
     }
 
-    public Mutation(String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
-//        this.empID = empID;
+    public Mutation(String empID, String empName, String position, String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
+        this.empID = empID;
         this.empName = empName;
         this.position = position;
         this.finalPosition = finalPosition;
         this.mutated = mutated;
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
-        this.company = company;
+//        this.company = company;
         this.employees = employees;
     }
 
@@ -77,13 +81,13 @@ public class Mutation implements EntityObject<Mutation> {
         this.employees = employees;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+//    public Company getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(Company company) {
+//        this.company = company;
+//    }
     
     public Date getMutationDate() {
         return mutationDate;

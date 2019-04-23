@@ -48,15 +48,15 @@ public class Employee implements EntityObject<Employee> {
     private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
     
     @ManyToOne
-    @JoinColumn(name = "companyId", referencedColumnName = "companyId", insertable = false, updatable = false)
+    @JoinColumn(name = "companyId", referencedColumnName = "companyId", nullable = false, insertable = false, updatable = false)
     private Company company;
     
-    @ManyToOne
-    @JoinColumn(name = "mutation_id", nullable = true)//biar employee ga harus mutasi
-    private Mutation mutation;
+//    @ManyToOne
+//    @JoinColumn(name = "mutation_id", nullable = true)//biar employee ga harus mutasi
+//    private Mutation mutation;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "empId", referencedColumnName = "empId", insertable = false, updatable = false)
+    @JoinColumn(name = "empId", referencedColumnName = "empId", nullable = false, insertable = false, updatable = false)
     private Set<Attendance>empAttendances;
     
 //    @OneToMany
@@ -196,7 +196,7 @@ public class Employee implements EntityObject<Employee> {
         hash = 89 * hash + Objects.hashCode(this.birthDate);
         hash = 89 * hash + Objects.hashCode(this.jobs);
         hash = 89 * hash + Objects.hashCode(this.company);
-        hash = 89 * hash + Objects.hashCode(this.mutation);
+//        hash = 89 * hash + Objects.hashCode(this.mutation);
         hash = 89 * hash + Objects.hashCode(this.empAttendances);
         return hash;
     }
