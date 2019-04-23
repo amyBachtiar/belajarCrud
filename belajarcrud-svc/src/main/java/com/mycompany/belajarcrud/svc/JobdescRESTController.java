@@ -1,10 +1,16 @@
 
 package com.mycompany.belajarcrud.svc;
 
+import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Jobdesc;
+import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
 import com.mycompany.belajarcrud.dto.JobdescDTO;
+import com.mycompany.belajarcrud.dto.customDTO;
+import java.util.Arrays;
+import java.util.HashSet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +34,9 @@ public class JobdescRESTController {
     @Autowired
     JobdescRepository jobdescRepository;
     
+    @Autowired
+    CompanyRepository companyRepository;
+    
     @RequestMapping(value = "/get.jobdesc.dummy",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,9 +59,17 @@ public class JobdescRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobdescDTO> postJobdesc (@RequestBody JobdescDTO jobdescDTO){
-        jobdescRepository.save(new JobdescAssembler().toDomain(jobdescDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(jobdescDTO);
+    public ResponseEntity<JobdescDTO> postJobdesc (@RequestBody customDTO cusDTO){
+        Company company = (Company) companyRepository.findOneByCompanyID(cusDTO.getCompanyID());
+        
+        if(company.getJobdescs() != null && company.getJobdescs().size() > 0){
+            company.getJobdescs().add(new JobdescAssembler().toDomain(cusDTO.getJobds()));
+        }else{
+            company.setJobdescs(new HashSet<Jobdesc>(Arrays.asList(new JobdescAssembler().toDomain(cusDTO.getJobds()))));
+        }
+        companyRepository.save(company);
+//        jobdescRepository.save(new JobdescAssembler().toDomain(jobdescDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cusDTO.getJobds());
     }
     
     @RequestMapping(value = "/update.jobdesc",
@@ -61,6 +78,7 @@ public class JobdescRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JobdescDTO> updateJobdesc(@RequestBody JobdescDTO jobdescDTO){
         Jobdesc jobdesc = (Jobdesc) jobdescRepository.findOneByJobdescId(jobdescDTO.getJobdescId());
+        jobdesc.setJobdescId(jobdescDTO.getJobdescId());
         jobdesc.setName(jobdescDTO.getName());
         jobdesc.setDescription(jobdescDTO.getDescription());
         jobdescRepository.save(jobdesc);

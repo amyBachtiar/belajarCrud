@@ -6,13 +6,13 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
-import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
-import com.mycompany.belajarcrud.domain.assembler.AttendanceAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
+import com.mycompany.belajarcrud.domain.repository.AttendanceRepository;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
+import com.mycompany.belajarcrud.domain.repository.PayrollRepository;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +41,12 @@ public class EmployeeRESTController {
     
     @Autowired
     JobdescRepository jobdescRepository;
+    
+    @Autowired
+    AttendanceRepository attendanceRepository;
+    
+    @Autowired
+    PayrollRepository payrollRepository;
     
    @RequestMapping(value="/get.employee.dummy",
            method= RequestMethod.GET,

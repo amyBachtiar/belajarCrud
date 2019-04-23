@@ -23,18 +23,17 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
     public AssessmentDTO toDTO(Assessment domainObject) {
         AssessmentDTO dto = new AssessmentDTO();
         dto.setEmpAssessId(domainObject.getEmpAssessId());
-      //dto.setEmployeeID(domainObject.getEmpIDs().getEmpID());
-        dto.setEmployee(domainObject.getEmployee() == null ? new ArrayList<>() : new EmployeeAssembler().toDTOs(domainObject.getEmployee()));
+        dto.setEmployeeDTOs(domainObject.getEmployees()!=null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
         dto.setEmpAssessment(domainObject.getEmpAssessment());
         return dto;
     }
     
     @Override
-    public Assessment toDomain(AssessmentDTO domainObject) {
+    public Assessment toDomain(AssessmentDTO dto) {
         Assessment data = new Assessment();
-        data.setEmpAssessId(domainObject.getEmpAssessId());
-        data.setEmpAssessment(domainObject.getEmpAssessment());
-        data.setEmployee(domainObject.getEmployee()== null ? new HashSet<> (): new EmployeeAssembler().toDomains(domainObject.getEmployee()));
+        data.setEmpAssessId(dto.getEmpAssessId());
+        data.setEmpAssessment(dto.getEmpAssessment());
+        data.setEmployees(dto.getEmployeeDTOs()!= null ? new EmployeeAssembler().toDomains(dto.getEmployeeDTOs()): new HashSet<>());
         return data;
     }
     

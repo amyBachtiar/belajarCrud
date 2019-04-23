@@ -6,6 +6,8 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,28 +18,29 @@ public class AssessmentDTO {
  
     private String empAssessId;
     private int empAssessment;
-    private List<EmployeeDTO> employee;
+    private List<EmployeeDTO> employeeDTOs;
     
     
     public AssessmentDTO(){
         
     }
-    
-    public AssessmentDTO(String empAssessId, int empAssessment){
+
+    public AssessmentDTO(String empAssessId, int empAssessment, List<EmployeeDTO> employeeDTOs) {
         this.empAssessId = empAssessId;
         this.empAssessment = empAssessment;
+        this.employeeDTOs = employeeDTOs;
     }
-
-    public List<EmployeeDTO> getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(List<EmployeeDTO> employee) {
-        this.employee = employee;
-    }
-
-   
     
+    
+
+    public List<EmployeeDTO> getEmployeeDTOs() {
+        return employeeDTOs;
+    }
+
+    public void setEmployeeDTOs(List<EmployeeDTO> employeeDTOs) {
+        this.employeeDTOs = employeeDTOs;
+    }
+      
     
     public String getEmpAssessId() {
         return empAssessId;
@@ -60,6 +63,7 @@ public class AssessmentDTO {
     public AssessmentDTO getInstance(){
         AssessmentDTO dto= new AssessmentDTO();
         dto.setEmpAssessId("Employee Assessment ID");
+        dto.setEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
         dto.setEmpAssessment(1000);
         return dto;
     }

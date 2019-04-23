@@ -6,9 +6,16 @@
 package com.mycompany.belajarcrud.svc;
  
 import com.mycompany.belajarcrud.domain.Company;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
+import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.domain.repository.MutationRepository;
+import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
+import com.mycompany.belajarcrud.dto.EmployeeDTO;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +35,7 @@ public class CompanyRESTController {
 
 @Autowired
 CompanyRepository companyRepository;
+
 
 @RequestMapping(value = "/get.company.dummy",
                 method = RequestMethod.GET,

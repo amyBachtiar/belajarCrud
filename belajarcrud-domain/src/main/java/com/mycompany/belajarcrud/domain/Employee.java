@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -42,25 +43,27 @@ public class Employee implements EntityObject<Employee> {
                 joinColumns = { @JoinColumn(name = "employee_id")},
                 inverseJoinColumns = { @JoinColumn(name = "job_id")})
         private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
-                        
-        @ManyToMany(mappedBy = "employee")
-        private Set<Assessment> assess =new HashSet<>();
                 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         @JoinColumn(name = "empId", referencedColumnName = "empId")
-        private Set<Attendance>empAttendances;                
+        private Set<Attendance>empAttendances;   
+        
+        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+        @JoinColumn(name = "employee_id",referencedColumnName = "payrollID")
+        private Payroll payrolls;
         
 	public Employee() {
 	}
-	
-	public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate) {
-		this.empId = empId;
-		this.empName = empName;
-		this.position = position;
-		this.empStatus = empStatus;
-		this.birthDate = birthDate;
-	}
 
+        public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Set<Attendance> empAttendances, Payroll payrolls) {
+            this.empId = empId;
+            this.empName = empName;
+            this.position = position;
+            this.empStatus = empStatus;
+            this.birthDate = birthDate;
+            this.empAttendances = empAttendances;
+            this.payrolls = payrolls;
+        }
 
         public Set<Attendance> getEmpAttendances() {
             return empAttendances;
@@ -126,33 +129,44 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.empId);
-        hash = 97 * hash + Objects.hashCode(this.empName);
-        hash = 97 * hash + Objects.hashCode(this.position);
-        hash = 97 * hash + (this.empStatus ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.birthDate);
-        hash = 97 * hash + Objects.hashCode(this.jobs);
-        return hash;
-    }
+        public Payroll getPayrolls() {
+            return payrolls;
+        }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+        public void setPayrolls(Payroll payrolls) {
+            this.payrolls = payrolls;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 13 * hash + Objects.hashCode(this.id);
+            hash = 13 * hash + Objects.hashCode(this.empId);
+            hash = 13 * hash + Objects.hashCode(this.empName);
+            hash = 13 * hash + Objects.hashCode(this.position);
+            hash = 13 * hash + (this.empStatus ? 1 : 0);
+            hash = 13 * hash + Objects.hashCode(this.birthDate);
+            hash = 13 * hash + Objects.hashCode(this.jobs);
+            hash = 13 * hash + Objects.hashCode(this.empAttendances);
+            hash = 13 * hash + Objects.hashCode(this.payrolls);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Employee other = (Employee) obj;
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Employee other = (Employee) obj;
-        return true;
-    }
+
 
     @Override
     public boolean sameIdentityAs(Employee other) {

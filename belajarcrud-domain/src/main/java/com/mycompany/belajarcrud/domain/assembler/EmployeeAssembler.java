@@ -29,6 +29,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
         dto.setEmpJobs(domainObject.getJobs() == null ? new ArrayList<>() : new JobdescAssembler().toDTOs(domainObject.getJobs()));
         dto.setEmpAttendancesDTOs(domainObject.getEmpAttendances() != null ? new AttendanceAssembler().toDTOs(domainObject.getEmpAttendances()) : new ArrayList<>());
         dto.setBirthDate(domainObject.getBirthDate());
+        dto.setPayrollDTO(new PayrollAssembler().toDTO(domainObject.getPayrolls()));
         return dto;
     }
 
@@ -42,6 +43,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
         data.setJobs(dto.getEmpJobs() == null ? new HashSet<>() : new JobdescAssembler().toDomains(dto.getEmpJobs()));
         data.setEmpAttendances(dto.getEmpAttendancesDTOs()!= null ? new AttendanceAssembler().toDomains(dto.getEmpAttendancesDTOs()) : new HashSet<>());
         data.setBirthDate(dto.getBirthDate());
+        data.setPayrolls(new PayrollAssembler().toDomain(dto.getPayrollDTO()));
         return data;
         
     }

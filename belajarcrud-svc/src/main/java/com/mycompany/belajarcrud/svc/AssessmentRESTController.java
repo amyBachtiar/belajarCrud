@@ -56,8 +56,8 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> postAssessment(@RequestBody AssessmentDTO assessmentDTO) {
-        Assessment assessment = new AssessmentAssembler().toDomain(assessmentDTO);
-        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
+//        Assessment assessment = new AssessmentAssembler().toDomain(assessmentDTO);
+//        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(new AssessmentAssembler().toDomain(assessmentDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(assessmentDTO);
     }
@@ -68,8 +68,9 @@ public class AssessmentRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> updateAssessment(@RequestBody AssessmentDTO assessmentDTO) {
         Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessId(assessmentDTO.getEmpAssessId());
+        assessment.setEmpAssessId(assessmentDTO.getEmpAssessId());
         assessment.setEmpAssessment(assessmentDTO.getEmpAssessment());
-        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
+//        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AssessmentAssembler().toDTO(assessment));
     }

@@ -9,16 +9,32 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeDTO {
-	private String empId;
+	
+        private String empId;
 	private String empName;
 	private String position;
 	private Boolean empStatus;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yy" )
 	private Date birthDate;
-	private String companyId;
         private List<JobdescDTO> empJobs;
         private List<AttendanceDTO>empAttendancesDTOs;
+        private PayrollDTO payrollDTO;
 
+        public EmployeeDTO() {
+        }
+
+        public EmployeeDTO(String empId, String empName, String position, Boolean empStatus, Date birthDate, List<JobdescDTO> empJobs, List<AttendanceDTO> empAttendancesDTOs, PayrollDTO payrollDTO) {
+            this.empId = empId;
+            this.empName = empName;
+            this.position = position;
+            this.empStatus = empStatus;
+            this.birthDate = birthDate;
+            this.empJobs = empJobs;
+            this.empAttendancesDTOs = empAttendancesDTOs;
+            this.payrollDTO = payrollDTO;
+        }
+
+        
         public List<AttendanceDTO> getEmpAttendancesDTOs() {
             return empAttendancesDTOs;
         }
@@ -57,12 +73,7 @@ public class EmployeeDTO {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	public String getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
-	}
+	
 
         public List<JobdescDTO> getEmpJobs() {
             return empJobs;
@@ -71,7 +82,15 @@ public class EmployeeDTO {
         public void setEmpJobs(List<JobdescDTO> empJobs) {
             this.empJobs = empJobs;
         }
-        
+
+        public PayrollDTO getPayrollDTO() {
+            return payrollDTO;
+        }
+
+        public void setPayrollDTO(PayrollDTO payrollDTO) {
+            this.payrollDTO = payrollDTO;
+        }
+
 	@JsonIgnore
 	public EmployeeDTO getInstance() {
 		EmployeeDTO dto = new EmployeeDTO();
@@ -81,10 +100,9 @@ public class EmployeeDTO {
 		dto.setEmpStatus(true);
 		Date lahir = new Date();
 		dto.setBirthDate(lahir);
-		dto.setCompanyId("C-001");
                 dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
                 dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
-                
+                dto.setPayrollDTO(dto.getPayrollDTO().getInstance());
 		return dto;
 	}
 }

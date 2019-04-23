@@ -201,9 +201,6 @@ public class Company implements EntityObject<Company>{
     }
     
     
-    
-    
-    
     @Override
     public boolean sameIdentityAs(Company other) {
         return this.equals(other);

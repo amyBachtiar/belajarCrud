@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,32 +31,27 @@ public class Assessment implements EntityObject<Assessment> {
 	private String empAssessId;
 	private int empAssessment;
 	
-        @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
-        @JoinTable(
-        name = "Employee_asses", 
-        joinColumns = { @JoinColumn(name = "empAssessId") }, 
-        inverseJoinColumns = { @JoinColumn(name = "empid") })
-
-        private Set<Employee> employee = new HashSet<Employee>();
+        @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+        @JoinColumn(name="empAssessId", referencedColumnName="empAssessId")
+        private Set<Employee> employees;
        
         
 	public Assessment () {
 		
 	}
 
-	public Assessment(Integer id, String empAssessId, int empAssessment) {
-		this.empAssessId = empAssessId;
-		this.empAssessment = empAssessment;
-		
-		
-	}
-
-        public Set<Employee> getEmployee() {
-            return employee;
+        public Assessment(String empAssessId, int empAssessment, Set<Employee> employees) {
+            this.empAssessId = empAssessId;
+            this.empAssessment = empAssessment;
+            this.employees = employees;
         }
 
-        public void setEmployee(Set<Employee> employee) {
-            this.employee = employee;
+        public Set<Employee> getEmployees() {
+            return employees;
+        }
+
+        public void setEmployees(Set<Employee> employees) {
+            this.employees = employees;
         }
 
 	public Integer getId() {
@@ -81,24 +77,33 @@ public class Assessment implements EntityObject<Assessment> {
 	public void setEmpAssessment(int empAssessment) {
 		this.empAssessment = empAssessment;
 	}
-	
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 73 * hash + Objects.hashCode(this.id);
+            hash = 73 * hash + Objects.hashCode(this.empAssessId);
+            hash = 73 * hash + this.empAssessment;
+            hash = 73 * hash + Objects.hashCode(this.employees);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Assessment other = (Assessment) obj;
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Bizpar other = (Bizpar) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
+	
+        
 	
     @Override
     public boolean sameIdentityAs(Assessment other) {
