@@ -12,7 +12,7 @@ import java.util.UUID;
 
 /**
  *
- * @author noldyy
+ * @author noldyyy
  */
 public class AttendanceDTO {
     
