@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/////*
+// * To change this license header, choose License Headers in Project Properties.
+// * To change this template file, choose Tools | Templates
+// * and open the template in the editor.
+// */
 package com.mycompany.belajarcrud.domain.assembler;
 
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
@@ -29,7 +29,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
         dto.setEmpJobs(domainObject.getJobs() == null ? new ArrayList<>() : new JobdescAssembler().toDTOs(domainObject.getJobs()));
         dto.setEmpAttendancesDTOs(domainObject.getEmpAttendances() != null ? new AttendanceAssembler().toDTOs(domainObject.getEmpAttendances()) : new ArrayList<>());
         dto.setBirthDate(domainObject.getBirthDate());
-        dto.setPayrollDTO(new PayrollAssembler().toDTO(domainObject.getPayrolls()));
+//        dto.setPayrollDTO(new PayrollAssembler().toDTO(domainObject.getPayrolls()));
         return dto;
     }
 
@@ -43,7 +43,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
         data.setJobs(dto.getEmpJobs() == null ? new HashSet<>() : new JobdescAssembler().toDomains(dto.getEmpJobs()));
         data.setEmpAttendances(dto.getEmpAttendancesDTOs()!= null ? new AttendanceAssembler().toDomains(dto.getEmpAttendancesDTOs()) : new HashSet<>());
         data.setBirthDate(dto.getBirthDate());
-        data.setPayrolls(new PayrollAssembler().toDomain(dto.getPayrollDTO()));
+//        data.setPayrolls(new PayrollAssembler().toDomain(dto.getPayrollDTO()));
         return data;
         
     }

@@ -48,24 +48,21 @@ public class Employee implements EntityObject<Employee> {
         @JoinColumn(name = "empId", referencedColumnName = "empId")
         private Set<Attendance>empAttendances;   
         
-        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-        @JoinColumn(name = "employee_id",referencedColumnName = "payrollID")
-        private Payroll payrolls;
-        
 //        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//        @JoinColumn(name = "",referencedColumnName = "")
+//        @JoinColumn(name = "employee_id",referencedColumnName = "payrollID")
+//        private Payroll payrolls;
         
 	public Employee() {
 	}
 
-        public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Set<Attendance> empAttendances, Payroll payrolls) {
+        public Employee(String empId, String empName, String position, boolean empStatus, Date birthDate, Set<Attendance> empAttendances) {
             this.empId = empId;
             this.empName = empName;
             this.position = position;
             this.empStatus = empStatus;
             this.birthDate = birthDate;
             this.empAttendances = empAttendances;
-            this.payrolls = payrolls;
+//            this.payrolls = payrolls;
         }
 
         public Set<Attendance> getEmpAttendances() {
@@ -132,13 +129,13 @@ public class Employee implements EntityObject<Employee> {
 		this.birthDate = birthDate;
 	}
 
-        public Payroll getPayrolls() {
-            return payrolls;
-        }
-
-        public void setPayrolls(Payroll payrolls) {
-            this.payrolls = payrolls;
-        }
+//        public Payroll getPayrolls() {
+//            return payrolls;
+//        }
+//
+//        public void setPayrolls(Payroll payrolls) {
+//            this.payrolls = payrolls;
+//        }
 
         @Override
         public int hashCode() {
@@ -151,7 +148,7 @@ public class Employee implements EntityObject<Employee> {
             hash = 13 * hash + Objects.hashCode(this.birthDate);
             hash = 13 * hash + Objects.hashCode(this.jobs);
             hash = 13 * hash + Objects.hashCode(this.empAttendances);
-            hash = 13 * hash + Objects.hashCode(this.payrolls);
+//            hash = 13 * hash + Objects.hashCode(this.payrolls);
             return hash;
         }
 

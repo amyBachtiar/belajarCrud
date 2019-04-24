@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Employee;
+import com.mycompany.belajarcrud.domain.assembler.AttendanceAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AttendanceRepository;
@@ -45,8 +46,8 @@ public class EmployeeRESTController {
     @Autowired
     AttendanceRepository attendanceRepository;
     
-    @Autowired
-    PayrollRepository payrollRepository;
+//    @Autowired
+//    PayrollRepository payrollRepository;
     
    @RequestMapping(value="/get.employee.dummy",
            method= RequestMethod.GET,
@@ -72,6 +73,7 @@ public class EmployeeRESTController {
            produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+       employee.setEmpAttendances(new AttendanceAssembler().toDomains(employeeDTO.getEmpAttendancesDTOs()));
        //employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
@@ -90,6 +92,7 @@ public class EmployeeRESTController {
         employee.setEmpStatus(employeeDTO.isEmpStatus());
         // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
+        employee.setEmpAttendances(new AttendanceAssembler().toDomains(employeeDTO.getEmpAttendancesDTOs()));
         //employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.jinggagetEmpAssess()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));

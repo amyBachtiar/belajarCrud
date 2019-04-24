@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class EmployeeDTO {
 	
@@ -18,12 +19,12 @@ public class EmployeeDTO {
 	private Date birthDate;
         private List<JobdescDTO> empJobs;
         private List<AttendanceDTO>empAttendancesDTOs;
-        private PayrollDTO payrollDTO;
+//        private PayrollDTO payrollDTO;
 
         public EmployeeDTO() {
         }
 
-        public EmployeeDTO(String empId, String empName, String position, Boolean empStatus, Date birthDate, List<JobdescDTO> empJobs, List<AttendanceDTO> empAttendancesDTOs, PayrollDTO payrollDTO) {
+        public EmployeeDTO(String empId, String empName, String position, Boolean empStatus, Date birthDate, List<JobdescDTO> empJobs, List<AttendanceDTO> empAttendancesDTOs) {
             this.empId = empId;
             this.empName = empName;
             this.position = position;
@@ -31,7 +32,6 @@ public class EmployeeDTO {
             this.birthDate = birthDate;
             this.empJobs = empJobs;
             this.empAttendancesDTOs = empAttendancesDTOs;
-            this.payrollDTO = payrollDTO;
         }
 
         
@@ -83,18 +83,13 @@ public class EmployeeDTO {
             this.empJobs = empJobs;
         }
 
-        public PayrollDTO getPayrollDTO() {
-            return payrollDTO;
-        }
+        
 
-        public void setPayrollDTO(PayrollDTO payrollDTO) {
-            this.payrollDTO = payrollDTO;
-        }
 
 	@JsonIgnore
 	public EmployeeDTO getInstance() {
 		EmployeeDTO dto = new EmployeeDTO();
-		dto.setEmpId("ID-001");
+		dto.setEmpId(UUID.randomUUID().toString().substring(0,6));
 		dto.setEmpName("Masukkan Nama");
 		dto.setPosition("Masukkan Posisi");
 		dto.setEmpStatus(true);
@@ -102,7 +97,7 @@ public class EmployeeDTO {
 		dto.setBirthDate(lahir);
                 dto.setEmpJobs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
                 dto.setEmpAttendancesDTOs(new ArrayList<>(Arrays.asList(new AttendanceDTO().getInstance())));
-                dto.setPayrollDTO(dto.getPayrollDTO().getInstance());
+//                dto.setPayrollDTO(dto.getPayrollDTO().getInstance());
 		return dto;
 	}
 }
