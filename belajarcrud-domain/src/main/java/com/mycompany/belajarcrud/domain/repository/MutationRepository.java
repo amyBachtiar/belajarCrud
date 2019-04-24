@@ -2,7 +2,7 @@ package com.mycompany.belajarcrud.domain.repository;
 
 /**
  * 
- * @author tikaa 
+ * @author tika
  */
 import com.mycompany.belajarcrud.domain.Mutation;
 import javax.transaction.Transactional;

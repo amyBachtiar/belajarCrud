@@ -27,12 +27,10 @@ public class Mutation implements EntityObject<Mutation> {
 	Integer id;
 	
 	private String mutationNumber;
-	//private String position;
 	private String finalPosition;
 	private boolean mutated;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
-	//private String mutationBatch;
                 
         @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name =  "mutationNumber", referencedColumnName = "mutationNumber")
@@ -42,13 +40,11 @@ public class Mutation implements EntityObject<Mutation> {
 	}
 	
 	public Mutation( String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
-//		this.position = position;
 		this.finalPosition = finalPosition;
 		this.mutated = mutated;
 		this.mutationNumber = mutationNumber;
 		this.mutationDate = mutationDate;
                 this.employees = employees;
-		//this.mutationBatch = mutationBatch;
 	}
 	
         public Set<Employee> getEmployees() {

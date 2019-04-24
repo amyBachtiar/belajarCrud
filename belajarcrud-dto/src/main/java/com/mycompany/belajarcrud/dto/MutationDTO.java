@@ -13,20 +13,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class MutationDTO {
-	//private String position;
 	private String mutationNumber;	
         private String finalPosition;
 	private boolean mutated;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
         private List<EmployeeDTO> employeeDTOs;
-	//private String mutationBatch;
 	
 	public MutationDTO() {
         }
 
     public MutationDTO(String finalPosition, boolean mutated,String mutationNumber, Date mutationDate, List<EmployeeDTO> employeeDTOs) {
-        //this.position = position;
+
         this.finalPosition = finalPosition;
         this.mutated = mutated;
         this.mutationNumber = mutationNumber;
