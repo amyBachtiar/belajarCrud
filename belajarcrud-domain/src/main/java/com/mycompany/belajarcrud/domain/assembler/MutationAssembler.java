@@ -16,9 +16,7 @@ public class MutationAssembler implements IObjectAssembler<Mutation, MutationDTO
     @Override
 	public MutationDTO toDTO(Mutation domainObject) {
 		MutationDTO dto = new MutationDTO();
-		dto.setEmpID(domainObject.getEmpID());
-		dto.setEmpName(domainObject.getEmpName());
-		dto.setPosition(domainObject.getPosition());
+		//dto.setPosition(domainObject.getPosition());
 		dto.setFinalPosition(domainObject.getFinalPosition());
 		dto.setMutated(domainObject.isMutated());
 		dto.setMutationNumber(domainObject.getMutationNumber());
@@ -31,9 +29,7 @@ public class MutationAssembler implements IObjectAssembler<Mutation, MutationDTO
 	@Override
 	public Mutation toDomain(MutationDTO dto) {
 		Mutation data = new Mutation();
-		data.setEmpID(dto.getEmpID());
-		data.setEmpName(dto.getEmpName());
-		data.setPosition(dto.getPosition());
+		//data.setPosition(dto.getPosition());
 		data.setFinalPosition(dto.getFinalPosition());
 		data.setMutated(dto.isMutated());
 		data.setMutationNumber(dto.getMutationNumber());

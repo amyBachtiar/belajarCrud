@@ -5,7 +5,9 @@ package com.mycompany.belajarcrud.svc;
  * @author tikaa
  */
 import com.mycompany.belajarcrud.domain.Mutation;
+import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.MutationAssembler;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.domain.repository.MutationRepository;
 import com.mycompany.belajarcrud.dto.MutationDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +50,8 @@ public class MutationRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MutationDTO> postMutation(@RequestBody MutationDTO mutationDTO) {
+        Mutation mutation = new MutationAssembler().toDomain(mutationDTO);
+//        mutation.setEmployees(new EmployeeAssembler().toDomains(mutationDTO.getEmployeeDTOs()));
         mutationRepository.save(new MutationAssembler().toDomain(mutationDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(mutationDTO);
     }
@@ -58,14 +62,13 @@ public class MutationRESTController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MutationDTO> updateMutation(@RequestBody MutationDTO mutationDTO) {
         Mutation mutation = (Mutation) mutationRepository.findOneByMutationNumber(mutationDTO.getMutationNumber());
-        mutation.setEmpID(mutationDTO.getEmpID());
-        mutation.setEmpName(mutationDTO.getEmpName());
-        mutation.setPosition(mutationDTO.getPosition());
+//        mutation.setPosition(mutationDTO.getPosition());
         mutation.setFinalPosition(mutationDTO.getFinalPosition());
         mutation.setMutated(mutationDTO.isMutated());
         mutation.setMutationNumber(mutationDTO.getMutationNumber());
         mutation.setMutationDate(mutationDTO.getMutationDate());
-        //mutation.setMutationBatch(mutationDTO.getMutationBatch());
+//        mutation.setMutationBatch(mutationDTO.getMutationBatch());
+//        mutation.setEmployees(new EmployeeAssembler().toDomains(mutationDTO.getEmployeeDTOs()));
         mutationRepository.save(mutation);
         return ResponseEntity.status(HttpStatus.CREATED).body(new MutationAssembler().toDTO(mutation));
     }

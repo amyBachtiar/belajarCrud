@@ -13,58 +13,33 @@ import java.util.List;
 import java.util.UUID;
 
 public class MutationDTO {
-        private String empID;
-	private String empName;
-	private String position;
-	private String finalPosition;
+	//private String position;
+	private String mutationNumber;	
+        private String finalPosition;
 	private boolean mutated;
-	private String mutationNumber;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
         private List<EmployeeDTO> employeeDTOs;
-        //private String companyID;
 	//private String mutationBatch;
 	
 	public MutationDTO() {
         }
 
-    public MutationDTO(String empID, String empName, String position, String finalPosition, boolean mutated,String mutationNumber, Date mutationDate, List<EmployeeDTO> employeeDTOs) {
-        this.empID = empID;
-        this.empName = empName;
-        this.position = position;
+    public MutationDTO(String finalPosition, boolean mutated,String mutationNumber, Date mutationDate, List<EmployeeDTO> employeeDTOs) {
+        //this.position = position;
         this.finalPosition = finalPosition;
         this.mutated = mutated;
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
         this.employeeDTOs = employeeDTOs;
-        //this.companyID = companyID;
     }
-    
-//    public String getCompanyId() {
-//        return companyID;
-//    }
-//    public void setCompanyId(String companyID) {
-//        this.companyID = companyID;
-//    }
-//    
-	public String getEmpID() {
-		return empID;
-	}
-	public void setEmpID(String empID) {
-		this.empID = empID;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}
+
+//	public String getPosition() {
+//		return position;
+//	}
+//	public void setPosition(String position) {
+//		this.position = position;
+//	}
 	public String getFinalPosition() {
 		return finalPosition;
 	}
@@ -108,15 +83,13 @@ public class MutationDTO {
 	@JsonIgnore
 	public MutationDTO getInstance() {
 		MutationDTO dto = new MutationDTO();
-		dto.setEmpID("ID-001");
-		dto.setEmpName("Masukkan Nama");
-		dto.setPosition("Masukkan Posisi");
+                dto.setMutationNumber(UUID.randomUUID().toString().substring(0,6));
+		//dto.setPosition("Masukkan Posisi");
+                dto.setFinalPosition("posisi akhir");
 		dto.setMutated(true);
 		Date mutdate = new Date();
 		dto.setMutationDate(mutdate);
 		//dto.setMutationBatch("Batch-01");
-		dto.setMutationNumber(UUID.randomUUID().toString().substring(0,6));
-                //dto.setCompanyId(new CompanyDTO().getInstance());
                 dto.setEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
 		return dto;
 	}
