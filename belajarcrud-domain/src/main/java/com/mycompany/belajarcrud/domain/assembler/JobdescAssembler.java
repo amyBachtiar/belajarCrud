@@ -4,6 +4,7 @@ package com.mycompany.belajarcrud.domain.assembler;
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Jobdesc;
 import com.mycompany.belajarcrud.dto.JobdescDTO;
+import com.mycompany.belajarcrud.dto.JobdescPostDTO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +27,14 @@ public class JobdescAssembler implements IObjectAssembler<Jobdesc, JobdescDTO>{
 
     @Override
     public Jobdesc toDomain(JobdescDTO dto) {
+        Jobdesc data = new Jobdesc();
+        data.setJobdescId(dto.getJobdescId());
+        data.setName(dto.getName());
+        data.setDescription(dto.getDescription());
+        return data;
+    }
+    
+     public Jobdesc toDomain(JobdescPostDTO dto) {
         Jobdesc data = new Jobdesc();
         data.setJobdescId(dto.getJobdescId());
         data.setName(dto.getName());

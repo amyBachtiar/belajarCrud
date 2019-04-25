@@ -5,11 +5,15 @@ import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,15 +38,19 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     
 //    @ManyToMany(mappedBy = "employee")
 //    private Set<Employee>employees=new HashSet<>();
+    
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="compId",nullable = false)
+    private Company comps;
 
     public Jobdesc() {
     }
 
-    public Jobdesc(String jobdescId, String name, String description,Set<Employee>employees) {
+    public Jobdesc(String jobdescId, String name, String description, Company comps) {
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
-//        this.employees=employees;
+        this.comps = comps;
     }
 
     public Integer getId() {
@@ -77,6 +85,15 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.description = description;
     }
 
+    public Company getComps() {
+        return comps;
+    }
+
+    public void setComps(Company comps) {
+        this.comps = comps;
+    }
+
+    
 //    public Set<Employee> getEmployees() {
 //        return employees;
 //    }
@@ -106,11 +123,10 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.jobdescId);
-        hash = 79 * hash + Objects.hashCode(this.name);
-        hash = 79 * hash + Objects.hashCode(this.description);
-        //hash = 79 * hash + Objects.hashCode(this.employees);
+        hash = 19 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.jobdescId);
+        hash = 19 * hash + Objects.hashCode(this.name);
+        hash = 19 * hash + Objects.hashCode(this.description);
         return hash;
     }
 

@@ -48,8 +48,7 @@ public class Company implements EntityObject<Company>{
     @JoinColumn(name="compId")
     private Set<Mutation> mutations;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="compId")
+    @OneToMany(mappedBy = "comps",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Jobdesc>compJobs;
     
     public Company(){
