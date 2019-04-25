@@ -12,18 +12,14 @@ package com.mycompany.belajarcrud.dto;
 public class customDTO {
     private String payrollID;
     private PayrollItemsDTO payrollIT;
-    private String companyID;
-    private JobdescDTO jobds;
 
     
     public customDTO() {
     }
 
-    public customDTO(String payrollID, PayrollItemsDTO payrollIT, String companyID, JobdescDTO jobds) {
+    public customDTO(String payrollID, PayrollItemsDTO payrollIT) {
         this.payrollID = payrollID;
         this.payrollIT = payrollIT;
-        this.companyID = companyID;
-        this.jobds = jobds;
     }
     
     public String getPayrollID() {
@@ -40,24 +36,7 @@ public class customDTO {
 
     public void setPayrollIT(PayrollItemsDTO payrollIT) {
         this.payrollIT = payrollIT;
-    }
-
-    public String getCompanyID() {
-        return companyID;
-    }
-
-    public void setCompanyID(String companyID) {
-        this.companyID = companyID;
-    }
-
-    public JobdescDTO getJobds() {
-        return jobds;
-    }
-
-    public void setJobds(JobdescDTO jobds) {
-        this.jobds = jobds;
-    }
-    
+    }  
     
     
 }
