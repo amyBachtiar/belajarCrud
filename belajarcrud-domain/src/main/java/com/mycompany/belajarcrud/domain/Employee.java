@@ -48,7 +48,7 @@ public class Employee implements EntityObject<Employee> {
 //        inverseJoinColumns = { @JoinColumn(name = "job_id") })
 //    private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "companyId", nullable = false)
     private Company company;
     
