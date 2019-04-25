@@ -12,9 +12,9 @@ import java.util.List;
  *
  * @author Mega
  */
-public class EmployeeDTO {
+public class EmployeePostDTO {
     
-    private String companyId;
+    private String companyId; //masukin parent id
     private String empId;
     private String empName;
     private String position;
@@ -25,7 +25,7 @@ public class EmployeeDTO {
     
 //    private List<JobdescDTO> empJobs;
 //    private List<AttendanceDTO> empAttendancesDTOs;
-    private CNBDTO cnbDTO;
+//    private CNBDTO cnbDTO;
 
     public String getCompanyId() {
         return companyId;
@@ -91,18 +91,18 @@ public class EmployeeDTO {
 //        this.empAttendancesDTOs = empAttendancesDTOs;
 //    }
 
-    public CNBDTO getCnbDTO() {
-        return cnbDTO;
-    }
-
-    public void setCnbDTO(CNBDTO cnbDTO) {
-        this.cnbDTO = cnbDTO;
-    }
+//    public CNBDTO getCnbDTO() {
+//        return cnbDTO;
+//    }
+//
+//    public void setCnbDTO(CNBDTO cnbDTO) {
+//        this.cnbDTO = cnbDTO;
+//    }
         
     // create data Employee dummy 
     @JsonIgnore
-    public EmployeeDTO getInstance() {
-        EmployeeDTO dto = new EmployeeDTO();
+    public EmployeePostDTO getInstance() {
+        EmployeePostDTO dto = new EmployeePostDTO();
         dto.setEmpId("ID-001");
         dto.setEmpName("Masukkan Nama");
         dto.setPosition("Masukkan Posisi");

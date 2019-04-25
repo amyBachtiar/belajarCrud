@@ -32,7 +32,7 @@ public class Employee implements EntityObject<Employee> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     
-    private String companyId;
+//    private String companyId;
     private String empId;
     private String empName;
     private String position;
@@ -41,30 +41,29 @@ public class Employee implements EntityObject<Employee> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date birthDate;
     
-    @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "Employee_Job", 
-        joinColumns = { @JoinColumn(name = "employee_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "job_id") })
-    private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
+//    @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
+//    @JoinTable(
+//        name = "Employee_Job", 
+//        joinColumns = { @JoinColumn(name = "employee_id") }, 
+//        inverseJoinColumns = { @JoinColumn(name = "job_id") })
+//    private Set<Jobdesc> jobs = new HashSet<Jobdesc>();
     
-    @ManyToOne
-    @JoinColumn(name = "companyId", referencedColumnName = "companyId", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "companyId", nullable = false)
     private Company company;
     
 //    @ManyToOne
 //    @JoinColumn(name = "mutation_id", nullable = true)//biar employee ga harus mutasi
 //    private Mutation mutation;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "empId", referencedColumnName = "empId", nullable = true, insertable = true, updatable = true)
-    private Set<Attendance> empAttendances;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "empId", referencedColumnName = "empId", nullable = true, insertable = true, updatable = true)
+//    private Set<Attendance> empAttendances;
     
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cnbid", referencedColumnName = "CNBID")
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private CNB cnb;
     
             
@@ -88,10 +87,10 @@ public class Employee implements EntityObject<Employee> {
         this.position = position;
         this.empStatus = empStatus;
         this.birthDate = birthDate;
-        this.jobs=jobs;
-        this.empAttendances=empAttendances;
+//        this.jobs=jobs;
+//        this.empAttendances=empAttendances;
         this.company = company;
-        this.companyId = companyId;
+//        this.companyId = companyId;
         this.cnb = cnb;
 //        this.mutation = mutation;
 //        this.mutationBatch = mutationBatch;
@@ -113,13 +112,13 @@ public class Employee implements EntityObject<Employee> {
 //        this.mutationBatch = mutationBatch;
 //    }
 
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
+//    public String getCompanyId() {
+//        return companyId;
+//    }
+//
+//    public void setCompanyId(String companyId) {
+//        this.companyId = companyId;
+//    }
 
     
     public Integer getId() {
@@ -178,21 +177,21 @@ public class Employee implements EntityObject<Employee> {
         this.company = company;
     }
 
-    public Set<Jobdesc> getJobs() {
-        return jobs;
-    }
-
-    public void setJobs(Set<Jobdesc> jobs) {
-        this.jobs = jobs;
-    }
-
-    public Set<Attendance> getEmpAttendances() {
-        return empAttendances;
-    }
-
-    public void setEmpAttendances(Set<Attendance> empAttendances) {
-        this.empAttendances = empAttendances;
-    }
+//    public Set<Jobdesc> getJobs() {
+//        return jobs;
+//    }
+//
+//    public void setJobs(Set<Jobdesc> jobs) {
+//        this.jobs = jobs;
+//    }
+//
+//    public Set<Attendance> getEmpAttendances() {
+//        return empAttendances;
+//    }
+//
+//    public void setEmpAttendances(Set<Attendance> empAttendances) {
+//        this.empAttendances = empAttendances;
+//    }
 
     public CNB getCnb() {
         return cnb;
@@ -206,16 +205,16 @@ public class Employee implements EntityObject<Employee> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.companyId);
+//        hash = 89 * hash + Objects.hashCode(this.companyId);
         hash = 89 * hash + Objects.hashCode(this.empId);
         hash = 89 * hash + Objects.hashCode(this.empName);
         hash = 89 * hash + Objects.hashCode(this.position);
         hash = 89 * hash + (this.empStatus ? 1 : 0);
         hash = 89 * hash + Objects.hashCode(this.birthDate);
-        hash = 89 * hash + Objects.hashCode(this.jobs);
+//        hash = 89 * hash + Objects.hashCode(this.jobs);
         hash = 89 * hash + Objects.hashCode(this.company);
 //        hash = 89 * hash + Objects.hashCode(this.mutation);
-        hash = 89 * hash + Objects.hashCode(this.empAttendances);
+//        hash = 89 * hash + Objects.hashCode(this.empAttendances);
         hash = 89 * hash + Objects.hashCode(this.cnb);
         return hash;
     }

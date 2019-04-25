@@ -6,10 +6,18 @@
 package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.CNB;
+import com.mycompany.belajarcrud.domain.CNBItem;
+import com.mycompany.belajarcrud.domain.Employee;
 import com.mycompany.belajarcrud.domain.assembler.CNBAssembler;
+import com.mycompany.belajarcrud.domain.assembler.CNBItemAssembler;
+import com.mycompany.belajarcrud.domain.repository.CNBItemRepository;
 import com.mycompany.belajarcrud.domain.repository.CNBRepository;
+import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 
 import com.mycompany.belajarcrud.dto.CNBDTO;
+import com.mycompany.belajarcrud.dto.CNBItemDTO;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +39,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CNBRESTController {
     @Autowired
     CNBRepository cnbRepository;
+    
+    @Autowired
+    CNBItemRepository cnbitemRepository;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+    
     @RequestMapping(value = "/get.cnb.dummy",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,6 +69,8 @@ public class CNBRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CNBDTO> postCNB(@RequestBody CNBDTO cnbDTO) {
+        CNB cnb = new CNBAssembler().toDomain(cnbDTO);
+        cnb.setEmployee(employeeRepository.findOneByEmpId(cnbDTO.getEmployeeDTO().getEmpId()));//
         cnbRepository.save(new CNBAssembler().toDomain(cnbDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(cnbDTO);
     }
@@ -66,7 +82,18 @@ public class CNBRESTController {
     public ResponseEntity<CNBDTO> updateCNB(@RequestBody CNBDTO cnbDTO) {
         CNB cnb = (CNB) cnbRepository.findOneByCnbID(cnbDTO.getCnbID());
         cnb.setCnbID(cnbDTO.getCnbID());
-        
+        cnb.setCnbStatus(cnbDTO.isCnbStatus());
+        cnb.setCnbDesc(cnbDTO.getCnbDesc());
+        Set<CNBItem> cnbitems = new HashSet<CNBItem>();
+            for(CNBItemDTO itemsDTO : cnbDTO.getCnbItemsDTOs()){
+                CNBItem cnbitem = cnbitemRepository.findOneByCnbitemID(itemsDTO.getCnbitemID());
+                if(cnbitem != null){
+                    cnbitems.add(cnbitem);
+                }else{
+                    CNBItem item = new CNBItemAssembler().toDomain(itemsDTO);
+                    cnbitems.add(item);
+                }
+            }
         
         return ResponseEntity.status(HttpStatus.CREATED).body(new CNBAssembler().toDTO(cnb));
     }

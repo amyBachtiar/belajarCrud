@@ -36,16 +36,16 @@ public class Company implements EntityObject<Company>{
     private String companyDesc;
     
     //@JsonIgnore
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Employee> listEmployee;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Employee> listEmployee ;
     
 //    @OneToMany(mappedBy = "company")
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name="compId",referencedColumnName = "companyId")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="compId")
     private Set<Mutation> mutations;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name="compId",referencedColumnName = "companyId")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name="compId")
     private Set<Jobdesc>compJobs;
     
     public Company(){

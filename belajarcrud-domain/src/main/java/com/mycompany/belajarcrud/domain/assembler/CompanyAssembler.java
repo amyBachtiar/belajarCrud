@@ -3,6 +3,7 @@ package com.mycompany.belajarcrud.domain.assembler;
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
+import com.mycompany.belajarcrud.dto.CompanyPostDTO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         dto.setCompanyDesc(domainObject.getCompanyDesc());
         dto.setCompJobsDTOs(domainObject.getCompJobs() != null ? new JobdescAssembler().toDTOs(domainObject.getCompJobs()) : new ArrayList<>());
         dto.setMutationDTOs(domainObject.getMutations() != null ? new MutationAssembler().toDTOs(domainObject.getMutations()): new ArrayList<>());
-//        dto.setListEmployeeDTOs(domainObject.getListEmployee()!= null ? new EmployeeAssembler().toDTOs(domainObject.getListEmployee()) : new ArrayList<>());
+        dto.setListEmployeeDTOs(domainObject.getListEmployee()!= null ? new EmployeeAssembler().toDTOs(domainObject.getListEmployee()) : new ArrayList<>());
         return dto;
     }
     
@@ -33,9 +34,21 @@ public class CompanyAssembler implements IObjectAssembler<Company, CompanyDTO>{
         data.setCompanyDesc(dto.getCompanyDesc());
         data.setCompJobs(dto.getCompJobsDTOs()!= null ? new JobdescAssembler().toDomains(dto.getCompJobsDTOs()) : new HashSet<>());
         data.setMutations(dto.getMutationDTOs() != null ? new MutationAssembler().toDomains(dto.getMutationDTOs()): new HashSet<>());
-//        data.setListEmployee(dto.getListEmployeeDTOs() == null? new HashSet <> () : new EmployeeAssembler().toDomains(dto.getListEmployeeDTOs()));
+        data.setListEmployee(dto.getListEmployeeDTOs() == null? new HashSet <> () : new EmployeeAssembler().toDomains(dto.getListEmployeeDTOs()));
         return data;
     }
+      
+
+    public Company toDomain(CompanyPostDTO Pdto){
+        Company data= new Company();
+        data.setCompanyId(Pdto.getCompanyId());
+        data.setCompanyName(Pdto.getCompanyName());
+        data.setCompanyDesc(Pdto.getCompanyDesc());
+        return data;
+    }
+    
+    
+    
     
     public List<CompanyDTO> toDTOs(Set<Company> arg0) {
         List<CompanyDTO> res = new ArrayList<>();

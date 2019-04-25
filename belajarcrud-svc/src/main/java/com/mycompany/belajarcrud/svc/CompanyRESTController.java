@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.dto.CompanyPostDTO;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 
 /**
@@ -36,8 +37,8 @@ public class CompanyRESTController {
     @RequestMapping(value="/get.company.dummy",
             method=RequestMethod.GET,
             produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO>getCompanyDummy(){
-            return ResponseEntity.status(HttpStatus.FOUND).body(new CompanyDTO().getInstance());
+    public ResponseEntity<CompanyPostDTO>getCompanyDummy(){
+            return ResponseEntity.status(HttpStatus.FOUND).body(new CompanyPostDTO().getInstance());
     }
     
     @RequestMapping(value="/get.company.by.companyId/{companyId}",
@@ -55,18 +56,18 @@ public class CompanyRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO> postCompany(@RequestBody CompanyDTO companyDTO) {
-        Company company = new CompanyAssembler().toDomain(companyDTO);        
+    public ResponseEntity<CompanyPostDTO> postCompany(@RequestBody CompanyPostDTO companyPostDTO) {
+        Company company = new CompanyAssembler().toDomain(companyPostDTO);        
 //        company.setListEmployee(new EmployeeAssembler().toDomains(companyDTO.getListEmployeeDTOs()));
         companyRepository.save(company);
-        return ResponseEntity.status(HttpStatus.CREATED).body(companyDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(companyPostDTO);
     }
     
     @RequestMapping(value="/update.company",
             method=RequestMethod.PUT,
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO> updateCompany(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<CompanyDTO> updateCompany(@RequestBody CompanyPostDTO companyDTO) {
         Company company = (Company) companyRepository.findOneByCompanyId(companyDTO.getCompanyId());
         company.setCompanyId(companyDTO.getCompanyId());
         company.setCompanyName(companyDTO.getCompanyName());

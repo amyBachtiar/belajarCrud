@@ -32,8 +32,8 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     private String name;
     private String description;
     
-    @ManyToMany(mappedBy = "jobs")
-    private Set<Employee>employees=new HashSet<>();
+//    @ManyToMany(mappedBy = "employee")
+//    private Set<Employee>employees=new HashSet<>();
 
     public Jobdesc() {
     }
@@ -42,7 +42,7 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
-        this.employees=employees;
+//        this.employees=employees;
     }
 
     public Integer getId() {
@@ -77,13 +77,13 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.description = description;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
     
     @Override
     public boolean equals(Object obj){
@@ -110,7 +110,7 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         hash = 79 * hash + Objects.hashCode(this.jobdescId);
         hash = 79 * hash + Objects.hashCode(this.name);
         hash = 79 * hash + Objects.hashCode(this.description);
-        hash = 79 * hash + Objects.hashCode(this.employees);
+        //hash = 79 * hash + Objects.hashCode(this.employees);
         return hash;
     }
 

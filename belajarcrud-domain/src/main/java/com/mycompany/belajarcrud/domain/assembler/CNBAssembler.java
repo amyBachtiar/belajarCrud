@@ -23,12 +23,13 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
     @Override
     public CNBDTO toDTO(CNB domainObject) {
        CNBDTO dto = new CNBDTO();
-
         dto.setCnbID(domainObject.getCnbID());
-        dto.setSalary(new PayrollAssembler().toDTO(domainObject.getSalary()));
-        dto.setCnbItemsDTOs(domainObject.getCnbItems()!= null?
-                new CNBItemAssembler().toDTOs(domainObject.getCnbItems())
-                        : new ArrayList<>());
+        dto.setCnbStatus(domainObject.isCnbStatus());
+        dto.setCnbDesc(domainObject.getCnbDesc());
+//        dto.setSalary(new PayrollAssembler().toDTO(domainObject.getSalary()));
+//        dto.setCnbItemsDTOs(domainObject.getCnbItems()!= null?
+//                new CNBItemAssembler().toDTOs(domainObject.getCnbItems())
+//                        : new ArrayList<>());
         return dto;
     }
 
@@ -37,10 +38,12 @@ public class CNBAssembler implements IObjectAssembler<CNB, CNBDTO>{
     CNB data = new CNB();
 
         data.setCnbID(dto.getCnbID());
-        data.setSalary(new PayrollAssembler().toDomain(dto.getSalary()));
-        data.setCnbItems(dto.getCnbItemsDTOs()!= null?
-            new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()):
-                new HashSet<>());
+        dto.setCnbStatus(dto.isCnbStatus());
+        dto.setCnbDesc(dto.getCnbDesc());
+//        data.setSalary(new PayrollAssembler().toDomain(dto.getSalary()));
+//        data.setCnbItems(dto.getCnbItemsDTOs()!= null?
+//            new CNBItemAssembler().toDomains(dto.getCnbItemsDTOs()):
+//                new HashSet<>());
         return data;
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

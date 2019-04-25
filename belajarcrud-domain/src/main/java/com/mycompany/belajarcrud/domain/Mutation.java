@@ -50,9 +50,9 @@ public class Mutation implements EntityObject<Mutation> {
 //    @OneToMany
 //    private Set<MutationBatch> mutationBatch;
     
-//    @ManyToOne
-//    @JoinColumn(name = "company_id", referencedColumnName = "companyId", nullable = false)
-//    private Company company;
+    @ManyToOne
+    @JoinColumn(name = "company_id", referencedColumnName = "companyId", nullable = false)
+    private Company company;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "mutation_id", referencedColumnName = "mutationNumber", insertable = false, updatable = false)
@@ -69,7 +69,7 @@ public class Mutation implements EntityObject<Mutation> {
         this.mutated = mutated;
         this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
-//        this.company = company;
+        this.company = company;
         this.employees = employees;
     }
 
@@ -81,13 +81,13 @@ public class Mutation implements EntityObject<Mutation> {
         this.employees = employees;
     }
 
-//    public Company getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(Company company) {
-//        this.company = company;
-//    }
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
     
     public Date getMutationDate() {
         return mutationDate;

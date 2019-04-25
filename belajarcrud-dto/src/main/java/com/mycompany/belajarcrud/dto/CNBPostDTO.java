@@ -17,12 +17,10 @@ import java.util.UUID;
  *
  * @author eksad-edwina
  */
-public class CNBDTO {
+public class CNBPostDTO {
     
 
     private String cnbID;
-    private boolean cnbStatus;
-    private String cnbDesc;
    // @OneToMany(mappedBy = "part",cascade = CascadeType.ALL)
 //     private double baseSalary;
     private PayrollDTO Salary;
@@ -30,7 +28,7 @@ public class CNBDTO {
     private EmployeeDTO employeeDTO;
     
 
-    public CNBDTO() {
+    public CNBPostDTO() {
     }
 
     public String getCnbID() {
@@ -66,35 +64,17 @@ public class CNBDTO {
     public void setEmployeeDTO(EmployeeDTO employeeDTO) {
         this.employeeDTO = employeeDTO;
     }
-
-    public boolean isCnbStatus() {
-        return cnbStatus;
-    }
-
-    public void setCnbStatus(boolean cnbStatus) {
-        this.cnbStatus = cnbStatus;
-    }
-
-    public String getCnbDesc() {
-        return cnbDesc;
-    }
-
-    public void setCnbDesc(String cnbDesc) {
-        this.cnbDesc = cnbDesc;
-    }
     
     //create data dummy
     @JsonIgnore
-    public CNBDTO getInstance(){
-        CNBDTO dto = new CNBDTO();
+    public CNBPostDTO getInstance(){
+        CNBPostDTO dto = new CNBPostDTO();
 //        dto.setEmpName("Edwin");
         dto.setCnbID("CNBEMP-001");
-        dto.setCnbStatus(true);
-        dto.setCnbDesc("Dana Pensiun dan Dana Asuransi");
-//        dto.setCnbItemsDTOs(new ArrayList<>(Arrays.asList(
-//                new CNBItemDTO().getInstance())));
+        dto.setCnbItemsDTOs(new ArrayList<>(Arrays.asList(
+                new CNBItemDTO().getInstance())));
         PayrollDTO pay = new PayrollDTO();
-//        dto.setSalary(pay.getInstance());
+        dto.setSalary(pay.getInstance());
 //        PayrollDTO payrolldto = new PayrollDTO(); 
 //        payrolldto.setPayItemsDTOs(getSalary());
         return dto;

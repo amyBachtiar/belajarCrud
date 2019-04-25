@@ -44,27 +44,41 @@ public class CNB implements EntityObject<CNB>{
 //    @Column(unique = true)
 //    @NotNull(message = "part code cannot be null")
     private String cnbID;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID", insertable = false, updatable = false)
-    private Payroll Salary;
+    private boolean cnbStatus;
+    private String cnbDesc;
+  
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cnbsalaryID", referencedColumnName = "payrollID", insertable = false, updatable = false)
+//    private Payroll Salary;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="cnbitemID",referencedColumnName = "cnbID", insertable = false, updatable = false)
-    private Set<CNBItem> cnbItems = new HashSet<> ();
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name="cnbitemID",referencedColumnName = "cnbID", insertable = false, updatable = false)
+//    private Set<CNBItem> cnbItems = new HashSet<> ();
     //private Set<CNBItem> Items;
     //private boolean status;
+    
+    @OneToOne(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @JoinColumn(name = "empid")
+    private Employee employee;
 
     public CNB() {
     }
 
     public CNB( 
             String cnbID, 
+            boolean cnbStatus,
+            String cnbDesc,
             Payroll Salary, 
-            Set<CNBItem> cnbItems) {
+            Set<CNBItem> cnbItems,
+            Employee employee) {
 
         this.cnbID = cnbID;
-        this.Salary = Salary;
-        this.cnbItems = cnbItems;
+        this.cnbStatus = cnbStatus;
+        this.cnbDesc = cnbDesc;
+//        this.Salary = Salary;
+//        this.cnbItems = cnbItems;
+        this.employee = employee;
+        
     }
 
     public String getCnbID() {
@@ -84,55 +98,81 @@ public class CNB implements EntityObject<CNB>{
     }
 
 
-    public Payroll getSalary() {
-        return Salary;
+//    public Payroll getSalary() {
+//        return Salary;
+//    }
+//
+//    public void setSalary(Payroll Salary) {
+//        this.Salary = Salary;
+//    }
+//
+//
+//    public Set<CNBItem> getCnbItems() {
+//        return cnbItems;
+//    }
+//
+//    public void setCnbItems(Set<CNBItem> cnbItems) {
+//        this.cnbItems = cnbItems;
+//    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setSalary(Payroll Salary) {
-        this.Salary = Salary;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
-
-
-    public Set<CNBItem> getCnbItems() {
-        return cnbItems;
-    }
-
-    public void setCnbItems(Set<CNBItem> cnbItems) {
-        this.cnbItems = cnbItems;
-    }
-
+ 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.cnbID);
-        hash = 59 * hash + Objects.hashCode(this.Salary);
-        hash = 59 * hash + Objects.hashCode(this.cnbItems);
+//        hash = 59 * hash + Objects.hashCode(this.Salary);
+//        hash = 59 * hash + Objects.hashCode(this.cnbItems);
         return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CNB other = (CNB) obj;
-        if (!Objects.equals(this.cnbID, other.cnbID)) {
-            return false;
-        }
-        if (!Objects.equals(this.Salary, other.Salary)) {
-            return false;
-        }
-        if (!Objects.equals(this.cnbItems, other.cnbItems)) {
-            return false;
-        }
-        return true;
+    public boolean isCnbStatus() {
+        return cnbStatus;
     }
+
+    public void setCnbStatus(boolean cnbStatus) {
+        this.cnbStatus = cnbStatus;
+    }
+
+    public String getCnbDesc() {
+        return cnbDesc;
+    }
+
+    public void setCnbDesc(String cnbDesc) {
+        this.cnbDesc = cnbDesc;
+    }
+
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final CNB other = (CNB) obj;
+//        if (!Objects.equals(this.cnbID, other.cnbID)) {
+//            return false;
+//        }
+////        if (!Objects.equals(this.Salary, other.Salary)) {
+////            return false;
+////        }
+////        if (!Objects.equals(this.cnbItems, other.cnbItems)) {
+////            return false;
+////        }
+//           
+//        return true;
+//    }
 
 
    

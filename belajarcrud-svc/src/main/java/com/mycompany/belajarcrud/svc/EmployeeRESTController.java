@@ -26,6 +26,7 @@ import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
 import com.mycompany.belajarcrud.dto.AttendanceDTO;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
+import com.mycompany.belajarcrud.dto.EmployeePostDTO;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,8 +56,8 @@ public class EmployeeRESTController {
     @RequestMapping(value="/get.employee.dummy",
             method=RequestMethod.GET,
             produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmployeeDTO>getEmployeeDummy(){
-            return ResponseEntity.status(HttpStatus.FOUND).body(new EmployeeDTO().getInstance());
+    public ResponseEntity<EmployeePostDTO>getEmployeeDummy(){
+            return ResponseEntity.status(HttpStatus.FOUND).body(new EmployeePostDTO().getInstance());
     }
     
     @RequestMapping(value="/get.employee.by.empID/{empID}",
@@ -74,42 +75,46 @@ public class EmployeeRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        Set<Attendance> att = new HashSet<Attendance>();
-        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
-            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+    public ResponseEntity<EmployeePostDTO> postEmployee(@RequestBody EmployeePostDTO employeePostDTO) {
+        Employee employee = new EmployeeAssembler().toDomain(employeePostDTO);      
+        Company company = companyRepository.findOneByCompanyId(employeePostDTO.getCompanyId());
+        if (company != null){
+            employee.setCompany(company);//
         }
-        employee.setEmpAttendances(att);
-        employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
+        //Set<Attendance> att = new HashSet<Attendance>();
+//        for (AttendanceDTO attendanceIdsDTO : employeeDTO.getEmpAttendancesDTOs()) {
+//            att.add(attendanceRepository.findOneByAttendanceId(attendanceIdsDTO.getAttendanceId()));
+//        }
+//        employee.setEmpAttendances(att);
+        //employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
         employeeRepository.save(employee);
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeePostDTO);
     }
     
     @RequestMapping(value="/update.employee",
             method=RequestMethod.PUT,
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = (Employee) employeeRepository.findOneByEmpId(employeeDTO.getEmpId());
-        employee.setEmpName(employeeDTO.getEmpName());
-        employee.setPosition(employeeDTO.getPosition());
-        employee.setEmpStatus(employeeDTO.isEmpStatus());
-        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
+    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeePostDTO employeePostDTO) {
+        Employee employee = (Employee) employeeRepository.findOneByEmpId(employeePostDTO.getEmpId());
+        employee.setEmpName(employeePostDTO.getEmpName());
+        employee.setPosition(employeePostDTO.getPosition());
+        employee.setEmpStatus(employeePostDTO.isEmpStatus());
+        //employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
 //        Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
-        Set<Attendance> attendances = new HashSet<Attendance>();
-        for (AttendanceDTO adto : employeeDTO.getEmpAttendancesDTOs()){
-            Attendance attendance = attendanceRepository.findOneByAttendanceId(adto.getAttendanceId());
-            if(attendance != null){
-                attendance.setDate(adto.getDate());
-                attendances.add(attendance);
-            } else {
-                Attendance a = new AttendanceAssembler().toDomain(adto);
-                attendances.add(a);
-            }
-        }
-        employee.setEmpAttendances(attendances);
-        employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
+//        Set<Attendance> attendances = new HashSet<Attendance>();
+//        for (AttendanceDTO adto : employeeDTO.getEmpAttendancesDTOs()){
+//            Attendance attendance = attendanceRepository.findOneByAttendanceId(adto.getAttendanceId());
+//            if(attendance != null){
+//                attendance.setDate(adto.getDate());
+//                attendances.add(attendance);
+//            } else {
+//                Attendance a = new AttendanceAssembler().toDomain(adto);
+//                attendances.add(a);
+//            }
+//        }
+        //employee.setEmpAttendances(attendances);
+//        employee.setCnb(new CNBAssembler().toDomain(employeeDTO.getCnbDTO()));
 //      employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
         employeeRepository.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EmployeeAssembler().toDTO(employee));
