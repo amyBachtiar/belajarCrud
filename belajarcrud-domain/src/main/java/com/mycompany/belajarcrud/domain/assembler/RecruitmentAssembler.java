@@ -2,8 +2,8 @@ package com.mycompany.belajarcrud.domain.assembler;
 
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Recruitment;
-import com.mycompany.belajarcrud.dto.RecruitmentDTO;
 import com.mycompany.belajarcrud.dto.RecruitmentPostDTO;
+import com.mycompany.belajarcrud.dto.RecruitmentDTO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,16 +24,9 @@ public class RecruitmentAssembler implements IObjectAssembler <Recruitment, Recr
         return dto;
     }  
     
-    @Override
-    public Recruitment toDomain(RecruitmentDTO dto) {
-        Recruitment data = new Recruitment();
-        data.setRecID(dto.getRecID());
-        data.setRecType(dto.getRecType());
-        data.setStatus(dto.isStatus());
-        return data;
-    }
+   
     
-    public Recruitment toDomain(RecruitmentPostDTO dto) {
+    public Recruitment toDomain(RecruitmentDTO dto) {
         Recruitment data = new Recruitment();
         data.setRecID(dto.getRecID());
         data.setJobseekers(dto.getRecJobs() == null ? new HashSet<>() : new JobseekerAssembler().toDomains(dto.getRecJobs()));

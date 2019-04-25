@@ -17,7 +17,7 @@ public class CompanyDTO {
     private List<JobdescDTO> compJobsDTOs;
     private List<EmployeeDTO> listEmployeeDTOs;
     private List<MutationDTO> mutationDTOs;
-    private List<RecruitmentDTO> recruitmentDTOs;
+    private List<RecruitmentPostDTO> recruitmentDTOs;
 
     public List<MutationDTO> getMutationDTOs() {
         return mutationDTOs;
@@ -67,11 +67,11 @@ public class CompanyDTO {
         this.listEmployeeDTOs = listEmployeeDTOs;
     }
 
-    public List<RecruitmentDTO> getRecruitmentDTOs() {
+    public List<RecruitmentPostDTO> getRecruitmentDTOs() {
         return recruitmentDTOs;
     }
 
-    public void setRecruitmentDTOs(List<RecruitmentDTO> recruitmentDTOs) {
+    public void setRecruitmentDTOs(List<RecruitmentPostDTO> recruitmentDTOs) {
         this.recruitmentDTOs = recruitmentDTOs;
     }
     
