@@ -8,6 +8,9 @@ import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
+import com.mycompany.belajarcrud.dto.EmployeeDTO;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,8 +33,8 @@ public class AssessmentRESTController {
     @Autowired
     AssessmentRepository assessmentRepository;
     
-//    @Autowired
-//    EmployeeRepository employeerepository;
+    @Autowired
+    EmployeeRepository employeerepository;
     
     @RequestMapping(value="/get.assessment.dummy",
             method=RequestMethod.GET,
@@ -70,6 +73,22 @@ public class AssessmentRESTController {
         Assessment assessment = (Assessment) assessmentRepository.findOneByEmpAssessId(assessmentDTO.getEmpAssessId());
         assessment.setEmpAssessId(assessmentDTO.getEmpAssessId());
         assessment.setEmpAssessment(assessmentDTO.getEmpAssessment());
+        
+           Set<Employee> employees = new HashSet<Employee>();
+        for (EmployeeDTO adto : assessmentDTO.getEmployeeDTOs()){
+            Employee employee= employeerepository.findOneByEmpId(adto.getEmpId());
+            if(employee != null){
+                employee.setEmpId(adto.getEmpId());
+                employee.setBirthDate(adto.getBirthDate());
+                employee.setEmpName(adto.getEmpName());
+                employee.setEmpStatus(adto.isEmpStatus());
+                employee.setPosition(adto.getPosition());
+                employees.add(employee);
+            }else {
+                Employee a = new EmployeeAssembler().toDomain(adto);
+                employees.add(a);
+            }
+        }
 //        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(assessment);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AssessmentAssembler().toDTO(assessment));
