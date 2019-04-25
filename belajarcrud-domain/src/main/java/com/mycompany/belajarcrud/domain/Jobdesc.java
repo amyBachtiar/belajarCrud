@@ -7,6 +7,7 @@ package com.mycompany.belajarcrud.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -40,9 +41,9 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     private String name;
     private String description;
 //    
-//    @JsonIgnore
-//    @ManyToMany(mappedBy="jobdesc")
-//    private Set<Employee> employees;
+    @JsonIgnore
+    @ManyToMany(mappedBy="jobs")
+    private List<Employee> employees;
     
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "companyID", nullable = false)
@@ -51,12 +52,15 @@ public class Jobdesc implements EntityObject<Jobdesc>{
     public Jobdesc() {
     }
 
-    public Jobdesc(String jobdescId, String name, String description, Company company) {
+    public Jobdesc(String jobdescId, String name, String description, List<Employee> employees, Company company) {
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
+        this.employees = employees;
         this.company = company;
     }
+
+    
 
     public Integer getId() {
         return id;
@@ -98,16 +102,27 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.company = company;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.jobdescId);
-        hash = 17 * hash + Objects.hashCode(this.name);
-        hash = 17 * hash + Objects.hashCode(this.description);
-        hash = 17 * hash + Objects.hashCode(this.company);
-        return hash;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+ 
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.jobdescId);
+        hash = 13 * hash + Objects.hashCode(this.name);
+        hash = 13 * hash + Objects.hashCode(this.description);
+        hash = 13 * hash + Objects.hashCode(this.employees);
+//        hash = 13 * hash + Objects.hashCode(this.company);
+        return hash;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -124,6 +139,9 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         return true;
     }
     
+    
+    
+
     
     
    

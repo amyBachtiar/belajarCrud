@@ -38,7 +38,7 @@ public class Mutation implements EntityObject<Mutation> {
         private Set<Employee> employees;
         
         @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        @JoinColumn(name = "companyID", nullable = false)
+        @JoinColumn(name = "companyID", referencedColumnName = "companyID", nullable = false)
         private Company company;
 	
 	public Mutation() {

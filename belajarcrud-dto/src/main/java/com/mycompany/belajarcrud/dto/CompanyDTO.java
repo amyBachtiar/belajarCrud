@@ -6,6 +6,7 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -19,17 +20,29 @@ public class CompanyDTO {
     private String companyAdd;
     private String companyPhone;
     private String companyDesc;
+    private List<EmployeeDTO> employeeDTOs;
+    private List<JobdescDTO> jobdescDTOs;
+    private List<MutationDTO> mutationDTOs;
+    private List<AssessmentDTO> assessmentDTOs;
+    private List<RecruitmentDTO> recruitmentDTOs;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc) {
+    public CompanyDTO(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, List<EmployeeDTO> employeeDTOs, List<JobdescDTO> jobdescDTOs, List<MutationDTO> mutationDTOs, List<AssessmentDTO> assessmentDTOs, List<RecruitmentDTO> recruitmentDTOs) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.companyAdd = companyAdd;
         this.companyPhone = companyPhone;
         this.companyDesc = companyDesc;
+        this.employeeDTOs = employeeDTOs;
+        this.jobdescDTOs = jobdescDTOs;
+        this.mutationDTOs = mutationDTOs;
+        this.assessmentDTOs = assessmentDTOs;
+        this.recruitmentDTOs = recruitmentDTOs;
     }
+
+    
 
     public String getCompanyID() {
         return companyID;
@@ -70,6 +83,47 @@ public class CompanyDTO {
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
+
+    public List<EmployeeDTO> getEmployeeDTOs() {
+        return employeeDTOs;
+    }
+
+    public void setEmployeeDTOs(List<EmployeeDTO> employeeDTOs) {
+        this.employeeDTOs = employeeDTOs;
+    }
+
+    public List<JobdescDTO> getJobdescDTOs() {
+        return jobdescDTOs;
+    }
+
+    public void setJobdescDTOs(List<JobdescDTO> jobdescDTOs) {
+        this.jobdescDTOs = jobdescDTOs;
+    }
+
+    public List<MutationDTO> getMutationDTOs() {
+        return mutationDTOs;
+    }
+
+    public void setMutationDTOs(List<MutationDTO> mutationDTOs) {
+        this.mutationDTOs = mutationDTOs;
+    }
+
+    public List<AssessmentDTO> getAssessmentDTOs() {
+        return assessmentDTOs;
+    }
+
+    public void setAssessmentDTOs(List<AssessmentDTO> assessmentDTOs) {
+        this.assessmentDTOs = assessmentDTOs;
+    }
+
+    public List<RecruitmentDTO> getRecruitmentDTOs() {
+        return recruitmentDTOs;
+    }
+
+    public void setRecruitmentDTOs(List<RecruitmentDTO> recruitmentDTOs) {
+        this.recruitmentDTOs = recruitmentDTOs;
+    }
+    
 
     //dummy
     @JsonIgnore

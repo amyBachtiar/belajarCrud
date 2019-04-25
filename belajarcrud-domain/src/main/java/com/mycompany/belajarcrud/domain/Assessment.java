@@ -37,7 +37,7 @@ public class Assessment implements EntityObject<Assessment> {
         private Set<Employee> employees;
         
         @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        @JoinColumn(name = "companyID", nullable = false)
+        @JoinColumn(name = "companyID", referencedColumnName = "companyID", nullable = false)
         private Company company;
        
         

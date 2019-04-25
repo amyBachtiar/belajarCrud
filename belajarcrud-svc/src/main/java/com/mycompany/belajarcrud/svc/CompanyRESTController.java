@@ -18,6 +18,7 @@ import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
 import com.mycompany.belajarcrud.domain.repository.MutationRepository;
 import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
+import com.mycompany.belajarcrud.dto.CompanySinglePostDTO;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
 import com.mycompany.belajarcrud.dto.JobdescDTO;
 import java.util.HashSet;
@@ -67,7 +68,7 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
            produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CompanyDTO>getCompanyByCompanyId(@PathVariable("companyID") String companyID){
         Company data=companyRepository.findOneByCompanyID(companyID);
-        if(data==null){
+            if(data==null){
             return ResponseEntity.status(HttpStatus.FOUND).body(null);
         }
         return ResponseEntity.status(HttpStatus.FOUND).body(new CompanyAssembler().toDTO(data));
@@ -77,51 +78,24 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO> postCompany(@RequestBody CompanyDTO companyDTO) {
-        companyRepository.save(new CompanyAssembler().toDomain(companyDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(companyDTO);
+    public ResponseEntity<CompanySinglePostDTO> postCompany(@RequestBody CompanySinglePostDTO companySinglePostDTO) {
+        Company company = new CompanyAssembler().toDomain(companySinglePostDTO);
+        companyRepository.save(company);
+        return ResponseEntity.status(HttpStatus.CREATED).body(companySinglePostDTO);
     }
     
     @RequestMapping(value="/update.company",
             method=RequestMethod.PUT,
             consumes=MediaType.APPLICATION_JSON_VALUE,
             produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CompanyDTO> updateCompany(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<CompanyDTO> updateCompany(@RequestBody CompanySinglePostDTO companyDTO) {
         Company company = (Company) companyRepository.findOneByCompanyID(companyDTO.getCompanyID());
         company.setCompanyID(companyDTO.getCompanyID());
         company.setCompanyName(companyDTO.getCompanyName());
         company.setCompanyAdd(companyDTO.getCompanyAdd());
         company.setCompanyPhone(companyDTO.getCompanyPhone());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
-        //update child from parent
-//        Set<Jobdesc> jobdescs = new HashSet<Jobdesc>();
-//        for (JobdescDTO jobdDTO : companyDTO.getJobdescDTOs()){
-//            Jobdesc jobdesc = jobdescRepository.findOneByJobdescId(jobdDTO.getJobdescId());
-//            if (jobdesc != null){
-//                jobdesc.setName(jobdDTO.getName());
-//                jobdesc.setDescription(jobdDTO.getDescription());
-//            }
-//            
-//            else{
-//                Jobdesc jbd = new JobdescAssembler().toDomain(jobdDTO);
-//                jobdescs.add(jbd);
-//            }
-//        }
-//        Set<Employee> employees = new HashSet<Employee>();
-//        //buat variable baru penampung "jobdDTO"
-//        for (EmployeeDTO empDTO : companyDTO.getEmployeeDTOs()){
-//            Employee employee = employeeRepository.findOneByEmpId(empDTO.getEmpId());
-//            //check jika tidak null, maka lakukan update
-//            if (employee != null){
-//                employee.setEmpName(employee.getEmpName());
-//                employee.setBirthDate(employee.getBirthDate());
-//            }
-//            
-//            else{
-//                Employee emp = new EmployeeAssembler().toDomain(empDTO);
-//                employees.add(emp);
-//            }
-//        }
+        
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }

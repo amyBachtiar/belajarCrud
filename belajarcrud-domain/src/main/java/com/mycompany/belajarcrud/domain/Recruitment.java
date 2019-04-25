@@ -33,7 +33,7 @@ public class Recruitment implements EntityObject<Recruitment> {
     private String recID;
     
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "companyID", nullable = false)
+    @JoinColumn(name = "companyID", referencedColumnName = "companyID", nullable = false)
     private Company company;
     
     private String recType;
