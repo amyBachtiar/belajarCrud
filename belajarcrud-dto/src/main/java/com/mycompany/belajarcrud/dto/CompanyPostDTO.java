@@ -14,9 +14,7 @@ public class CompanyPostDTO {
     private String companyId;
     private String companyName;
     private String companyDesc;
-   
-
-    
+  
     
     public String getCompanyId() {
         return companyId;
@@ -41,8 +39,6 @@ public class CompanyPostDTO {
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
-
-    
 
     // create data Employee dummy 
     @JsonIgnore

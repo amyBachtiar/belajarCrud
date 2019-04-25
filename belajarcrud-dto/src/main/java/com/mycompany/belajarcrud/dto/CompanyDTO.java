@@ -17,6 +17,7 @@ public class CompanyDTO {
     private List<JobdescDTO> compJobsDTOs;
     private List<EmployeeDTO> listEmployeeDTOs;
     private List<MutationDTO> mutationDTOs;
+    private List<RecruitmentDTO> recruitmentDTOs;
 
     public List<MutationDTO> getMutationDTOs() {
         return mutationDTOs;
@@ -66,6 +67,16 @@ public class CompanyDTO {
         this.listEmployeeDTOs = listEmployeeDTOs;
     }
 
+    public List<RecruitmentDTO> getRecruitmentDTOs() {
+        return recruitmentDTOs;
+    }
+
+    public void setRecruitmentDTOs(List<RecruitmentDTO> recruitmentDTOs) {
+        this.recruitmentDTOs = recruitmentDTOs;
+    }
+    
+    
+
     // create data Employee dummy 
     @JsonIgnore
     public CompanyDTO getInstance() {
@@ -73,9 +84,6 @@ public class CompanyDTO {
         dto.setCompanyId("ID");
         dto.setCompanyName("Name");
         dto.setCompanyDesc("Description");
-        dto.setMutationDTOs(new ArrayList<>(Arrays.asList(new MutationDTO().getInstance())));
-        dto.setCompJobsDTOs(new ArrayList<>(Arrays.asList(new JobdescDTO().getInstance())));
-        dto.setListEmployeeDTOs(new ArrayList<>(Arrays.asList(new EmployeeDTO().getInstance())));
         return dto;
     }   
 }

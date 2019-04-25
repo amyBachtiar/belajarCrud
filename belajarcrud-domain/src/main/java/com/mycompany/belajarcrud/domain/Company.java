@@ -37,6 +37,10 @@ public class Company implements EntityObject<Company>{
     
     //@JsonIgnore
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Recruitment> listRecrutment ;
+    
+    //@JsonIgnore
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Employee> listEmployee ;
     
 //    @OneToMany(mappedBy = "company")
@@ -52,21 +56,14 @@ public class Company implements EntityObject<Company>{
         
     }
 
-    public Company(String companyId, String companyName, String companyDesc, Set<Employee> listEmployee, Set<Mutation> mutations,Set<Jobdesc>compJobs) {
+    public Company(String companyId, String companyName, String companyDesc, Set<Recruitment> listRecrutment, Set<Employee> listEmployee, Set<Mutation> mutations, Set<Jobdesc> compJobs) {
         this.companyId = companyId;
         this.companyName = companyName;
         this.companyDesc = companyDesc;
+        this.listRecrutment = listRecrutment;
         this.listEmployee = listEmployee;
         this.mutations = mutations;
-        this.compJobs=compJobs;
-    }
-    
-    public Set<Mutation> getMutations() {
-        return mutations;
-    }
-
-    public void setMutations(Set<Mutation> mutations) {
-        this.mutations = mutations;
+        this.compJobs = compJobs;
     }
 
     public Integer getId() {
@@ -101,12 +98,28 @@ public class Company implements EntityObject<Company>{
         this.companyDesc = companyDesc;
     }
 
+    public Set<Recruitment> getListRecrutment() {
+        return listRecrutment;
+    }
+
+    public void setListRecrutment(Set<Recruitment> listRecrutment) {
+        this.listRecrutment = listRecrutment;
+    }
+
     public Set<Employee> getListEmployee() {
         return listEmployee;
     }
 
     public void setListEmployee(Set<Employee> listEmployee) {
         this.listEmployee = listEmployee;
+    }
+
+    public Set<Mutation> getMutations() {
+        return mutations;
+    }
+
+    public void setMutations(Set<Mutation> mutations) {
+        this.mutations = mutations;
     }
 
     public Set<Jobdesc> getCompJobs() {
@@ -116,24 +129,10 @@ public class Company implements EntityObject<Company>{
     public void setCompJobs(Set<Jobdesc> compJobs) {
         this.compJobs = compJobs;
     }
+
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Company other = (Company) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
+    
+   
 
 //    @Override
 //    public int hashCode() {

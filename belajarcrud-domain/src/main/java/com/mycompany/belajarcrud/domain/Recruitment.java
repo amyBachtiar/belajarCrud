@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -28,14 +29,16 @@ public class Recruitment implements EntityObject<Recruitment> {
     private String recType;
     private boolean status;
     
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "companyId", nullable = false)
+    private Company company;
     
-    @ManyToMany(cascade =  {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade =  {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name="Recruitment_Jobseeker",
             joinColumns = { @JoinColumn(name="recID")},
             inverseJoinColumns={@JoinColumn(name="jobID")}
     )
-    
     private Set<Jobseeker> jobseekers= new HashSet<Jobseeker>();
 
     public Recruitment() {
@@ -89,7 +92,13 @@ public class Recruitment implements EntityObject<Recruitment> {
         this.jobseekers = jobseekers;
     }
 
- 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
     
    @Override
     public boolean equals(Object obj) {

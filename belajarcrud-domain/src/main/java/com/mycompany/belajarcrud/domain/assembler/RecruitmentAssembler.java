@@ -3,6 +3,7 @@ package com.mycompany.belajarcrud.domain.assembler;
 import com.eksad.dam.master.data.common.object.stereotype.IObjectAssembler;
 import com.mycompany.belajarcrud.domain.Recruitment;
 import com.mycompany.belajarcrud.dto.RecruitmentDTO;
+import com.mycompany.belajarcrud.dto.RecruitmentPostDTO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,11 +15,10 @@ import java.util.Set;
  */
 public class RecruitmentAssembler implements IObjectAssembler <Recruitment, RecruitmentDTO>{
     
-  @Override
+    @Override
     public RecruitmentDTO toDTO(Recruitment domainObject) {
         RecruitmentDTO dto = new RecruitmentDTO();
         dto.setRecID(domainObject.getRecID());
-        dto.setRecJobs(domainObject.getJobseekers()== null ? new ArrayList<>() : new JobseekerAssembler().toDTOs(domainObject.getJobseekers()));
         dto.setRecType(domainObject.getRecType());
         dto.setStatus(domainObject.isStatus());
         return dto;
@@ -26,6 +26,14 @@ public class RecruitmentAssembler implements IObjectAssembler <Recruitment, Recr
     
     @Override
     public Recruitment toDomain(RecruitmentDTO dto) {
+        Recruitment data = new Recruitment();
+        data.setRecID(dto.getRecID());
+        data.setRecType(dto.getRecType());
+        data.setStatus(dto.isStatus());
+        return data;
+    }
+    
+    public Recruitment toDomain(RecruitmentPostDTO dto) {
         Recruitment data = new Recruitment();
         data.setRecID(dto.getRecID());
         data.setJobseekers(dto.getRecJobs() == null ? new HashSet<>() : new JobseekerAssembler().toDomains(dto.getRecJobs()));

@@ -1,12 +1,19 @@
 package com.mycompany.belajarcrud.svc;
 
+import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Jobseeker;
 import com.mycompany.belajarcrud.domain.Recruitment;
 import com.mycompany.belajarcrud.domain.assembler.JobseekerAssembler;
 import com.mycompany.belajarcrud.domain.assembler.RecruitmentAssembler;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.JobseekerRepository;
 import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
+import com.mycompany.belajarcrud.dto.JobseekerDTO;
 import com.mycompany.belajarcrud.dto.RecruitmentDTO;
+import com.mycompany.belajarcrud.dto.RecruitmentPostDTO;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,12 +39,15 @@ public class RecruitmentRESTController {
     
      @Autowired
      JobseekerRepository jobseekerRepository;
+     
+     @Autowired
+     CompanyRepository companyRepository;
 
     @RequestMapping(value = "/get.recruitment.dummy",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RecruitmentDTO> getRecruitmentDummy() {
-        return ResponseEntity.status(HttpStatus.FOUND).body(new RecruitmentDTO().getInstance());
+    public ResponseEntity<RecruitmentPostDTO> getRecruitmentDummy() {
+        return ResponseEntity.status(HttpStatus.FOUND).body(new RecruitmentPostDTO().getInstance());
     }
     
     @RequestMapping(value = "/get.recruitment.by.recID/{recID}",
@@ -55,25 +65,39 @@ public class RecruitmentRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?>postRecruitment(@RequestBody RecruitmentDTO recruitmentDTO) {
-        Recruitment recruitment = new RecruitmentAssembler().toDomain(recruitmentDTO);
-        recruitment.setJobseekers(new JobseekerAssembler().toDomains(recruitmentDTO.getRecJobs()));
+    public ResponseEntity<RecruitmentPostDTO>postRecruitment(@RequestBody RecruitmentPostDTO recruitmentPostDTO) {
+        Recruitment recruitment = new RecruitmentAssembler().toDomain(recruitmentPostDTO);
+        Company company = companyRepository.findOneByCompanyId(recruitmentPostDTO.getCompanyId());
+        recruitment.setCompany(company);
         recruitmentRepository.save(recruitment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(recruitmentDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(recruitmentPostDTO);
     }
 
     @RequestMapping(value = "/update.recruitment",
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RecruitmentDTO> updateRecruitment(@RequestBody RecruitmentDTO recruitmentDTO) {
-       Recruitment recruitment = (Recruitment) recruitmentRepository.findOneByRecID(recruitmentDTO.getRecID());
+    public ResponseEntity<RecruitmentPostDTO> updateRecruitment(@RequestBody RecruitmentPostDTO recruitmentPostDTO) {
+       Recruitment recruitment = (Recruitment) recruitmentRepository.findOneByRecID(recruitmentPostDTO.getRecID());
     
-        recruitment.setRecType(recruitmentDTO.getRecType());
-        recruitment.setStatus(recruitmentDTO.isStatus());
-        recruitment.setJobseekers( new JobseekerAssembler().toDomains(recruitmentDTO.getRecJobs()));
+        recruitment.setRecType(recruitmentPostDTO.getRecType());
+        recruitment.setStatus(recruitmentPostDTO.isStatus());
+        Set<Jobseeker> jobseekers = recruitment.getJobseekers();
+        Set<Jobseeker> newJobSeeker = new HashSet<Jobseeker>();
+//        boolean isExsist;
+        for (JobseekerDTO recJob : recruitmentPostDTO.getRecJobs()) {
+            Jobseeker j = jobseekerRepository.findOneByJobID(recJob.getJobID());
+            if(j == null){
+                newJobSeeker.add(new JobseekerAssembler().toDomain(recJob));
+            } else {
+                newJobSeeker.add(j);
+            }
+        }
+        
+        recruitment.setJobseekers(newJobSeeker);
+            
         recruitmentRepository.save(recruitment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new RecruitmentAssembler().toDTO(recruitment));
+        return ResponseEntity.status(HttpStatus.CREATED).body(recruitmentPostDTO);
     }
 
     @RequestMapping(value = "/delete.recruitment/{recID}",

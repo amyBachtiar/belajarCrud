@@ -1,9 +1,6 @@
 package com.mycompany.belajarcrud.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -14,11 +11,7 @@ public class RecruitmentDTO {
     private String recID; 
     private String recType;
     private boolean status;
-//    private String jobID;
-    private List<JobseekerDTO>recJobs;
- //    private String jobID;
     
-
     public String getRecID() {
         return recID;
     }
@@ -41,27 +34,6 @@ public class RecruitmentDTO {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public List<JobseekerDTO> getRecJobs() {
-        return recJobs;
-    }
-
-    public void setRecJobs(List<JobseekerDTO> recJobs) {
-        this.recJobs = recJobs;
-    }
-    
-    
-    
-    // create data dummy
-    @JsonIgnore
-    public RecruitmentDTO getInstance() {
-        RecruitmentDTO dto = new RecruitmentDTO();
-        dto.setRecID("Recruitment_ID : ");
-        dto.setRecType("Recruitment_Type :");
-        dto.setStatus(true);
-        dto.setRecJobs(new ArrayList<>(Arrays.asList(new JobseekerDTO().getInstance())));
-        return dto;
     }
     
 }
