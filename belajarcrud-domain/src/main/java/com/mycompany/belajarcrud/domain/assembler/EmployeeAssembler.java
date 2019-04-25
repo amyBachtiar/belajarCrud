@@ -23,7 +23,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
     @Override
     public EmployeeDTO toDTO(Employee domainObject){
         EmployeeDTO dto= new EmployeeDTO();
-//        dto.setCompanyId(domainObject.getCompanyId());
+        dto.setCompanyId(domainObject.getCompany().getCompanyId());
         dto.setEmpId(domainObject.getEmpId());
         dto.setEmpName(domainObject.getEmpName());
         dto.setPosition(domainObject.getPosition());
