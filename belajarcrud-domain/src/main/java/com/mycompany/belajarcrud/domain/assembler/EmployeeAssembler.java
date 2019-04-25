@@ -23,6 +23,7 @@ public class EmployeeAssembler implements IObjectAssembler<Employee, EmployeeDTO
     public EmployeeDTO toDTO(Employee domainObject) {
         EmployeeDTO dto = new EmployeeDTO();
         dto.setEmpId(domainObject.getEmpId());
+        dto.setCompanyID(domainObject.getCompany().getCompanyID());
         dto.setEmpName(domainObject.getEmpName());
         dto.setPosition(domainObject.getPosition());
         dto.setEmpStatus(domainObject.isEmpStatus());

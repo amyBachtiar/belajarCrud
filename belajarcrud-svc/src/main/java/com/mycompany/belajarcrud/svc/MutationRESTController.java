@@ -7,6 +7,7 @@ package com.mycompany.belajarcrud.svc;
 import com.mycompany.belajarcrud.domain.Mutation;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.MutationAssembler;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.domain.repository.MutationRepository;
 import com.mycompany.belajarcrud.dto.MutationDTO;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class MutationRESTController {
     @Autowired
     MutationRepository mutationRepository;
+    
+    @Autowired
+    CompanyRepository companyRepository;
     
     @RequestMapping(value = "/get.mutation.dummy",
             method = RequestMethod.GET,
@@ -67,6 +71,7 @@ public class MutationRESTController {
         mutation.setMutated(mutationDTO.isMutated());
         mutation.setMutationNumber(mutationDTO.getMutationNumber());
         mutation.setMutationDate(mutationDTO.getMutationDate());
+        mutation.setCompany(companyRepository.findOneByCompanyID(mutationDTO.getCompanyID()));
 //        mutation.setMutationBatch(mutationDTO.getMutationBatch());
 //        mutation.setEmployees(new EmployeeAssembler().toDomains(mutationDTO.getEmployeeDTOs()));
         mutationRepository.save(mutation);

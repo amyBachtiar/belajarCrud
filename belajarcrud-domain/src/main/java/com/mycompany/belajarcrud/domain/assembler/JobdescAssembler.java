@@ -23,6 +23,7 @@ public class JobdescAssembler implements IObjectAssembler<Jobdesc, JobdescDTO>{
     public JobdescDTO toDTO(Jobdesc domainObject) {
        JobdescDTO dto = new JobdescDTO();
         dto.setJobdescId(domainObject.getJobdescId());
+        dto.setCompanyID(domainObject.getCompany().getCompanyID());
         dto.setName(domainObject.getName());
         dto.setDescription(domainObject.getDescription());
         return dto; 

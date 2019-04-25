@@ -6,6 +6,7 @@ import com.mycompany.belajarcrud.domain.assembler.AssessmentAssembler;
 import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
 import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
 import com.mycompany.belajarcrud.dto.AssessmentDTO;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
@@ -36,6 +37,9 @@ public class AssessmentRESTController {
     @Autowired
     EmployeeRepository employeerepository;
     
+    @Autowired
+    CompanyRepository companyRepository;
+    
     @RequestMapping(value="/get.assessment.dummy",
             method=RequestMethod.GET,
             produces=MediaType.APPLICATION_JSON_VALUE)
@@ -59,6 +63,9 @@ public class AssessmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AssessmentDTO> postAssessment(@RequestBody AssessmentDTO assessmentDTO) {
+        Assessment assessment =  assessmentRepository.findOneByEmpAssessId(assessmentDTO.getEmpAssessId());
+        assessment.setCompany(companyRepository.findOneByCompanyID(assessmentDTO.getCompanyID()));
+        
 //        Assessment assessment = new AssessmentAssembler().toDomain(assessmentDTO);
 //        assessment.setEmployee(new EmployeeAssembler().toDomains(assessmentDTO.getEmployee()));
         assessmentRepository.save(new AssessmentAssembler().toDomain(assessmentDTO));

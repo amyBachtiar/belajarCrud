@@ -72,10 +72,13 @@ public class EmployeeRESTController {
            consumes = MediaType.APPLICATION_JSON_VALUE,
            produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<EmployeeDTO> postEmployee(@RequestBody EmployeeDTO employeeDTO){
-       Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+//       Employee employee = new EmployeeAssembler().toDomain(employeeDTO);
+       Employee employee = employeeRepository.findOneByEmpId(employeeDTO.getEmpId());
        employee.setEmpAttendances(new AttendanceAssembler().toDomains(employeeDTO.getEmpAttendancesDTOs()));
        //employee.setAssess(new AssessmentAssembler().toDomains(employeeDTO.getEmpAssess()));
        // employee.setCompany(companyRepository.findOneByCompanyId(employeeDTO.getCompanyId()));
+       //bidirectional company - employee
+       employee.setCompany(companyRepository.findOneByCompanyID(employeeDTO.getCompanyID()));
        employee.setJobs(new JobdescAssembler().toDomains(employeeDTO.getEmpJobs()));
        employeeRepository.save(employee);
        return ResponseEntity.status(HttpStatus.CREATED).body(employeeDTO);

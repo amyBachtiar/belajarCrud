@@ -19,18 +19,21 @@ public class MutationDTO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy hh:mm:ss a zzz")
 	private Date mutationDate;
         private List<EmployeeDTO> employeeDTOs;
+        private String companyID;
 	
 	public MutationDTO() {
         }
 
-    public MutationDTO(String finalPosition, boolean mutated,String mutationNumber, Date mutationDate, List<EmployeeDTO> employeeDTOs) {
-
+    public MutationDTO(String mutationNumber, String finalPosition, boolean mutated, Date mutationDate, List<EmployeeDTO> employeeDTOs, String companyID) {
+        this.mutationNumber = mutationNumber;
         this.finalPosition = finalPosition;
         this.mutated = mutated;
-        this.mutationNumber = mutationNumber;
         this.mutationDate = mutationDate;
         this.employeeDTOs = employeeDTOs;
+        this.companyID = companyID;
     }
+
+    
 
 //	public String getPosition() {
 //		return position;
@@ -76,13 +79,24 @@ public class MutationDTO {
         public void setEmployeeDTOs(List<EmployeeDTO> employeeDTOs) {
             this.employeeDTOs = employeeDTOs;
         }
+
+    public String getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
+    }
 	
+        
+        
 	//create data Employee dummy
 	@JsonIgnore
 	public MutationDTO getInstance() {
 		MutationDTO dto = new MutationDTO();
                 dto.setMutationNumber(UUID.randomUUID().toString().substring(0,6));
 		//dto.setPosition("Masukkan Posisi");
+                dto.setCompanyID(UUID.randomUUID().toString().substring(0, 6));
                 dto.setFinalPosition("posisi akhir");
 		dto.setMutated(true);
 		Date mutdate = new Date();

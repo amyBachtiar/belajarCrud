@@ -94,19 +94,19 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
         company.setCompanyPhone(companyDTO.getCompanyPhone());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
         //update child from parent
-        Set<Jobdesc> jobdescs = new HashSet<Jobdesc>();
-        for (JobdescDTO jobdDTO : companyDTO.getJobdescDTOs()){
-            Jobdesc jobdesc = jobdescRepository.findOneByJobdescId(jobdDTO.getJobdescId());
-            if (jobdesc != null){
-                jobdesc.setName(jobdDTO.getName());
-                jobdesc.setDescription(jobdDTO.getDescription());
-            }
-            
-            else{
-                Jobdesc jbd = new JobdescAssembler().toDomain(jobdDTO);
-                jobdescs.add(jbd);
-            }
-        }
+//        Set<Jobdesc> jobdescs = new HashSet<Jobdesc>();
+//        for (JobdescDTO jobdDTO : companyDTO.getJobdescDTOs()){
+//            Jobdesc jobdesc = jobdescRepository.findOneByJobdescId(jobdDTO.getJobdescId());
+//            if (jobdesc != null){
+//                jobdesc.setName(jobdDTO.getName());
+//                jobdesc.setDescription(jobdDTO.getDescription());
+//            }
+//            
+//            else{
+//                Jobdesc jbd = new JobdescAssembler().toDomain(jobdDTO);
+//                jobdescs.add(jbd);
+//            }
+//        }
 //        Set<Employee> employees = new HashSet<Employee>();
 //        //buat variable baru penampung "jobdDTO"
 //        for (EmployeeDTO empDTO : companyDTO.getEmployeeDTOs()){

@@ -19,12 +19,13 @@ public class EmployeeDTO {
 	private Date birthDate;
         private List<JobdescDTO> empJobs;
         private List<AttendanceDTO>empAttendancesDTOs;
+        private String companyID;
 //        private PayrollDTO payrollDTO;
 
         public EmployeeDTO() {
         }
 
-        public EmployeeDTO(String empId, String empName, String position, Boolean empStatus, Date birthDate, List<JobdescDTO> empJobs, List<AttendanceDTO> empAttendancesDTOs) {
+        public EmployeeDTO(String empId, String empName, String position, Boolean empStatus, Date birthDate, List<JobdescDTO> empJobs, List<AttendanceDTO> empAttendancesDTOs, String companyID) {
             this.empId = empId;
             this.empName = empName;
             this.position = position;
@@ -32,6 +33,7 @@ public class EmployeeDTO {
             this.birthDate = birthDate;
             this.empJobs = empJobs;
             this.empAttendancesDTOs = empAttendancesDTOs;
+            this.companyID = companyID;
         }
 
         
@@ -83,6 +85,14 @@ public class EmployeeDTO {
             this.empJobs = empJobs;
         }
 
+        public String getCompanyID() {
+            return companyID;
+        }
+
+        public void setCompanyID(String companyID) {
+            this.companyID = companyID;
+        }
+
         
 
 
@@ -90,7 +100,8 @@ public class EmployeeDTO {
 	public EmployeeDTO getInstance() {
 		EmployeeDTO dto = new EmployeeDTO();
 		dto.setEmpId(UUID.randomUUID().toString().substring(0,6));
-		dto.setEmpName("Masukkan Nama");
+		dto.setCompanyID(UUID.randomUUID().toString().substring(0, 6));
+                dto.setEmpName("Masukkan Nama");
 		dto.setPosition("Masukkan Posisi");
 		dto.setEmpStatus(true);
 		Date lahir = new Date();

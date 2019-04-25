@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,30 +36,25 @@ public class Company implements EntityObject<Company>{
     private String companyPhone;
     private String companyDesc;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name =  "companyID", referencedColumnName = "companyID")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Employee> employees;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Jobdesc> jobdescs;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
-    private Set<Mutation> mutations; 
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Mutation> mutations;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
-    private Set<Assessment> assessments;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Assessment> assesment;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyID", referencedColumnName = "companyID")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Recruitment> recruitments;
-
+    
     public Company() {
     }
 
-    public Company(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, Set<Employee> employees, Set<Jobdesc> jobdescs, Set<Mutation> mutations, Set<Assessment> assessments, Set<Recruitment> recruitments) {
+    public Company(String companyID, String companyName, String companyAdd, String companyPhone, String companyDesc, Set<Employee> employees, Set<Jobdesc> jobdescs, Set<Mutation> mutations, Set<Assessment> assesment, Set<Recruitment> recruitments) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.companyAdd = companyAdd;
@@ -67,11 +63,10 @@ public class Company implements EntityObject<Company>{
         this.employees = employees;
         this.jobdescs = jobdescs;
         this.mutations = mutations;
-        this.assessments = assessments;
+        this.assesment = assesment;
         this.recruitments = recruitments;
     }
 
-    
     public Integer getId() {
         return id;
     }
@@ -152,12 +147,12 @@ public class Company implements EntityObject<Company>{
         this.mutations = mutations;
     }
 
-    public Set<Assessment> getAssessments() {
-        return assessments;
+    public Set<Assessment> getAssesment() {
+        return assesment;
     }
 
-    public void setAssessments(Set<Assessment> assessments) {
-        this.assessments = assessments;
+    public void setAssesment(Set<Assessment> assesment) {
+        this.assesment = assesment;
     }
 
     public Set<Recruitment> getRecruitments() {
@@ -170,18 +165,17 @@ public class Company implements EntityObject<Company>{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.companyID);
-        hash = 41 * hash + Objects.hashCode(this.companyName);
-        hash = 41 * hash + Objects.hashCode(this.companyAdd);
-        hash = 41 * hash + Objects.hashCode(this.companyPhone);
-        hash = 41 * hash + Objects.hashCode(this.companyDesc);
-        hash = 41 * hash + Objects.hashCode(this.employees);
-        hash = 41 * hash + Objects.hashCode(this.jobdescs);
-        hash = 41 * hash + Objects.hashCode(this.mutations);
-        hash = 41 * hash + Objects.hashCode(this.assessments);
-        hash = 41 * hash + Objects.hashCode(this.recruitments);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.companyID);
+        hash = 29 * hash + Objects.hashCode(this.companyName);
+        hash = 29 * hash + Objects.hashCode(this.companyAdd);
+        hash = 29 * hash + Objects.hashCode(this.companyPhone);
+        hash = 29 * hash + Objects.hashCode(this.companyDesc);
+        hash = 29 * hash + Objects.hashCode(this.employees);
+        hash = 29 * hash + Objects.hashCode(this.jobdescs);
+        hash = 29 * hash + Objects.hashCode(this.mutations);
+        hash = 29 * hash + Objects.hashCode(this.assesment);
+        hash = 29 * hash + Objects.hashCode(this.recruitments);
         return hash;
     }
 

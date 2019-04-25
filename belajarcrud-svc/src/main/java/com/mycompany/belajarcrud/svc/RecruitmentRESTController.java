@@ -2,6 +2,7 @@ package com.mycompany.belajarcrud.svc;
 
 import com.mycompany.belajarcrud.domain.Recruitment;
 import com.mycompany.belajarcrud.domain.assembler.RecruitmentAssembler;
+import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.RecruitmentDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecruitmentRESTController {
     @Autowired
     RecruitmentRepository recruitmentRepository;
+    
+    @Autowired
+    CompanyRepository companyRepository;
 
     @RequestMapping(value = "/get.recruitment.dummy",
             method = RequestMethod.GET,
@@ -50,7 +54,9 @@ public class RecruitmentRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RecruitmentDTO>postRecruitment(@RequestBody RecruitmentDTO recruitmentDTO) {
-        Recruitment recruitment = new RecruitmentAssembler().toDomain(recruitmentDTO);
+        Recruitment recruitment =  recruitmentRepository.findOneByRecID(recruitmentDTO.getRecID());
+        recruitment.setCompany(companyRepository.findOneByCompanyID(recruitmentDTO.getCompanyID()));
+        
         recruitmentRepository.save(recruitment);
         return ResponseEntity.status(HttpStatus.CREATED).body(recruitmentDTO);
     }

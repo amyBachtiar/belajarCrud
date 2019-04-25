@@ -23,7 +23,8 @@ public class AssessmentAssembler implements IObjectAssembler<Assessment,Assessme
     public AssessmentDTO toDTO(Assessment domainObject) {
         AssessmentDTO dto = new AssessmentDTO();
         dto.setEmpAssessId(domainObject.getEmpAssessId());
-        dto.setEmployeeDTOs(domainObject.getEmployees()!=null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
+        dto.setCompanyID(domainObject.getCompany().getCompanyID());
+       dto.setEmployeeDTOs(domainObject.getEmployees()!=null ? new EmployeeAssembler().toDTOs(domainObject.getEmployees()): new ArrayList<>());
         dto.setEmpAssessment(domainObject.getEmpAssessment());
         return dto;
     }

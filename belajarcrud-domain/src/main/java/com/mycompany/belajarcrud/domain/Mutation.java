@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,17 +36,24 @@ public class Mutation implements EntityObject<Mutation> {
         @OneToMany(cascade = CascadeType.ALL)
         @JoinColumn(name =  "mutationNumber", referencedColumnName = "mutationNumber")
         private Set<Employee> employees;
+        
+        @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @JoinColumn(name = "companyID", nullable = false)
+        private Company company;
 	
 	public Mutation() {
 	}
+
+        public Mutation(String mutationNumber, String finalPosition, boolean mutated, Date mutationDate, Set<Employee> employees, Company company) {
+            this.mutationNumber = mutationNumber;
+            this.finalPosition = finalPosition;
+            this.mutated = mutated;
+            this.mutationDate = mutationDate;
+            this.employees = employees;
+            this.company = company;
+        }
 	
-	public Mutation( String finalPosition, boolean mutated, String mutationNumber, Date mutationDate, Set<Employee> employees) {
-		this.finalPosition = finalPosition;
-		this.mutated = mutated;
-		this.mutationNumber = mutationNumber;
-		this.mutationDate = mutationDate;
-                this.employees = employees;
-	}
+	
 	
         public Set<Employee> getEmployees() {
         return employees;
@@ -98,19 +106,27 @@ public class Mutation implements EntityObject<Mutation> {
 //		this.mutationBatch = mutationBatch;
 //	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((finalPosition == null) ? 0 : finalPosition.hashCode());
-		result = prime * result + (mutated ? 1231 : 1237);
-		//result = prime * result + ((mutationBatch == null) ? 0 : mutationBatch.hashCode());
-		result = prime * result + ((mutationDate == null) ? 0 : mutationDate.hashCode());
-		result = prime * result + ((mutationNumber == null) ? 0 : mutationNumber.hashCode());
-		//result = prime * result + ((position == null) ? 0 : position.hashCode());
-                result = prime * result + ((employees == null) ? 0 : employees.hashCode());
-		return result;
-	}
+        public Company getCompany() {
+            return company;
+        }
+
+        public void setCompany(Company company) {
+            this.company = company;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 59 * hash + Objects.hashCode(this.mutationNumber);
+            hash = 59 * hash + Objects.hashCode(this.finalPosition);
+            hash = 59 * hash + (this.mutated ? 1 : 0);
+            hash = 59 * hash + Objects.hashCode(this.mutationDate);
+            hash = 59 * hash + Objects.hashCode(this.employees);
+            hash = 59 * hash + Objects.hashCode(this.company);
+            return hash;
+        }
+        
+        
 
 	@Override
 	public boolean equals(Object obj) {

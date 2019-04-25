@@ -11,17 +11,21 @@ import java.util.UUID;
 public class RecruitmentDTO {
     
     private String recID; 
+    private String companyID;
     private String recType;
     private boolean status;
     
     public RecruitmentDTO() {
     }
 
-    public RecruitmentDTO(String recID, String recType, boolean status, String jobjobID) {
+    public RecruitmentDTO(String recID, String companyID, String recType, boolean status) {
         this.recID = recID;
+        this.companyID = companyID;
         this.recType = recType;
         this.status = status;
     }
+
+    
 
     public String getRecID() {
         return recID;
@@ -47,12 +51,22 @@ public class RecruitmentDTO {
         this.status = status;
     }
 
+    public String getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(String companyID) {
+        this.companyID = companyID;
+    }
+    
+
     
     // create data dummy
     @JsonIgnore
     public RecruitmentDTO getInstance() {
         RecruitmentDTO dto = new RecruitmentDTO();
         dto.setRecID("Recruitment_ID : ");
+        dto.setCompanyID(UUID.randomUUID().toString().substring(0, 6));
         dto.setRecType("Recruitment_Type :");
         dto.setStatus(true);
         return dto;

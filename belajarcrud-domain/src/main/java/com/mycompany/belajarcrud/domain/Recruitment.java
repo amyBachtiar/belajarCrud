@@ -3,10 +3,14 @@ package com.mycompany.belajarcrud.domain;
 import javax.persistence.GeneratedValue;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +32,9 @@ public class Recruitment implements EntityObject<Recruitment> {
     @NotNull(message = "Recruitment_ID Harus diIsi")
     private String recID;
     
-    
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "companyID", nullable = false)
+    private Company company;
     
     private String recType;
     private boolean status;
@@ -36,11 +42,14 @@ public class Recruitment implements EntityObject<Recruitment> {
     public Recruitment() {
     }
 
-    public Recruitment(String recID, Jobseeker jobseeker, String recType, boolean status) {
+    public Recruitment(String recID, Company company, String recType, boolean status) {
         this.recID = recID;
+        this.company = company;
         this.recType = recType;
         this.status = status;
     }
+
+    
 
     public Integer getId() {
         return id;
@@ -74,6 +83,42 @@ public class Recruitment implements EntityObject<Recruitment> {
         this.status = status;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.recID);
+        hash = 23 * hash + Objects.hashCode(this.company);
+        hash = 23 * hash + Objects.hashCode(this.recType);
+        hash = 23 * hash + (this.status ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Recruitment other = (Recruitment) obj;
+        return true;
+    }
+    
+    
+
+    
     @Override
     public boolean sameIdentityAs(Recruitment other) {
         // TODO Auto-generated method stub  

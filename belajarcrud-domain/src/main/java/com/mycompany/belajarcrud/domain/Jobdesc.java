@@ -9,11 +9,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.belajarcrud.common.EntityObject;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -40,18 +44,18 @@ public class Jobdesc implements EntityObject<Jobdesc>{
 //    @ManyToMany(mappedBy="jobdesc")
 //    private Set<Employee> employees;
     
-//    @OneToMany(mappedBy="jobdesc")
-//    private Set<Company> companys;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "companyID", nullable = false)
+    private Company company;
     
     public Jobdesc() {
     }
 
-    public Jobdesc(String jobdescId, String name, String description) {
+    public Jobdesc(String jobdescId, String name, String description, Company company) {
         this.jobdescId = jobdescId;
         this.name = name;
         this.description = description;
-//        this.employees=employees;
-//        this.companys=companys;
+        this.company = company;
     }
 
     public Integer getId() {
@@ -86,33 +90,24 @@ public class Jobdesc implements EntityObject<Jobdesc>{
         this.description = description;
     }
 
-//    public Set<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(Set<Employee> employees) {
-//        this.employees = employees;
-//    }
-////
-//    public Set<Company> getCompanys() {
-//        return companys;
-//    }
-//
-//    public void setCompanys(Set<Company> companys) {
-//        this.companys = companys;
-//    }
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.jobdescId);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-//        hash = 97 * hash + Objects.hashCode(this.employees);
-//        hash = 97 * hash + Objects.hashCode(this.companys);
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.jobdescId);
+        hash = 17 * hash + Objects.hashCode(this.name);
+        hash = 17 * hash + Objects.hashCode(this.description);
+        hash = 17 * hash + Objects.hashCode(this.company);
         return hash;
     }
+
 
     @Override
     public boolean equals(Object obj) {

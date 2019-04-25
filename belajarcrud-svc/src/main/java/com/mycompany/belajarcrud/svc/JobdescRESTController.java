@@ -57,13 +57,14 @@ public class JobdescRESTController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JobdescDTO> postJobdesc (@RequestBody JobdescDTO jobdescDTO){
-//        Company company = (Company) companyRepository.findOneByCompanyID(cusDTO.getCompanyID());
+          Jobdesc jobdesc =  jobdescRepository.findOneByJobdescId(jobdescDTO.getJobdescId());
 //        
 //        if(company.getJobdescs() != null && company.getJobdescs().size() > 0){
 //            company.getJobdescs().add(new JobdescAssembler().toDomain(cusDTO.getJobds()));
 //        }else{
 //            company.setJobdescs(new HashSet<Jobdesc>(Arrays.asList(new JobdescAssembler().toDomain(cusDTO.getJobds()))));
 //        }
+        jobdesc.setCompany(companyRepository.findOneByCompanyID(jobdescDTO.getCompanyID()));
         jobdescRepository.save(new JobdescAssembler().toDomain(jobdescDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(jobdescDTO);
     }

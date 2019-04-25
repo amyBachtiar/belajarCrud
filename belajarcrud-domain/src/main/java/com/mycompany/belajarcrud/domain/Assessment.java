@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,17 +35,24 @@ public class Assessment implements EntityObject<Assessment> {
         @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
         @JoinColumn(name="empAssessId", referencedColumnName="empAssessId")
         private Set<Employee> employees;
+        
+        @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @JoinColumn(name = "companyID", nullable = false)
+        private Company company;
        
         
 	public Assessment () {
 		
 	}
 
-        public Assessment(String empAssessId, int empAssessment, Set<Employee> employees) {
+        public Assessment(String empAssessId, int empAssessment, Set<Employee> employees, Company company) {
             this.empAssessId = empAssessId;
             this.empAssessment = empAssessment;
             this.employees = employees;
+            this.company = company;
         }
+
+       
 
         public Set<Employee> getEmployees() {
             return employees;
@@ -78,15 +86,27 @@ public class Assessment implements EntityObject<Assessment> {
 		this.empAssessment = empAssessment;
 	}
 
+        public Company getCompany() {
+            return company;
+        }
+
+        public void setCompany(Company company) {
+            this.company = company;
+        }
+
         @Override
         public int hashCode() {
-            int hash = 3;
-            hash = 73 * hash + Objects.hashCode(this.id);
-            hash = 73 * hash + Objects.hashCode(this.empAssessId);
-            hash = 73 * hash + this.empAssessment;
-            hash = 73 * hash + Objects.hashCode(this.employees);
+            int hash = 7;
+            hash = 67 * hash + Objects.hashCode(this.empAssessId);
+            hash = 67 * hash + this.empAssessment;
+            hash = 67 * hash + Objects.hashCode(this.employees);
+            hash = 67 * hash + Objects.hashCode(this.company);
             return hash;
         }
+        
+        
+
+        
 
         @Override
         public boolean equals(Object obj) {
