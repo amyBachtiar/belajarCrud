@@ -13,7 +13,6 @@ import com.mycompany.belajarcrud.domain.repository.PayrollItemsRepository;
 import com.mycompany.belajarcrud.domain.repository.PayrollRepository;
 import com.mycompany.belajarcrud.dto.PayrollDTO;
 import com.mycompany.belajarcrud.dto.PayrollItemsDTO;
-import com.mycompany.belajarcrud.dto.customDTO;
 import java.util.Arrays;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,19 +58,12 @@ public class PayrollItemsRESTController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PayrollItemsDTO>postPayrollItems(@RequestBody customDTO cusDTO){
+    public ResponseEntity<PayrollItemsDTO>postPayrollItems(@RequestBody PayrollItemsDTO payrollItemsDTO){
 
-        Payroll payroll=(Payroll) payrollRepository.findOneByPayrollID(cusDTO.getPayrollID());
         
-        if(payroll.getPayItems() != null && payroll.getPayItems().size() > 0){
-            payroll.getPayItems().add(new PayrollItemsAssembler().toDomain(cusDTO.getPayrollIT()));
-        }else {
-            payroll.setPayItems(new HashSet<PayrollItems>(Arrays.asList(new PayrollItemsAssembler().toDomain(cusDTO.getPayrollIT()))));
-        }
-        
-        payrollRepository.save(payroll);
+        payrollItemsRepository.save(new PayrollItemsAssembler().toDomain(payrollItemsDTO));
 //        payrollItemsRepository.save(new PayrollItemsAssembler().toDomain(payrollItemsDTO));
-        return ResponseEntity.status(HttpStatus.CREATED).body(cusDTO.getPayrollIT());
+        return ResponseEntity.status(HttpStatus.CREATED).body(payrollItemsDTO);
 }
     @RequestMapping(value = "/payrollitems",
             method = RequestMethod.PUT,

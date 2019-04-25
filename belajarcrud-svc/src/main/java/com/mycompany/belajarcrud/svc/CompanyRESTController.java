@@ -7,15 +7,21 @@ package com.mycompany.belajarcrud.svc;
  
 import com.mycompany.belajarcrud.domain.Company;
 import com.mycompany.belajarcrud.domain.Employee;
+import com.mycompany.belajarcrud.domain.Jobdesc;
 import com.mycompany.belajarcrud.domain.assembler.CompanyAssembler;
+import com.mycompany.belajarcrud.domain.assembler.EmployeeAssembler;
+import com.mycompany.belajarcrud.domain.assembler.JobdescAssembler;
 import com.mycompany.belajarcrud.domain.repository.AssessmentRepository;
 import com.mycompany.belajarcrud.domain.repository.CompanyRepository;
 import com.mycompany.belajarcrud.domain.repository.EmployeeRepository;
+import com.mycompany.belajarcrud.domain.repository.JobdescRepository;
 import com.mycompany.belajarcrud.domain.repository.MutationRepository;
 import com.mycompany.belajarcrud.domain.repository.RecruitmentRepository;
 import com.mycompany.belajarcrud.dto.CompanyDTO;
 import com.mycompany.belajarcrud.dto.EmployeeDTO;
+import com.mycompany.belajarcrud.dto.JobdescDTO;
 import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,6 +41,18 @@ public class CompanyRESTController {
 
 @Autowired
 CompanyRepository companyRepository;
+
+@Autowired
+JobdescRepository jobdescRepository;
+
+@Autowired
+MutationRepository mutationRepository;
+
+@Autowired
+RecruitmentRepository recruitmentRepository;
+
+@Autowired
+EmployeeRepository employeeRepository;
 
 
 @RequestMapping(value = "/get.company.dummy",
@@ -75,6 +93,35 @@ public ResponseEntity<CompanyDTO>getCompanyDummy(){
         company.setCompanyAdd(companyDTO.getCompanyAdd());
         company.setCompanyPhone(companyDTO.getCompanyPhone());
         company.setCompanyDesc(companyDTO.getCompanyDesc());
+        //update child from parent
+        Set<Jobdesc> jobdescs = new HashSet<Jobdesc>();
+        for (JobdescDTO jobdDTO : companyDTO.getJobdescDTOs()){
+            Jobdesc jobdesc = jobdescRepository.findOneByJobdescId(jobdDTO.getJobdescId());
+            if (jobdesc != null){
+                jobdesc.setName(jobdDTO.getName());
+                jobdesc.setDescription(jobdDTO.getDescription());
+            }
+            
+            else{
+                Jobdesc jbd = new JobdescAssembler().toDomain(jobdDTO);
+                jobdescs.add(jbd);
+            }
+        }
+//        Set<Employee> employees = new HashSet<Employee>();
+//        //buat variable baru penampung "jobdDTO"
+//        for (EmployeeDTO empDTO : companyDTO.getEmployeeDTOs()){
+//            Employee employee = employeeRepository.findOneByEmpId(empDTO.getEmpId());
+//            //check jika tidak null, maka lakukan update
+//            if (employee != null){
+//                employee.setEmpName(employee.getEmpName());
+//                employee.setBirthDate(employee.getBirthDate());
+//            }
+//            
+//            else{
+//                Employee emp = new EmployeeAssembler().toDomain(empDTO);
+//                employees.add(emp);
+//            }
+//        }
         companyRepository.save(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CompanyAssembler().toDTO(company));
     }
